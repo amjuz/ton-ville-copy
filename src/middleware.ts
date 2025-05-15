@@ -6,7 +6,5 @@ export async function middleware(request: NextRequest) {
 }
 
 export const config = {
-  matcher: [
-    '/protected/core/:path*'
-  ],
+  matcher: ['/protected/core/:path*'],
 }
