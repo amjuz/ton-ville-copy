@@ -1,0 +1,11 @@
+export type TDateFormatter =
+  | 'd M iii'
+  | 'dd MM iiii'
+  | 'd MMM iiiiii'
+  | 'do MMMM iii'
+  | 'd/M/iii'
+  | 'dd.MM (iiii)'
+  | 'd MMM, iiiiii'
+  | 'do MMMM at iii'
+  | 'd/M/yyyy iii'
+  | 'd MMMM, yyyy (iiii)'

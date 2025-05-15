@@ -1,0 +1,11 @@
+#!/usr/bin/env sh
+. "$(dirname -- "$0")/_/husky.sh"
+. "$(dirname -- "$0")/common.sh"
+
+yarn format:sql
+yarn supabase:start:local
+yarn lint:sql
+yarn supabase:types:local
+yarn format
+yarn lint:fix
+

@@ -1,0 +1,29 @@
+graph TB
+    subgraph Frontend
+        UI[User Interface]
+        Game[Game Client]
+    end
+
+    subgraph Backend
+        API[API Gateway]
+        Auth[Authentication]
+        GameLogic[Game Logic]
+        Economy[Economy Engine]
+    end
+
+    subgraph Database
+        UserDB[(User Data)]
+        GameDB[(Game State)]
+        MarketDB[(Market Data)]
+    end
+
+    UI --> API
+    Game --> API
+    API --> Auth
+    API --> GameLogic
+    API --> Economy
+    
+    GameLogic --> UserDB
+    GameLogic --> GameDB
+    Economy --> MarketDB
+    Auth --> UserDB 

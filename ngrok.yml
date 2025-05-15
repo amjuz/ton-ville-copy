@@ -1,0 +1,7 @@
+version: 2
+authtoken: 2Ka1pbryHlOwpF5EM0El8AJ1Pls_65GGTQa5dZUBmA586pYMU
+tunnels:
+  dev.tonville.com:
+    labels:
+      - edge=edghts_2lNVfVgPAX2BbyVuQAoX6kUc8G7
+    addr: http://localhost:3000

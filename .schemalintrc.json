@@ -1,0 +1,26 @@
+{
+  "connection": {
+    "host": "localhost",
+    "port": 54322,
+    "user": "postgres",
+    "password": "postgres",
+    "database": "postgres"
+  },
+  "schemas": [{ "name": "public" }],
+  "rules": {
+    "name-casing": ["error", "snake"],
+    "name-inflection": ["error", "plural"],
+    "prefer-text-to-varchar": "error",
+    "prefer-timestamptz-to-timestamp": "error",
+    "prefer-identity-to-serial": "error"
+  },
+  "ignores": [
+    { "identifierPattern": "knex_migrations.*", "rulePattern": ".*" },
+    { "identifierPattern": "_prisma_migrations.*", "rulePattern": ".*" },
+    { "identifierPattern": "schema_migrations.*", "rulePattern": ".*" },
+    { "identifierPattern": "_.*", "rulePattern": ".*" },
+    { "identifierPattern": "supabase_.*", "rulePattern": ".*" },
+    { "identifierPattern": "pg_.*", "rulePattern": ".*" },
+    { "identifierPattern": "information_schema.*", "rulePattern": ".*" }
+  ]
+}

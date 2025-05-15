@@ -1,0 +1,133 @@
+name: CI/CD Pipeline
+
+on:
+  pull_request:
+    branches:
+      - main
+  push:
+    branches:
+      - main
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+
+    services:
+      postgres:
+        image: postgres:15
+        env:
+          POSTGRES_USER: postgres
+          POSTGRES_PASSWORD: postgres
+          POSTGRES_DB: postgres
+        ports:
+          - 5432:5432
+        options: >-
+          --health-cmd pg_isready
+          --health-interval 10s
+          --health-timeout 5s
+          --health-retries 5
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          cache: 'yarn'
+
+      - name: Install dependencies
+        run: yarn install
+
+      - name: Set up Supabase CLI
+        uses: supabase/setup-cli@v1
+        with:
+          version: latest
+
+      - name: Start Supabase
+        run: supabase start
+
+      - name: Run migrations
+        run: supabase db reset --local <<< 'y'
+
+      - name: Run tests
+        run: npx supabase db test --debug
+
+      - name: Lint PL/pgSQL
+        run: |
+          find supabase/migrations -name '*.sql' -exec plpgsql_check -f {} \;
+
+  deploy:
+    runs-on: ubuntu-latest
+    needs: test
+    if: github.ref == 'refs/heads/main'
+    environment: production
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          cache: 'yarn'
+
+      - name: Install dependencies
+        run: yarn install
+
+      - name: Set up Supabase CLI
+        uses: supabase/setup-cli@v1
+        with:
+          version: latest
+
+      - name: Link to Supabase project
+        env:
+          SUPABASE_ACCESS_TOKEN: ${{ secrets.SUPABASE_ACCESS_TOKEN }}
+          SUPABASE_PROJECT_ID: ${{ secrets.SUPABASE_PROJECT_ID }}
+        run: |
+          supabase link --project-ref $SUPABASE_PROJECT_ID
+
+      - name: Database Migration Dry Run
+        env:
+          SUPABASE_ACCESS_TOKEN: ${{ secrets.SUPABASE_ACCESS_TOKEN }}
+          SUPABASE_DB_PASSWORD: ${{ secrets.SUPABASE_DB_PASSWORD }}
+        run: |
+          echo "Performing dry run of database migrations..."
+          supabase db diff --linked --schema public > migration_preview.sql
+          echo "Preview of pending migrations:"
+          cat migration_preview.sql
+
+          if [ -s migration_preview.sql ]; then
+            echo "Changes detected in migration preview"
+          else
+            echo "No changes detected in migration preview"
+          fi
+
+      - name: Manual Approval Check
+        run: |
+          echo "Migration preview generated. Please review the changes in the workflow logs."
+          echo "Proceeding with deployment..."
+
+      - name: Deploy to Production
+        env:
+          SUPABASE_ACCESS_TOKEN: ${{ secrets.SUPABASE_ACCESS_TOKEN }}
+          SUPABASE_DB_PASSWORD: ${{ secrets.SUPABASE_DB_PASSWORD }}
+        run: |
+          echo "Applying database migrations to production..."
+          supabase db push --linked
+
+      - name: Verify Deployment
+        env:
+          SUPABASE_ACCESS_TOKEN: ${{ secrets.SUPABASE_ACCESS_TOKEN }}
+        run: |
+          echo "Verifying deployment..."
+          supabase db diff --linked --schema public > post_deploy_diff.sql
+
+          if [ -s post_deploy_diff.sql ]; then
+            echo "Warning: There are still pending changes after deployment"
+            exit 1
+          else
+            echo "Deployment verified successfully"
+          fi

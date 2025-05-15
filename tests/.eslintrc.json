@@ -1,0 +1,14 @@
+{
+  "extends": "../.eslintrc.json",
+  "rules": {
+    "react-hooks/rules-of-hooks": "off"
+  },
+  "overrides": [
+    {
+      "files": ["**/*.ts", "**/*.tsx"],
+      "rules": {
+        "react-hooks/rules-of-hooks": "off"
+      }
+    }
+  ]
+}
