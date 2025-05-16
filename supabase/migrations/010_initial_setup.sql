@@ -37,7 +37,7 @@ GRANT usage ON schema "public" TO "authenticated";
 GRANT usage ON schema "public" TO "service_role";
 -- Extensions
 CREATE EXTENSION if NOT EXISTS "pg_net" WITH schema "extensions";
-CREATE EXTENSION if NOT EXISTS "pgsodium" WITH schema "pgsodium";
+-- CREATE EXTENSION if NOT EXISTS "pgsodium" WITH schema "pgsodium";
 CREATE EXTENSION if NOT EXISTS "moddatetime" WITH schema "extensions";
 CREATE EXTENSION if NOT EXISTS "pg_graphql" WITH schema "graphql";
 CREATE EXTENSION if NOT EXISTS "pg_stat_statements" WITH schema "extensions";
