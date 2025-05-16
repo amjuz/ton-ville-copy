@@ -7,15 +7,18 @@ import ExploreLogo from '@/components/Icons/ExploreLogo'
 import NotificationLogo from '@/components/Icons/NotificationLogo'
 import ProfileLogo from '@/components/Icons/ProfileLogo'
 
-const navItems = [
-  { icon: ExploreLogo, label: 'Explore', href: '/' },
-  { icon: EarnLogo, label: 'Farm', href: '/protected/core/earn' },
-  { icon: NotificationLogo, label: 'Notifications', href: '/protected/core/notification' },
-  { icon: ProfileLogo, label: 'Profile', href: '/protected/core/profile/Shikony' },
-] as const
+interface IBottomNavProps {
+  profileId: string
+}
 
-export default function BottomNav() {
+export default function BottomNav({ profileId }: IBottomNavProps) {
   const pathname = usePathname()
+  const navItems = [
+    { icon: ExploreLogo, label: 'Explore', href: '/' },
+    { icon: EarnLogo, label: 'Farm', href: '/protected/core/earn' },
+    { icon: NotificationLogo, label: 'Notifications', href: '/protected/core/notification' },
+    { icon: ProfileLogo, label: 'Profile', href: `/protected/core/profile/${profileId}` },
+  ] as const
 
   return (
     <nav className="fixed bottom-0 left-0 right-0 z-50 border-t border-border bg-background">
