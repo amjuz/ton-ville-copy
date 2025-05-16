@@ -14,10 +14,12 @@ import FollowGemWrapper from '@/containers/wrappers/profile/follow-gem-wrapper'
 import { getUserProfileData, getUserSession } from '@/data/dto/user'
 import { getServerClient } from '@/lib/supabase/server'
 import { cn } from '@/lib/utils/cn'
+import SetUsername from './components/set-username'
 
 export default async function Page() {
   const isAuth = true
   const client = await getServerClient()
+
   const { user, error } = await getUserSession(client)
   if (!user) {
     console.log(error, 'USER NOT FOUND')
@@ -34,9 +36,9 @@ export default async function Page() {
     redirect('/protected/core')
   }
 
-  const { bio, skills, id, name, telegrams, gems } = data
+  const { bio, skills, id, name, telegrams, gems, follower_count, following_count, username } = data
 
-  const { username } = telegrams!
+  // const { username } = telegrams!
   skills.map((item) => {
     console.log(item.skill)
   })
@@ -60,7 +62,11 @@ export default async function Page() {
             <h3 className="text-xl font-bold tracking-tight">{name}</h3>
             <VerifiedIcon />
           </div>
-          <p className="text-sm text-muted-foreground">@{username}</p>
+          <div className="text-sm text-muted-foreground flex m-1 items-center gap-1">
+            @{username ? <p className="text-sm text-muted-foreground">
+              {username}
+            </p> : <SetUsername />}
+          </div>
           <div className="mt-2">
             <p className="max-w-sm text-center text-sm sm:max-w-md sm:text-base">{bio}</p>
           </div>
