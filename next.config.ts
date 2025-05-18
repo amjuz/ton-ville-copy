@@ -13,6 +13,12 @@ const nextConfig: NextConfig = {
     removeConsole: process.env.VERCEL_ENV === 'production',
   },
   images: {
+    remotePatterns: [
+      {
+        protocol: 'http',
+        hostname: '127.0.0.1',
+      },
+    ],
     domains: [supabaseUrl.hostname],
     loader: 'custom',
     loaderFile: './supabase-loader.js',
