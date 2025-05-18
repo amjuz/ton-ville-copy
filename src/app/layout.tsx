@@ -1,4 +1,4 @@
-import { Toaster } from 'react-hot-toast'
+import { Toaster } from 'sonner'
 import { ThemeProvider } from 'next-themes'
 import ReactQueryProvider from '@/lib/react-query/ReactQueryProvider'
 import { cn } from '@/lib/utils/cn'
