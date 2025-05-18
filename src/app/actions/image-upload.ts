@@ -61,14 +61,6 @@ export const handleImageUpload = createServerAction()
         data: { publicUrl },
       } = supabase.storage.from(bucketName).getPublicUrl(filePath)
 
-      // You could also update the user's profile in your database here
-      // if (userId) {
-      //   await db.user.update({
-      //     where: { id: userId },
-      //     data: { profileImage: publicUrl }
-      //   });
-      // }
-
       return {
         success: true,
         publicUrl,

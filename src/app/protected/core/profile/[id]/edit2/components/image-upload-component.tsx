@@ -1,69 +1,86 @@
 'use client'
 
+import APE from '@/assets/images/mock/Ape_gang_Image.png'
 import toast from 'react-hot-toast'
-import { useRef, useState } from 'react'
+import { MouseEvent, useCallback, useId, useRef, useState } from 'react'
 import Image from 'next/image'
 import { handleImageUpload } from '@/app/actions/image-upload'
 import { updateProfilePhoto } from '@/app/actions/profile-management/profile'
 import { Button } from '@/components/ui/button'
+import { useServerAction } from 'zsa-react'
+import ProfileImageUploader from '@/components/profile-image-uploader'
+import { FileWithPreview } from '@/hooks/use-file-upload'
 // import profileImage from '@/assets/images/mock/Ape_Red_Mock.png'
 
 export default function ImageUploadComponent({ imageUrl }: { imageUrl?: string }) {
-  const [profileImage, setProfileImage] = useState('')
-  const [uploading, setUploading] = useState(false)
+  const [profileImage, setProfileImage] = useState(imageUrl ?? '')
   const [buttonVisibility, setButtonVisibility] = useState(false)
-  const fileInputRef = useRef<HTMLInputElement | null>(null)
+  const toastId = useId()
 
-  // Handle file selection
-  const handleFileChange = async (event: any) => {
-    try {
-      setUploading(true)
-
-      const file = event.target.files[0]
-      if (!file) return
-
-      const [data, err] = await handleImageUpload({ file })
-
-      if (!data || !data.publicUrl) {
-        toast.error('Failed to add image, please try again')
+  const { execute: updateFile, isPending } = useServerAction(handleImageUpload, {
+    onSuccess({ data }) {
+      if (!data.publicUrl) {
+        console.log('Failed to add image')
         return
       }
-      setProfileImage(data?.publicUrl)
-      // console.log(profileImage)
+      setProfileImage(data.publicUrl)
+      toast.dismiss(toastId)
+      toast.success(`Image added`)
       setButtonVisibility(true)
-    } catch (error) {
-      console.error('Error uploading image:', error)
-      alert('Error uploading image. Please try again.')
-    } finally {
-      setUploading(false)
-    }
+    },
+    onError({ err }) {
+      toast.error(`Failed to upload image ,${err.message}`)
+      toast.dismiss(toastId)
+    },
+  })
+  if (isPending) {
+    toast.loading('Processing...', { id: toastId })
   }
 
-  const handleConfirmUpload = async () => {
-    try {
-      setUploading(true)
+  const {
+    execute: uploadImage,
+    isPending: uploadImagePending,
+  } = useServerAction(updateProfilePhoto, {
+    onSuccess() {
+      toast.success('Image updated successfully')
+      toast.dismiss(toastId)
+    },
+    onError({ err }) {
+      toast.error('Image upload failed, Please try again')
+      toast.dismiss(toastId)
+    },
+  })
 
-      const [data, err] = await updateProfilePhoto({ imageUrl: profileImage })
-      if (err) {
-        toast.error('Image upload failed')
-      }
+  if (uploadImagePending) {
+    toast.loading('Uploading image...', { id: toastId })
+  }
 
-      setUploading(false)
-      setButtonVisibility(false)
-    } catch (error) {
-      console.error('Unexpected error in handleConfirmUpload:', error)
-      toast.error('An unexpected error occurred')
-      setUploading(false)
-    }
-  }
-  const triggerFileInput = () => {
-    if (fileInputRef.current) {
-      fileInputRef.current.click()
-    }
-  }
+  const handleS3ImageUpload = useCallback(
+    async (value: File) => {
+      if (!value) return
+      await updateFile({ file: value })
+    },
+    [updateFile]
+  )
+  console.log('image url :',profileImage);
+  
   return (
-    <div className="flex flex-col items-center justify-center pb-2">
-      <div className="relative cursor-pointer" onClick={triggerFileInput}>
+    <div className="">
+      <ProfileImageUploader handleUpload={handleS3ImageUpload} />
+      <div className="">
+        {buttonVisibility ? (
+          <Button
+            variant={'secondary'}
+            className="mt-2 w-full"
+            onClick={async () => {
+              await uploadImage({ imageUrl: profileImage })
+            }}
+          >
+            Confirm Changes
+          </Button>
+        ) : null}
+      </div>
+      {/* <div className="relative cursor-pointer" >
         {profileImage ? (
           <Image
             width={160}
@@ -73,28 +90,20 @@ export default function ImageUploadComponent({ imageUrl }: { imageUrl?: string }
             src={profileImage}
             unoptimized
           />
-        ) : (
-          <div className="h-[160px] w-[160px] rounded-2xl bg-gray-400/5"></div>
-        )}
-        <div className="absolute left-0 right-0 top-0 flex h-full w-full items-center justify-center rounded-2xl bg-black/50 transition-opacity hover:bg-black/60">
-          <p className="font-bold tracking-wide text-white">
-            {uploading ? 'Adding...' : profileImage ? '' : 'Change Photo'}
-          </p>
-        </div>
-        <input
+        ) : ( */}
+      {/* )} */}
+      {/* <div className="absolute left-0 right-0 top-0 flex h-full w-full items-center justify-center rounded-2xl bg-black/50 transition-opacity hover:bg-black/60">
+          <p className="font-bold tracking-wide text-white">Change Photo</p>
+        </div> */}
+      {/* <input
           ref={fileInputRef}
           type="file"
           className="hidden"
           accept="image/*"
-          onChange={handleFileChange}
+          // onChange={handleFileChange}
           disabled={uploading}
-        />
-      </div>
-      {buttonVisibility && (
-        <Button onClick={handleConfirmUpload} variant={'underline'}>
-          Confirm Changes
-        </Button>
-      )}
+        /> */}
+      {/* </div> */}
     </div>
   )
 }
