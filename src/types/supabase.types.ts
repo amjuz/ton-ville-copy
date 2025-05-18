@@ -28,6 +28,44 @@ export type Database = {
   }
   public: {
     Tables: {
+      events: {
+        Row: {
+          created_at: string
+          date: string
+          id: string
+          image: string | null
+          place: string | null
+          title: string | null
+          user_id: string | null
+        }
+        Insert: {
+          created_at?: string
+          date: string
+          id?: string
+          image?: string | null
+          place?: string | null
+          title?: string | null
+          user_id?: string | null
+        }
+        Update: {
+          created_at?: string
+          date?: string
+          id?: string
+          image?: string | null
+          place?: string | null
+          title?: string | null
+          user_id?: string | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: 'events_user_id_fkey'
+            columns: ['user_id']
+            isOneToOne: false
+            referencedRelation: 'profile'
+            referencedColumns: ['id']
+          },
+        ]
+      }
       profile: {
         Row: {
           bio: string | null
@@ -38,6 +76,7 @@ export type Database = {
           id: string
           name: string | null
           profile_photo: string | null
+          rank: number
           username: string | null
         }
         Insert: {
@@ -49,6 +88,7 @@ export type Database = {
           id?: string
           name?: string | null
           profile_photo?: string | null
+          rank: number
           username?: string | null
         }
         Update: {
@@ -60,9 +100,45 @@ export type Database = {
           id?: string
           name?: string | null
           profile_photo?: string | null
+          rank?: number
           username?: string | null
         }
         Relationships: []
+      }
+      quests: {
+        Row: {
+          created_at: string
+          description: string | null
+          id: number
+          image: string | null
+          titile: string | null
+          user_id: string | null
+        }
+        Insert: {
+          created_at?: string
+          description?: string | null
+          id?: number
+          image?: string | null
+          titile?: string | null
+          user_id?: string | null
+        }
+        Update: {
+          created_at?: string
+          description?: string | null
+          id?: number
+          image?: string | null
+          titile?: string | null
+          user_id?: string | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: 'quests_user_id_fkey'
+            columns: ['user_id']
+            isOneToOne: false
+            referencedRelation: 'profile'
+            referencedColumns: ['id']
+          },
+        ]
       }
       skills: {
         Row: {
@@ -98,6 +174,7 @@ export type Database = {
       }
       tribes: {
         Row: {
+          author: string | null
           author_id: string | null
           created_at: string
           description: string | null
@@ -109,6 +186,7 @@ export type Database = {
           tribe_photo: string | null
         }
         Insert: {
+          author?: string | null
           author_id?: string | null
           created_at?: string
           description?: string | null
@@ -120,6 +198,7 @@ export type Database = {
           tribe_photo?: string | null
         }
         Update: {
+          author?: string | null
           author_id?: string | null
           created_at?: string
           description?: string | null

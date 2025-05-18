@@ -1,8 +1,8 @@
 import Image, { StaticImageData } from 'next/image'
 import Link from 'next/link'
 import React from 'react'
-import Avatar from '@/components/Elements/avatar'
 import { formatDate } from '@test/utils/utils'
+import Avatar from '@/components/Elements/avatar'
 
 export type TMiniCard = {
   imageUrl: StaticImageData

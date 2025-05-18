@@ -1,7 +1,7 @@
 import Image from 'next/image'
+import { isProd } from '@test/utils/utils'
 import LeaderBoardFirst from '@/assets/images/mock/leader-board-1.jpeg'
 import { Crown } from '@/components/Icons/Crown'
-import { isProd } from '@test/utils/utils'
 
 interface IPodiumCard {
   podiumUsers: {

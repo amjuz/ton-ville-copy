@@ -1,5 +1,5 @@
-import Avatar from '@/components/Elements/avatar'
 import { FormatNumber, TruncateText } from '@test/utils/utils'
+import Avatar from '@/components/Elements/avatar'
 
 interface ILeaderboardCard {
   userName: string

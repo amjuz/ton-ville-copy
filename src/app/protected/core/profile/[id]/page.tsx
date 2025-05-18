@@ -43,12 +43,12 @@ export default async function Page({ params }: { params: Promise<{ id: string }>
 
   const { bio, follower_count, following_count, gems, id, name, profile_photo, username } = data
 
-  const hasTribe = true
+  const hasTribe = false
   return (
     <main className="mb-12 px-2 sm:px-4">
       <div className="flex items-center justify-center px-12 pt-12">
         <div className="relative h-32 w-32">
-          <Avatar src={ProfilePicture.src} AvtImageClassName="w-full h-full" />
+          <Avatar src={profile_photo ?? ProfilePicture.src} AvtImageClassName="w-full h-full" />
           <div className="absolute -right-2 top-[10%] flex items-center justify-center rounded-full bg-[linear-gradient(180deg,_#F5A243_0%,_#FF6200_100%)]">
             <div className="flex items-center justify-center gap-1 px-1 py-1">
               <PolygonStar />

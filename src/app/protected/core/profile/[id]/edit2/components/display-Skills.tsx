@@ -1,10 +1,10 @@
 'use client'
 import { Trash2 } from 'lucide-react'
 import { Control, FieldArrayWithId, UseFormRegister, useWatch } from 'react-hook-form'
+import { TruncateText } from '@test/utils/utils'
 import { Button } from '@/components/ui/button'
 import { TEditProfileSchema } from '@/lib/validators/edit-profile-validator'
 import EditDrawer from './edit-drawer'
-import { TruncateText } from '@test/utils/utils'
 interface SkillListProps {
   control: Control<TEditProfileSchema>
   remove: (number: number) => void

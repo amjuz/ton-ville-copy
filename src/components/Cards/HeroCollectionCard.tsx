@@ -1,7 +1,7 @@
+import { FormatNumber } from '@test/utils/utils'
 import Link from 'next/link'
 import React, { ReactNode } from 'react'
 import { cn } from '@/lib/utils/cn'
-import { FormatNumber } from '@test/utils/utils'
 
 // import { cn } from '@/lib/utils/cn'
 

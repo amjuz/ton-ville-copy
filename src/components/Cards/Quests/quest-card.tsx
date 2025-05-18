@@ -1,7 +1,7 @@
 import Image, { StaticImageData } from 'next/image'
 import Link from 'next/link'
-import { cn } from '@/lib/utils/cn'
 import { TruncateText } from '@test/utils/utils'
+import { cn } from '@/lib/utils/cn'
 
 interface IQuestCard {
   title: string

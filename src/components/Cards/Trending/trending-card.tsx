@@ -1,12 +1,12 @@
 import Image, { StaticImageData } from 'next/image'
-import Link from 'next/link'
 import React from 'react'
+import Link from 'next/link'
+import { FormatNumber } from '@test/utils/utils'
+import { cn } from '@/lib/utils/cn'
 import ApeRed from '@/assets/images/mock/Ape_profile_pic_MOCK.jpeg'
 import ApeProfile from '@/assets/images/mock/Ape_profile_pic_MOCK.jpeg'
 import Avatar from '@/components/Elements/avatar'
 import TribeCoin from '@/components/Icons/TribeCoin'
-import { cn } from '@/lib/utils/cn'
-import { FormatNumber } from '@test/utils/utils'
 // import { cn } from '@/lib/utils/cn'
 
 type TTrendingCard = {
