@@ -4,7 +4,7 @@ CREATE TABLE IF NOT EXISTS "public"."profiles" (
   "name" "text",
   "bio" "text",
   "referrer_id" "uuid",
-  "image_id" "uuid",
+  "image_id" "text",
   "gems" INTEGER NOT NULL DEFAULT 0,
   "my_referral" text,
   CONSTRAINT "unique_my_referral" UNIQUE ("my_referral"),
@@ -18,7 +18,7 @@ ALTER TABLE
 -- Comments
 comment ON TABLE "public"."profiles" IS 'User profiles and account information';
 comment ON COLUMN "public"."profiles"."bio" IS 'User''s biography or self description';
-comment ON COLUMN "public"."profiles"."image_id" IS 'References storage.objects(id). Initially set to a random avatar from avatar bucket, can be updated to user uploaded image from upload bucket';
+-- comment ON COLUMN "public"."profiles"."image_id" IS 'References storage.objects(id). Initially set to a random avatar from avatar bucket, can be updated to user uploaded image from upload bucket';
 comment ON COLUMN "public"."profiles"."gems" IS 'Total gems earned by the user';
 comment ON COLUMN "public"."profiles"."my_referral" IS 'Unique referral code for this user';
 -- Primary Key
@@ -31,10 +31,7 @@ ALTER TABLE
   ONLY "public"."profiles"
 ADD
   CONSTRAINT "profiles_id_fkey" FOREIGN key ("id") REFERENCES "auth"."users" ("id") ON DELETE cascade;
-ALTER TABLE
-  ONLY "public"."profiles"
-ADD
-  CONSTRAINT "profiles_image_id_fkey" FOREIGN key ("image_id") REFERENCES "storage"."objects" ("id") ON DELETE restrict;
+
 ALTER TABLE
   ONLY "public"."profiles"
 ADD
@@ -42,7 +39,7 @@ ADD
 SET
   NULL;
 -- Indexes
-CREATE INDEX "idx_profiles_image_id" ON "public"."profiles" USING btree ("image_id");
+-- CREATE INDEX "idx_profiles_image_id" ON "public"."profiles" USING btree ("image_id");
 CREATE INDEX "idx_profiles_referrer_id" ON "public"."profiles" USING btree ("referrer_id");
 CREATE INDEX "idx_profiles_my_referral" ON "public"."profiles" USING btree ("my_referral");
 -- Trigger for updated_at
