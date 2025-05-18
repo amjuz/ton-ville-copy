@@ -4,11 +4,16 @@ import { getUserProfileData, getUserSession } from '@/data/dto/user'
 import { getServerClient } from '@/lib/supabase/server'
 
 export default async function UpdateBioAction({
-  data: { bio, name },
+  data: { bio, name, skills },
 }: {
   data: {
     bio: string
     name?: string
+    skills: {
+      skill: string
+      sub_skills: string[]
+      id: string
+    }[]
   }
 }) {
   try {
@@ -27,22 +32,37 @@ export default async function UpdateBioAction({
       return { error: { message: 'Not a valid bio' }, data: null }
     }
 
-    const updatedBio = await client.from('profile').update({ bio, name }).eq('id', user.user?.id)
-    console.log(updatedBio)
-    if (updatedBio.status !== 204) {
+    const [bioUpdateResult, skillsInsertResult] = await Promise.all([
+      client.from('profile').update({ bio, name }).eq('id', user.user.id),
+      client.from('skills').upsert(skills).eq('user_id', user.user.id),
+    ])
+
+    if (bioUpdateResult.error) {
       return {
         error: {
-          message: 'Bio is not updated.',
+          message: `Failed to update bio: ${bioUpdateResult.error.message}`,
         },
         data: null,
       }
     }
+
+    if (skillsInsertResult.error) {
+      // console.log("error:",skillsInsertResult.error);
+
+      return {
+        error: {
+          message: `Failed to insert skills: ${skillsInsertResult.error.message}`,
+        },
+        data: null,
+      }
+    }
+
     return {
       error: null,
       data: 'Bio Updated successfully',
     }
   } catch (error) {
-    console.log(error)
+    // console.log(error)
     return {
       error: {
         message: 'Something went wrong Please try again',

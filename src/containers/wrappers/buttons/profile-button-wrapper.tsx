@@ -2,14 +2,14 @@ import { EllipsisVertical } from 'lucide-react'
 import Link from 'next/link'
 import { Button, buttonVariants } from '@/components/ui/button'
 
-export default function ProfileButtonWrapper() {
+export default function ProfileButtonWrapper({ userId }: { userId: string }) {
   // make each button individual components
   // get user here.
   return (
     <div className="mt-8 flex gap-2 px-2 sm:px-6">
       <Link
         //@TODO REPLACE WITH THE USER ID.
-        href={`/protected/core/profile/asdasd/edit2`}
+        href={`/protected/core/profile/${userId}/edit2`}
         className={buttonVariants({
           className: 'basis-full rounded-xl',
         })}

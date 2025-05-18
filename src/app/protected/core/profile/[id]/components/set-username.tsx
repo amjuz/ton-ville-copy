@@ -28,7 +28,7 @@ export default function SetUsername() {
     setLoading(true)
     const res = await updateUsername(data.username)
     setSavedUsername(data.username)
-    console.log('res:', res)
+    // console.log('res:', res)
     setLoading(false)
   }
 

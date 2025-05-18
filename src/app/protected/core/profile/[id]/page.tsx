@@ -1,9 +1,5 @@
-import { redirect } from 'next/navigation'
 import ProfilePicture from '@/assets/images/mock/Animi_Profile_Icon.jpeg'
-import ProfileTribeCard from '@/components/Cards/tribes/ProfileTribeCard'
 import Avatar from '@/components/Elements/avatar'
-import GemYellow from '@/components/Icons/GemYellow'
-// import { GemYellow } from '@/components/Icons/GemYellow'
 import PolygonStar from '@/components/Icons/polygonStar'
 import VerifiedIcon from '@/components/Icons/VerifiedIcon'
 import CreateTribeWrapper from '@/components/tribes/create-tribe-wrapper'
@@ -11,12 +7,12 @@ import ShowUsersTribeCard from '@/components/tribes/show-users-tribe-card'
 import ProfileButtonWrapper from '@/containers/wrappers/buttons/profile-button-wrapper'
 import ProfileButtonWrapperThirdParty from '@/containers/wrappers/buttons/profile-button-wrapper-third-party'
 import FollowGemWrapper from '@/containers/wrappers/profile/follow-gem-wrapper'
-import { getUserProfileData, getUserSession } from '@/data/dto/user'
+import { getUserSession } from '@/data/dto/user'
 import { getServerClient } from '@/lib/supabase/server'
-import { cn } from '@/lib/utils/cn'
 import SetUsername from './components/set-username'
 
-export default async function Page() {
+export default async function Page({ params }: { params: Promise<{ id: string }> }) {
+  const userId = (await params).id
   const isAuth = true
   const client = await getServerClient()
 
@@ -25,23 +21,28 @@ export default async function Page() {
     console.log(error, 'USER NOT FOUND')
     return <></>
   }
-  const { data, error: profileError } = await getUserProfileData({
-    id: user.id,
-    supabaseClient: client,
-  })
+  const { data, error: profileError } = await client
+    .from('profile')
+    .select(`*`)
+    .eq('id', user.id)
+    .single()
 
-  if (!data?.id) {
-    console.log(profileError, 'PROFILE ERROR')
-    return <></>
-    redirect('/protected/core')
+  const { data: skills, error: skillErr } = await client
+    .from('skills')
+    .select('*')
+    .eq('user_id', user.id)
+
+  if (skillErr) {
+    console.log('failed to fetch skills data')
   }
 
-  const { bio, skills, id, name, telegrams, gems, follower_count, following_count, username } = data
+  if (profileError) {
+    console.log(profileError, 'PROFILE ERROR')
+    return <></>
+  }
 
-  // const { username } = telegrams!
-  skills.map((item) => {
-    console.log(item.skill)
-  })
+  const { bio, follower_count, following_count, gems, id, name, profile_photo, username } = data
+
   const hasTribe = true
   return (
     <main className="mb-12 px-2 sm:px-4">
@@ -59,13 +60,16 @@ export default async function Page() {
       <div>
         <div className="flex flex-col items-center justify-center">
           <div className="flex items-center justify-center gap-1">
-            <h3 className="text-xl font-bold tracking-tight">{name}</h3>
+            <h3 className="text-xl font-bold tracking-tight">{name ?? '-'}</h3>
             <VerifiedIcon />
           </div>
-          <div className="text-sm text-muted-foreground flex m-1 items-center gap-1">
-            @{username ? <p className="text-sm text-muted-foreground">
-              {username}
-            </p> : <SetUsername />}
+          <div className="m-1 flex items-center gap-1 text-sm text-muted-foreground">
+            @
+            {username ? (
+              <p className="text-sm text-muted-foreground">{username}</p>
+            ) : (
+              <SetUsername />
+            )}
           </div>
           <div className="mt-2">
             <p className="max-w-sm text-center text-sm sm:max-w-md sm:text-base">{bio}</p>
@@ -80,8 +84,12 @@ export default async function Page() {
               : null}
           </div>
         </div>
-        <FollowGemWrapper gems={gems ?? 0} />
-        {isAuth ? <ProfileButtonWrapper /> : <ProfileButtonWrapperThirdParty />}
+        <FollowGemWrapper
+          gems={gems ?? 0}
+          followers={follower_count ?? 0}
+          following={following_count ?? 0}
+        />
+        {isAuth ? <ProfileButtonWrapper userId={userId} /> : <ProfileButtonWrapperThirdParty />}
         {hasTribe ? <ShowUsersTribeCard /> : <CreateTribeWrapper />}
       </div>
     </main>

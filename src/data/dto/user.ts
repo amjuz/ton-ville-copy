@@ -18,8 +18,8 @@ export async function getUserProfileData({
   const client = supabaseClient ?? (await getServerClient())
   // skills (id, skill, sub_skills),
   const { data, error } = await client
-    .from('profiles')
-    .select('*, telegrams (id, username), skills (id, skill, sub_skills)')
+    .from('profile')
+    .select('*,profile(id,name), skills (id, skill, sub_skills)')
     .eq('id', id)
     // .eq('skills.user_id', id)
     .single()

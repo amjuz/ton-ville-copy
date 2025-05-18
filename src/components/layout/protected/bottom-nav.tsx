@@ -20,6 +20,7 @@ export default function BottomNav({ profileId }: IBottomNavProps) {
     { icon: ProfileLogo, label: 'Profile', href: `/protected/core/profile/${profileId}` },
   ] as const
 
+  localStorage.setItem('profileId', profileId)
   return (
     <nav className="fixed bottom-0 left-0 right-0 z-50 border-t border-border bg-background">
       <div className="container mx-auto">

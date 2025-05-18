@@ -3,8 +3,7 @@
 import { getServerClient } from '@/lib/supabase/server'
 
 export async function updateUsername(username: string) {
-
-//@TODO: need to do username validation here
+  //@TODO: need to do username validation here
   const supabase = await getServerClient()
   const {
     data: { user },
@@ -16,7 +15,7 @@ export async function updateUsername(username: string) {
     return
   }
 
-  const { error } = await supabase.from('profiles').update({ username }).eq('id', user.id)
+  const { error } = await supabase.from('profile').update({ username }).eq('id', user.id)
 
   if (error) {
     console.error('Failed to update username:', error.message)

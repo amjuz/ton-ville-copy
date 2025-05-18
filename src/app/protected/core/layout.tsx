@@ -1,7 +1,6 @@
 import BottomNav from '@/components/layout/protected/bottom-nav'
 import { ProtectedHeader } from '@/components/layout/protected/protected-header'
 import { getServerClient } from '@/lib/supabase/server'
-import { createServerClient } from '@supabase/ssr'
 
 export default async function CoreLayout({ children }: { children: React.ReactNode }) {
   const client = await getServerClient()
