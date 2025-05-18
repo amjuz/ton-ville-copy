@@ -25,7 +25,6 @@ export const authAction = createServerAction()
     try {
       const { initDataRaw } = input
       /** Validate Telegram data */
-
       if (!validateInitData(initDataRaw)) throw new Error('Invalid initialization data')
       /** Generate auth creds */
 

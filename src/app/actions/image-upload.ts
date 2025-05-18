@@ -3,13 +3,7 @@ import { z } from 'zod'
 import { createServerAction } from 'zsa'
 import { nanoid } from '@reduxjs/toolkit'
 import { getServerClient } from '@/lib/supabase/server'
-
-const fileSchema = z
-  .instanceof(File, { message: 'Required file input is missing' })
-  .refine((file) => file.size <= 5000000, { message: 'File size must be less than 5MB' })
-  .refine((file) => ['image/jpeg', 'image/png', 'image/webp'].includes(file.type), {
-    message: 'File must be JPEG, PNG, or WebP',
-  })
+import { fileSchema } from '@/lib/validators/file'
 
 export const handleImageUpload = createServerAction()
   .input(
