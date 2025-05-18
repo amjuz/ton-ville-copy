@@ -1,8 +1,8 @@
 'use client'
 
-import { useFileUpload } from '@/hooks/use-file-upload'
-import { AlertCircleIcon, ImageUpIcon, XIcon } from 'lucide-react'
 import { useEffect } from 'react'
+import { AlertCircleIcon, ImageUpIcon, XIcon } from 'lucide-react'
+import { useFileUpload } from '@/hooks/use-file-upload'
 
 export default function ProfileImage({ handleUpload }: { handleUpload: (file: File) => void }) {
   const maxSizeMB = 5
@@ -52,7 +52,7 @@ export default function ProfileImage({ handleUpload }: { handleUpload: (file: Fi
           onDragOver={handleDragOver}
           onDrop={handleDrop}
           data-dragging={isDragging || undefined}
-          className="has-disabled:pointer-events-none has-disabled:opacity-50 bg-secondary relative flex min-h-52 flex-col items-center justify-center overflow-hidden rounded-xl border border-dashed border-input p-4 transition-colors hover:bg-accent/50 has-[img]:border-none has-[input:focus]:border-ring has-[input:focus]:ring-[3px] has-[input:focus]:ring-ring/50 data-[dragging=true]:bg-accent/50"
+          className="has-disabled:pointer-events-none has-disabled:opacity-50 relative flex min-h-52 flex-col items-center justify-center overflow-hidden rounded-xl border border-dashed border-input bg-secondary p-4 transition-colors hover:bg-accent/50 has-[img]:border-none has-[input:focus]:border-ring has-[input:focus]:ring-[3px] has-[input:focus]:ring-ring/50 data-[dragging=true]:bg-accent/50"
         >
           <input {...getInputProps()} className="sr-only" aria-label="Upload file" />
           {previewUrl ? (

@@ -1,16 +1,12 @@
 'use client'
 
-import APE from '@/assets/images/mock/Ape_gang_Image.png'
-import toast from 'react-hot-toast'
-import { MouseEvent, useCallback, useId, useRef, useState } from 'react'
-import Image from 'next/image'
-import { handleImageUpload } from '@/app/actions/image-upload'
-import { updateProfilePhoto } from '@/app/actions/profile-management/profile'
-import { Button } from '@/components/ui/button'
+import { toast } from 'sonner'
+import { useCallback, useId, useRef, useState } from 'react'
 import { useServerAction } from 'zsa-react'
+import { handleImageUpload } from '@/app/actions/image-upload'
+import { updateProfilePhoto } from '@/app/actions/profile/profile'
+import { Button } from '@/components/ui/button'
 import ProfileImageUploader from '@/components/profile-image-uploader'
-import { FileWithPreview } from '@/hooks/use-file-upload'
-// import profileImage from '@/assets/images/mock/Ape_Red_Mock.png'
 
 export default function ImageUploadComponent({ imageUrl }: { imageUrl?: string }) {
   const [profileImage, setProfileImage] = useState(imageUrl ?? '')
@@ -37,19 +33,19 @@ export default function ImageUploadComponent({ imageUrl }: { imageUrl?: string }
     toast.loading('Processing...', { id: toastId })
   }
 
-  const {
-    execute: uploadImage,
-    isPending: uploadImagePending,
-  } = useServerAction(updateProfilePhoto, {
-    onSuccess() {
-      toast.success('Image updated successfully')
-      toast.dismiss(toastId)
-    },
-    onError({ err }) {
-      toast.error('Image upload failed, Please try again')
-      toast.dismiss(toastId)
-    },
-  })
+  const { execute: uploadImage, isPending: uploadImagePending } = useServerAction(
+    updateProfilePhoto,
+    {
+      onSuccess() {
+        toast.success('Image updated successfully')
+        toast.dismiss(toastId)
+      },
+      onError({ err }) {
+        toast.error('Image upload failed, Please try again')
+        toast.dismiss(toastId)
+      },
+    }
+  )
 
   if (uploadImagePending) {
     toast.loading('Uploading image...', { id: toastId })
@@ -62,8 +58,8 @@ export default function ImageUploadComponent({ imageUrl }: { imageUrl?: string }
     },
     [updateFile]
   )
-  console.log('image url :',profileImage);
-  
+  console.log('image url :', profileImage)
+
   return (
     <div className="">
       <ProfileImageUploader handleUpload={handleS3ImageUpload} />
