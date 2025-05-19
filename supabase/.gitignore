@@ -2,7 +2,3 @@
 .branches
 .temp
 .env
-
-# Linting
-lint-results/
-*.lint.log
