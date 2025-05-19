@@ -1,13 +1,19 @@
 import { Toaster } from 'sonner'
 import { ThemeProvider } from 'next-themes'
+import { Cabin } from 'next/font/google'
+// import { lato } from '@/app/fonts'
 import ReactQueryProvider from '@/lib/react-query/ReactQueryProvider'
 import { cn } from '@/lib/utils/cn'
 import { metadata } from '@/components/layout/metadata'
 import { TelegramAppRoot } from '@/components/layout/telegram-app'
-import { lato } from '@/app/fonts'
 import '@/app/globals.css'
 import Background from '@/components/ui/background'
 import ReactReduxProvider from '@/providers/ReactReduxProvider'
+
+const cabin = Cabin({
+  subsets: ['latin'],
+  variable: '--font-cabin',
+})
 
 type RootLayoutProps = {
   children: React.ReactNode
@@ -20,7 +26,7 @@ export default function RootLayout({ children }: RootLayoutProps) {
     <html lang="en" suppressHydrationWarning>
       <body
         className={cn(
-          lato.variable,
+          cabin.variable,
           'dark relative min-h-screen w-screen touch-pan-y overflow-x-hidden'
         )}
       >

@@ -1,6 +1,7 @@
 'use client'
 
 import { AlertCircleIcon, ImageUpIcon, XIcon } from 'lucide-react'
+import Image from 'next/image'
 import { useFileUpload } from '@/hooks/use-file-upload'
 
 export default function Uploader() {
@@ -42,7 +43,7 @@ export default function Uploader() {
           <input {...getInputProps()} className="sr-only" aria-label="Upload file" />
           {previewUrl ? (
             <div className="absolute inset-0">
-              <img
+              <Image
                 src={previewUrl}
                 alt={files[0]?.file?.name || 'Uploaded image'}
                 className="size-full object-cover"

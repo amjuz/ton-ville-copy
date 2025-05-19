@@ -2,6 +2,7 @@
 
 import { useEffect } from 'react'
 import { AlertCircleIcon, ImageUpIcon, XIcon } from 'lucide-react'
+import Image from 'next/image'
 import { useFileUpload } from '@/hooks/use-file-upload'
 
 export default function ProfileImage({ handleUpload }: { handleUpload: (file: File) => void }) {
@@ -39,7 +40,7 @@ export default function ProfileImage({ handleUpload }: { handleUpload: (file: Fi
         }
       })
     }
-  }, [rawFiles])
+  }, [rawFiles, files, handleUpload])
   return (
     <div className="flex flex-col gap-2">
       <div className="relative">
@@ -57,7 +58,7 @@ export default function ProfileImage({ handleUpload }: { handleUpload: (file: Fi
           <input {...getInputProps()} className="sr-only" aria-label="Upload file" />
           {previewUrl ? (
             <div className="absolute inset-0">
-              <img
+              <Image
                 src={previewUrl}
                 alt={files[0]?.file?.name || 'Uploaded image'}
                 className="size-full object-cover"

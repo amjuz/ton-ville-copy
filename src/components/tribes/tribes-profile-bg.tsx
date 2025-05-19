@@ -1,6 +1,7 @@
 import { useEffect } from 'react'
 import { ImagePlusIcon, XIcon } from 'lucide-react'
 import { UseFormRegister, UseFormSetValue } from 'react-hook-form'
+import Image from 'next/image'
 import { useFileUpload } from '@/hooks/use-file-upload'
 import { TTribesValidator } from '@/lib/validators/tribes'
 
@@ -22,13 +23,13 @@ export function TribesCoverPhoto({
   useEffect(() => {
     setValue('tribeCoverPhoto', tribeCoverPhoto[0])
     register('tribeCoverPhoto')
-  }, [register, tribeCoverPhoto])
+  }, [register, tribeCoverPhoto, setValue])
 
   return (
     <div className="h-32">
       <div className="relative flex size-full items-center justify-center overflow-hidden bg-muted">
         {currentImage && (
-          <img
+          <Image
             className="size-full object-cover"
             src={currentImage}
             alt={files[0]?.preview ? 'Preview of uploaded image' : 'Default profile background'}
