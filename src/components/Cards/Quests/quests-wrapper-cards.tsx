@@ -6,7 +6,7 @@ type TQuestsWrapperCards = {
   className?: string
 }
 
-export default async function QuestsWrapperCards({}: TQuestsWrapperCards) {
-  const data: TFetchQuestCards = await fetchQuestCards({ limit: 7 })
+export default function QuestsWrapperCards({}: TQuestsWrapperCards) {
+  const data: TFetchQuestCards = fetchQuestCards({ limit: 7 })
   return <QueryCardList initialData={data} />
 }

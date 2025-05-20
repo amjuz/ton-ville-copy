@@ -36,9 +36,8 @@ interface IFetchQuestCards {
   pageParam?: number
 }
 
-export async function fetchQuestCards({ limit, pageParam }: IFetchQuestCards) {
+export function fetchQuestCards({ limit, pageParam }: IFetchQuestCards) {
   const data = questCardMockedData({ limit, pageParam })
-  await sleep(300)
   return data
 }
 

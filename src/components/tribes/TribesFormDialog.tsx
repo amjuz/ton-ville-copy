@@ -1,11 +1,12 @@
 'use client'
 
 import { useForm } from 'react-hook-form'
-import { useId, useState } from 'react'
+import { useCallback, useId, useState } from 'react'
 import { useServerAction } from 'zsa-react'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { toast } from 'sonner'
 import { useRouter } from 'next/navigation'
+import { useMutation } from '@tanstack/react-query'
 import { Button } from '@/components/ui/button'
 import {
   Dialog,
@@ -16,32 +17,17 @@ import {
 } from '@/components/ui/dialog'
 import { Input } from '@/components/ui/input'
 import { Label } from '@/components/ui/label'
-import { tribesValidator, TTribesValidator } from '@/lib/validators/tribes'
-import { TribesCoverPhoto } from './tribes-profile-bg'
-import { TribesProfilePhoto } from './tribes-avatar'
-import { createTribes } from '@/app/actions/tribes/tribe-table'
+import { tribesValidator, TTribesValidator } from '@/lib/validators/forms'
+import { BackgroundPhoto } from '../originui/dialog-form/background-photo'
+import { AvatarPhoto } from '../originui/dialog-form/avatar-photo'
+import { uploadImageToS3Bucket } from '@/lib/supabase/image-upload'
+import { createTribes } from '@/lib/supabase/tribes/tribe-table'
 
 export default function TribesFormDialog({ label }: { label: string }) {
   const [open, setOpen] = useState(false)
   const id = useId()
   const router = useRouter()
   const toastId = useId()
-  const { execute, isPending } = useServerAction(createTribes, {
-    onSuccess({ data }) {
-      // toast.dismiss(toastId)
-      toast.success(`Tribes creation successful`)
-      toast.dismiss(toastId)
-      setOpen(false)
-      router.refresh()
-    },
-    onError({ err }) {
-      toast.error(`Failed to create tribes.Please try again`)
-      toast.dismiss(toastId)
-    },
-  })
-  if (isPending) {
-    toast.loading('Creating tribes...', { id: toastId })
-  }
 
   const {
     register,
@@ -51,23 +37,81 @@ export default function TribesFormDialog({ label }: { label: string }) {
   } = useForm<TTribesValidator>({
     resolver: zodResolver(tribesValidator),
   })
+
+  const { mutate } = useMutation({
+    mutationFn: createTribes,
+    onMutate() {
+      toast.loading('Creating Tribes...')
+    },
+    onSuccess() {
+      toast.dismiss()
+      toast.success('Tribes created successfully.')
+      // onOpenChange(false)
+    },
+    onError() {
+      toast.dismiss()
+      toast.error('Failed to create Tribes')
+    },
+  })
   async function onSubmit({
     author,
     tribeCoverPhoto,
     tribeName,
     tribeProfilePhoto,
   }: TTribesValidator) {
-    await execute({
+    mutate({
       author,
-      tribe_cover_photo: tribeCoverPhoto,
-      tribe_name: tribeName,
-      tribe_photo: tribeProfilePhoto,
+      tribeCoverPhoto,
+      tribeName,
+      tribeProfilePhoto,
     })
   }
 
-  // if(open && (errors.tribeCoverPhoto || errors.tribeProfilePhoto)) {
-  //   toast.error(`please add tribe photos`)
-  // }
+  const { mutateAsync: UploadToCloud } = useMutation({
+    mutationFn: uploadImageToS3Bucket,
+    onMutate: () => {
+      toast.loading('Adding image...', { id: `imageUrl-${id}` })
+    },
+    onSuccess: () => {
+      toast.success('Image added', { id: `imageUrl-${id}` })
+    },
+    onError: () => {
+      toast.error('Image Upload failed', { id: `imageUrl-${id}` })
+    },
+  })
+
+  const maxSize = 1 * 1024 * 1024
+  const registerBackgroundImageUrl = useCallback(
+    async (file: File) => {
+      if (!file) return
+      if (file.size >= maxSize) {
+        toast.error(
+          'Image size must be less than 1 MB, Please reselect an image to complete validation'
+        )
+        return
+      }
+      const imageUrl = await UploadToCloud(file)
+
+      register('tribeCoverPhoto', { value: imageUrl })
+    },
+    [UploadToCloud, register]
+  )
+  const registerAvatarImageUrl = useCallback(
+    async (file: File) => {
+      if (!file) return
+      if (file.size >= maxSize) {
+        toast.error(
+          'Image size must be less than 1 MB, Please reselect an image to complete validation'
+        )
+        return
+      }
+
+      const imageUrl = await UploadToCloud(file)
+
+      register('tribeProfilePhoto', { value: imageUrl })
+    },
+    [UploadToCloud, register]
+  )
   return (
     <Dialog open={open} onOpenChange={setOpen}>
       <DialogTrigger asChild>
@@ -80,17 +124,27 @@ export default function TribesFormDialog({ label }: { label: string }) {
         {/* <DialogDescription className="sr-only">
           Make changes to your profile here. You can change your photo and set a username.
         </DialogDescription> */}
+        {/* <TribesProfilePhoto
+            register={register}
+            setValue={setValue}
+            errors={errors.tribeCoverPhoto}
+            /> */}
+        {/* <TribesCoverPhoto
+            register={register}
+            setValue={setValue}
+            errors={errors.tribeCoverPhoto}
+          /> */}
         <form className="overflow-y-auto" onSubmit={handleSubmit(onSubmit)}>
-          <TribesCoverPhoto
-            register={register}
-            setValue={setValue}
-            errors={errors.tribeCoverPhoto}
-          />
-          <TribesProfilePhoto
-            register={register}
-            setValue={setValue}
-            errors={errors.tribeCoverPhoto}
-          />
+          <BackgroundPhoto backgroundImage={registerBackgroundImageUrl} />
+          {errors.tribeCoverPhoto && (
+            <p className="mt-1 flex justify-center text-sm text-red-500">
+              {errors.tribeCoverPhoto.message}
+            </p>
+          )}
+          <AvatarPhoto avatarImage={registerAvatarImageUrl} />
+          {errors.tribeProfilePhoto && (
+            <p className="mt-1 text-sm text-red-500">{errors.tribeProfilePhoto.message}</p>
+          )}
           <div className="px-6 pb-6 pt-4">
             <div className="space-y-4">
               <div className="flex flex-col gap-4 sm:flex-row">
@@ -104,6 +158,9 @@ export default function TribesFormDialog({ label }: { label: string }) {
                     type="text"
                     required
                   />
+                  {errors.author && (
+                    <p className="mt-1 text-sm text-red-500">{errors.author.message}</p>
+                  )}
                 </div>
                 <div className="flex-1 space-y-2">
                   <Label htmlFor={`${id}-first-name`}>Tribe Name</Label>
@@ -115,10 +172,13 @@ export default function TribesFormDialog({ label }: { label: string }) {
                     type="text"
                     required
                   />
+                  {errors.tribeName && (
+                    <p className="mt-1 text-sm text-red-500">{errors.tribeName.message}</p>
+                  )}
                 </div>
               </div>
               {/* <DialogClose asChild> */}
-              <div className="flex justify-between border-t px-6 py-4">
+              <div className="flex justify-between px-6 py-4">
                 <Button type="button" variant="outline" onClick={() => setOpen(false)}>
                   Cancel
                 </Button>

@@ -3,7 +3,7 @@ import { FieldErrors, UseFormRegister, UseFormSetValue } from 'react-hook-form'
 import { ImagePlusIcon } from 'lucide-react'
 import Image from 'next/image'
 import { useFileUpload } from '@/hooks/use-file-upload'
-import { TTribesValidator } from '@/lib/validators/tribes'
+import { TTribesValidator } from '@/lib/validators/forms'
 
 export function TribesProfilePhoto({
   register,
@@ -19,10 +19,10 @@ export function TribesProfilePhoto({
     // initialFiles: initialAvatarImage,
   })
 
-  useEffect(() => {
-    setValue('tribeProfilePhoto', tribeProfilePhoto[0])
-    register('tribeProfilePhoto')
-  }, [register, tribeProfilePhoto])
+  // useEffect(() => {
+  //   setValue('tribeProfilePhoto', tribeProfilePhoto[0])
+  //   register('tribeProfilePhoto')
+  // }, [register, tribeProfilePhoto])
 
   const currentImage = files[0]?.preview || null
 

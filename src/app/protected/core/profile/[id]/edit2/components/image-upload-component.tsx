@@ -3,11 +3,10 @@
 import { toast } from 'sonner'
 import { useCallback, useId, useRef, useState } from 'react'
 import { useServerAction } from 'zsa-react'
-import { useRouter } from 'next/navigation'
-import { handleImageUpload } from '@/app/actions/image-upload'
 import { updateProfilePhoto } from '@/app/actions/profile/profile'
 import { Button } from '@/components/ui/button'
 import ProfileImageUploader from '@/components/profile-image-uploader'
+import { handleImageUploadAction } from '@/app/actions/image-upload-action'
 
 export default function ImageUploadComponent({ imageUrl }: { imageUrl?: string }) {
   const [profileImage, setProfileImage] = useState(imageUrl ?? '')
@@ -15,7 +14,7 @@ export default function ImageUploadComponent({ imageUrl }: { imageUrl?: string }
   const [cancelButtonVisibility, setCancelButtonVisibility] = useState(true)
   const toastId = useId()
 
-  const { execute: updateFile, isPending } = useServerAction(handleImageUpload, {
+  const { execute: updateFile, isPending } = useServerAction(handleImageUploadAction, {
     onSuccess({ data }) {
       if (!data.publicUrl) {
         console.log('Failed to add image')

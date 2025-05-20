@@ -15,6 +15,7 @@ type TProfileTribeCard = {
   author: string
   description: string
   gems: number
+  tribeId: string
 } & TgetGroupEventsQuestCountParams
 
 export default function ProfileTribeCard({
@@ -25,7 +26,7 @@ export default function ProfileTribeCard({
   tribeCoverPhoto,
   tribePhoto,
   tribeName,
-  // tribePoints,
+  tribeId,
   ...counts
 }: TProfileTribeCard) {
   return (
@@ -54,7 +55,7 @@ export default function ProfileTribeCard({
             </p>
           </div>
         </div>
-        <Link className="absolute top-0 h-full w-full" href={'/protected/core/tribe/hard-apes'} />
+        <Link className="absolute top-0 h-full w-full" href={`/protected/core/tribe/${tribeId}`} />
       </div>
     </div>
   )
