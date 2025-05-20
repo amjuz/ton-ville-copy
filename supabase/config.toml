@@ -135,6 +135,15 @@ otp_expiry = 3600
 # admin_email = "admin@email.com"
 # sender_name = "Admin"
 
+# # Use a production-ready SMTP server
+# [auth.email.smtp]
+# host = "env(SMTP_HOST)"
+# port = 465
+# user = "env(SMTP_USER)"
+# pass = "env(SMTP_PASS)"
+# admin_email = "env(SMTP_USER)"
+# sender_name = "TonVille Registrar"
+
 # Uncomment to customize email template
 # [auth.email.template.invite]
 # subject = "You have been invited"

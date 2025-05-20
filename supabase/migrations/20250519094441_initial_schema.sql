@@ -23,7 +23,7 @@ create table "public"."profile" (
     "following_count" integer,
     "username" text,
     "gems" integer,
-    "rank" integer not null
+    "rank" integer
 );
 
 
