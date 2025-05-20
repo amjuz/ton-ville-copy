@@ -6,7 +6,6 @@ create table "public"."events" (
     "title" text,
     "date" timestamp with time zone,
     "location" text,
-    "about" character varying,
     "summary" character varying
 );
 
@@ -31,7 +30,7 @@ alter table "public"."profile" enable row level security;
 
 create table "public"."quests" (
     "created_at" timestamp with time zone not null default now(),
-    "titile" text,
+    "title" text,
     "subTitle" text,
     "description" character varying,
     "questImage" text,
