@@ -9,7 +9,7 @@ import {
 } from 'react-hook-form'
 import Image from 'next/image'
 import { useFileUpload } from '@/hooks/use-file-upload'
-import { TTribesValidator } from '@/lib/validators/tribes'
+import { TTribesValidator } from '@/lib/validators/forms'
 
 export function TribesCoverPhoto({
   register,
@@ -28,10 +28,10 @@ export function TribesCoverPhoto({
   )
   const currentImage = files[0]?.preview || null
 
-  useEffect(() => {
-    setValue('tribeCoverPhoto', tribeCoverPhoto[0])
-    register('tribeCoverPhoto')
-  }, [register, tribeCoverPhoto, setValue])
+  // useEffect(() => {
+  //   setValue('tribeCoverPhoto', tribeCoverPhoto[0])
+  //   register('tribeCoverPhoto')
+  // }, [register, tribeCoverPhoto, setValue])
 
   return (
     <div className="h-32">

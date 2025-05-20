@@ -11,8 +11,8 @@ export default function ProfileImage({
   handleUpload: (file: File) => void
   cancelButtonVisibility: boolean
 }) {
-  const maxSizeMB = 5
-  const maxSize = maxSizeMB * 1024 * 1024 // 5MB default
+  // const maxSizeMB = 5
+  // const maxSize = maxSizeMB * 1024 * 1024 // 5MB default
 
   const [
     { files, isDragging, errors },
@@ -28,7 +28,7 @@ export default function ProfileImage({
     },
   ] = useFileUpload({
     accept: 'image/*',
-    maxSize,
+    // maxSize,
   })
   const previewUrl = files[0]?.preview || null
 
@@ -80,7 +80,7 @@ export default function ProfileImage({
                 <ImageUpIcon className="size-4 opacity-60" />
               </div>
               <p className="text-md mb-1.5 font-bold">Change profile Photo</p>
-              <p className="text-xs text-muted-foreground">Max size: {maxSizeMB}MB</p>
+              <p className="text-xs text-muted-foreground">Max size: 1MB</p>
             </div>
           )}
         </div>

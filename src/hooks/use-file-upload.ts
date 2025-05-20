@@ -59,6 +59,8 @@ export type FileUploadActions = {
   rawFiles: File[]
   tribeProfilePhoto: File[]
   tribeCoverPhoto: File[]
+  backgroundPhoto: File[]
+  avatarPhoto: File[]
 }
 
 export const useFileUpload = (
@@ -86,6 +88,8 @@ export const useFileUpload = (
   const [rawFiles, setRawFiles] = useState<File[]>([])
   const [tribeProfilePhoto, setTribeProfilePhoto] = useState<File[]>([])
   const [tribeCoverPhoto, setTribeCoverPhoto] = useState<File[]>([])
+  const [backgroundPhoto, setBackgroundPhoto] = useState<File[]>([])
+  const [avatarPhoto, setAvatarPhoto] = useState<File[]>([])
 
   const inputRef = useRef<HTMLInputElement>(null)
 
@@ -232,6 +236,16 @@ export const useFileUpload = (
 
           return multiple ? [...prev, ...rawOnly] : rawOnly
         })
+        setAvatarPhoto((prev) => {
+          const rawOnly = validFiles.map((f) => f.file).filter((f): f is File => f instanceof File)
+
+          return multiple ? [...prev, ...rawOnly] : rawOnly
+        })
+        setBackgroundPhoto((prev) => {
+          const rawOnly = validFiles.map((f) => f.file).filter((f): f is File => f instanceof File)
+
+          return multiple ? [...prev, ...rawOnly] : rawOnly
+        })
         setTribeCoverPhoto((prev) => {
           const rawOnly = validFiles.map((f) => f.file).filter((f): f is File => f instanceof File)
 
@@ -316,6 +330,8 @@ export const useFileUpload = (
       errors: [],
     }))
     setRawFiles([])
+    setAvatarPhoto([])
+    setBackgroundPhoto([])
   }, [])
 
   const handleDragEnter = useCallback((e: DragEvent<HTMLElement>) => {
@@ -410,6 +426,8 @@ export const useFileUpload = (
       rawFiles,
       tribeCoverPhoto,
       tribeProfilePhoto,
+      avatarPhoto,
+      backgroundPhoto,
     },
   ]
 }
