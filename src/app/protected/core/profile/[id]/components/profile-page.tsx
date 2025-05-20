@@ -16,7 +16,7 @@ import {
   fetchUserSkills,
   fetchUserTribeCount,
   getUserSession,
-} from '@/lib/profile/user'
+} from '@/lib/supabase/profile/user'
 import SetUsername from './set-username'
 
 export default function ProfilePage({ userId }: { userId: string }) {
@@ -92,7 +92,6 @@ export default function ProfilePage({ userId }: { userId: string }) {
         <div className="mt-2">
           <p className="max-w-sm text-center text-sm sm:max-w-md sm:text-base">{bio}</p>
         </div>
-
         <div className="mt-3 flex flex-wrap items-center justify-center gap-2">
           {skills &&
             skills.map((item, i) => (
@@ -101,15 +100,14 @@ export default function ProfilePage({ userId }: { userId: string }) {
               </div>
             ))}
         </div>
-
         <FollowGemWrapper
           gems={gems ?? 0}
           followers={follower_count ?? 0}
           following={following_count ?? 0}
         />
-
         {isAuth ? <ProfileButtonWrapper userId={userId} /> : <ProfileButtonWrapperThirdParty />}
-        {hasTribe ? <ShowUsersTribeCard userId={userId} /> : <CreateTribeWrapper />}
+        <ShowUsersTribeCard userId={userId} />
+        <CreateTribeWrapper />
       </div>
     </main>
   )

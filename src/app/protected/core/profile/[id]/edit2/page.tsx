@@ -5,7 +5,7 @@ import { useEffect, useState } from 'react'
 import ImageUploadComponent from './components/image-upload-component'
 import UpdateProfileForm from './components/update-profile-form'
 import { fetchUserProfileForEdit } from '@/lib/utils/user'
-import { fetchUserSkills } from '@/lib/profile/user'
+import { fetchUserSkills } from '@/lib/supabase/profile/user'
 import { useAppSelector } from '@/hooks/reduxHooks'
 
 export default function ProfileEditPage() {
