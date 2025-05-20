@@ -5,7 +5,12 @@ import { AlertCircleIcon, ImageUpIcon, XIcon } from 'lucide-react'
 import Image from 'next/image'
 import { useFileUpload } from '@/hooks/use-file-upload'
 
-export default function ProfileImage({ handleUpload }: { handleUpload: (file: File) => void }) {
+export default function ProfileImage({
+  handleUpload,
+}: {
+  handleUpload: (file: File) => void
+  cancelButtonVisibility: boolean
+}) {
   const maxSizeMB = 5
   const maxSize = maxSizeMB * 1024 * 1024 // 5MB default
 
@@ -62,6 +67,8 @@ export default function ProfileImage({ handleUpload }: { handleUpload: (file: Fi
                 src={previewUrl}
                 alt={files[0]?.file?.name || 'Uploaded image'}
                 className="size-full object-cover"
+                width={720}
+                height={480}
               />
             </div>
           ) : (

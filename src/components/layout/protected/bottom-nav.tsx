@@ -6,6 +6,8 @@ import EarnLogo from '@/components/Icons/EarnLogo'
 import ExploreLogo from '@/components/Icons/ExploreLogo'
 import NotificationLogo from '@/components/Icons/NotificationLogo'
 import ProfileLogo from '@/components/Icons/ProfileLogo'
+import { useAppDispatch, useAppSelector } from '@/hooks/reduxHooks'
+import { setUserId } from '@/store/features/profile'
 
 interface IBottomNavProps {
   profileId: string
@@ -13,6 +15,7 @@ interface IBottomNavProps {
 
 export default function BottomNav({ profileId }: IBottomNavProps) {
   const pathname = usePathname()
+  const dispatch = useAppDispatch()
   const navItems = [
     { icon: ExploreLogo, label: 'Explore', href: '/' },
     { icon: EarnLogo, label: 'Farm', href: '/protected/core/earn' },
@@ -20,7 +23,7 @@ export default function BottomNav({ profileId }: IBottomNavProps) {
     { icon: ProfileLogo, label: 'Profile', href: `/protected/core/profile/${profileId}` },
   ] as const
 
-  localStorage.setItem('profileId', profileId)
+  dispatch(setUserId({ id: profileId }))
   return (
     <nav className="fixed bottom-0 left-0 right-0 z-50 border-t border-border bg-background">
       <div className="container mx-auto">

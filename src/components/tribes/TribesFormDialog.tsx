@@ -43,7 +43,12 @@ export default function TribesFormDialog({ label }: { label: string }) {
     toast.loading('Creating tribes...', { id: toastId })
   }
 
-  const { register, handleSubmit, setValue } = useForm<TTribesValidator>({
+  const {
+    register,
+    handleSubmit,
+    setValue,
+    formState: { errors },
+  } = useForm<TTribesValidator>({
     resolver: zodResolver(tribesValidator),
   })
   async function onSubmit({
@@ -59,6 +64,10 @@ export default function TribesFormDialog({ label }: { label: string }) {
       tribe_photo: tribeProfilePhoto,
     })
   }
+
+  // if(open && (errors.tribeCoverPhoto || errors.tribeProfilePhoto)) {
+  //   toast.error(`please add tribe photos`)
+  // }
   return (
     <Dialog open={open} onOpenChange={setOpen}>
       <DialogTrigger asChild>
@@ -66,14 +75,22 @@ export default function TribesFormDialog({ label }: { label: string }) {
       </DialogTrigger>
       <DialogContent className="flex flex-col gap-0 overflow-y-visible p-0 sm:max-w-lg [&>button:last-child]:top-3.5">
         <DialogHeader className="contents space-y-0 text-left">
-          <DialogTitle className="border-b px-6 py-4 text-base">Edit profile</DialogTitle>
+          <DialogTitle className="border-b px-6 py-4 text-base">Create new tribe</DialogTitle>
         </DialogHeader>
         {/* <DialogDescription className="sr-only">
           Make changes to your profile here. You can change your photo and set a username.
         </DialogDescription> */}
         <form className="overflow-y-auto" onSubmit={handleSubmit(onSubmit)}>
-          <TribesCoverPhoto register={register} setValue={setValue} />
-          <TribesProfilePhoto register={register} setValue={setValue} />
+          <TribesCoverPhoto
+            register={register}
+            setValue={setValue}
+            errors={errors.tribeCoverPhoto}
+          />
+          <TribesProfilePhoto
+            register={register}
+            setValue={setValue}
+            errors={errors.tribeCoverPhoto}
+          />
           <div className="px-6 pb-6 pt-4">
             <div className="space-y-4">
               <div className="flex flex-col gap-4 sm:flex-row">

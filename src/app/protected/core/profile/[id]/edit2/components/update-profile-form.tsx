@@ -5,7 +5,7 @@ import { nanoid } from 'nanoid'
 import Image from 'next/image'
 import { useState } from 'react'
 import { useFieldArray, useForm } from 'react-hook-form'
-import toast from 'react-hot-toast'
+import { toast } from 'sonner'
 // import profileImage from '@/assets/images/mock/Ape_Red_Mock.png'
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
@@ -40,9 +40,7 @@ export default function UpdateProfileForm({
   const {
     handleSubmit,
     watch,
-    formState: {
-      errors: {},
-    },
+    formState: { errors, isDirty },
     register,
     control,
     setError,
@@ -50,14 +48,6 @@ export default function UpdateProfileForm({
   } = useForm<TEditProfileSchema>({
     resolver: zodResolver(EditProfileSchema),
     defaultValues: {
-      skill: skills
-        ? skills.map((item) => {
-            return {
-              id: item.id,
-              title: item.skill,
-            }
-          })
-        : [],
       displayName: name ?? '',
       addBio: bio ?? '',
     },
@@ -68,7 +58,7 @@ export default function UpdateProfileForm({
     name: 'skill',
   })
   const onSubmit = async (data: TEditProfileSchema) => {
-    toast.loading('Updating user information...')
+    toast.loading('Updating user information...', { id: 'onsubmit' })
     const filteredSkills = filterSkills(data.skill)
 
     const { error } = await UpdateBioAction({
@@ -78,6 +68,7 @@ export default function UpdateProfileForm({
         skills: filteredSkills,
       },
     })
+
     if (error?.message) {
       toast.error(error.message)
       return
@@ -85,9 +76,9 @@ export default function UpdateProfileForm({
     toast.success('Profile Update successful')
     const profileId = localStorage.getItem('profileId')
     await router.prefetch(`/protected/core/profile/${profileId}`)
-    toast.loading('redirecting...')
+    toast.loading('redirecting...', { id: 'onsubmit' })
     router.back()
-    toast.dismiss()
+    toast.dismiss('onsubmit')
   }
 
   const handleAddNewSkills = () => {
@@ -174,6 +165,7 @@ export default function UpdateProfileForm({
           type="submit"
           variant={'ClaimBlue'}
           className="my-4 h-12 w-full text-base font-semibold"
+          disabled={!isDirty}
         >
           Save
         </Button>

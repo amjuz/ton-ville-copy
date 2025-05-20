@@ -1,6 +1,12 @@
 import { useEffect } from 'react'
 import { ImagePlusIcon, XIcon } from 'lucide-react'
-import { UseFormRegister, UseFormSetValue } from 'react-hook-form'
+import {
+  FieldError,
+  FieldErrors,
+  UseFormRegister,
+  UseFormSetError,
+  UseFormSetValue,
+} from 'react-hook-form'
 import Image from 'next/image'
 import { useFileUpload } from '@/hooks/use-file-upload'
 import { TTribesValidator } from '@/lib/validators/tribes'
@@ -8,9 +14,11 @@ import { TTribesValidator } from '@/lib/validators/tribes'
 export function TribesCoverPhoto({
   register,
   setValue,
+  errors,
 }: {
   register: UseFormRegister<TTribesValidator>
   setValue: UseFormSetValue<TTribesValidator>
+  errors: FieldErrors<TTribesValidator> | undefined
 }) {
   const [{ files }, { removeFile, openFileDialog, getInputProps, tribeCoverPhoto }] = useFileUpload(
     {

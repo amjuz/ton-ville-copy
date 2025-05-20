@@ -3,6 +3,7 @@
 import { toast } from 'sonner'
 import { useCallback, useId, useRef, useState } from 'react'
 import { useServerAction } from 'zsa-react'
+import { useRouter } from 'next/navigation'
 import { handleImageUpload } from '@/app/actions/image-upload'
 import { updateProfilePhoto } from '@/app/actions/profile/profile'
 import { Button } from '@/components/ui/button'
@@ -11,6 +12,7 @@ import ProfileImageUploader from '@/components/profile-image-uploader'
 export default function ImageUploadComponent({ imageUrl }: { imageUrl?: string }) {
   const [profileImage, setProfileImage] = useState(imageUrl ?? '')
   const [buttonVisibility, setButtonVisibility] = useState(false)
+  const [cancelButtonVisibility, setCancelButtonVisibility] = useState(true)
   const toastId = useId()
 
   const { execute: updateFile, isPending } = useServerAction(handleImageUpload, {
@@ -37,8 +39,10 @@ export default function ImageUploadComponent({ imageUrl }: { imageUrl?: string }
     updateProfilePhoto,
     {
       onSuccess() {
+        setButtonVisibility(false)
         toast.success('Image updated successfully')
         toast.dismiss(toastId)
+        setCancelButtonVisibility(false)
       },
       onError({ err }) {
         toast.error('Image upload failed, Please try again')
@@ -58,11 +62,14 @@ export default function ImageUploadComponent({ imageUrl }: { imageUrl?: string }
     },
     [updateFile]
   )
-  console.log('image url :', profileImage)
+  // console.log('image url :', profileImage)
 
   return (
     <div className="">
-      <ProfileImageUploader handleUpload={handleS3ImageUpload} />
+      <ProfileImageUploader
+        handleUpload={handleS3ImageUpload}
+        cancelButtonVisibility={cancelButtonVisibility}
+      />
       <div className="">
         {buttonVisibility ? (
           <Button
