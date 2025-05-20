@@ -1,10 +1,13 @@
 import { configureStore } from '@reduxjs/toolkit'
 import searchSlice from '@/store/features/search'
+import profileSlice from '@/store/features/profile'
+
 export const makeStore = () => {
   return configureStore({
     devTools: process.env.NODE_ENV !== 'production',
     reducer: {
       search: searchSlice,
+      profile: profileSlice,
     },
   })
 }
