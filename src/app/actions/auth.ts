@@ -2,10 +2,10 @@
 
 import { z } from 'zod'
 import { createServerAction, ZSAError } from 'zsa'
-import { getAuthCreds } from '@/lib/auth/get-auth-creds'
-import { validateInitData } from '@/lib/auth/validate-init-data'
+import { getAuthCreds } from '@/lib/supabase/auth/get-auth-creds'
+import { validateInitData } from '@/lib/supabase/auth/validate-init-data'
 import { getServerClient } from '@/lib/supabase/server'
-import { handleAuth } from '@/lib/auth/handle-auth'
+import { handleAuth } from '@/lib/supabase/auth/handle-auth'
 
 const initDataRawSchema = z.object({
   initDataRaw: z.string(),

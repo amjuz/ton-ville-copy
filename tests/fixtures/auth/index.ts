@@ -1,7 +1,7 @@
 import { SupabaseClient } from '@supabase/supabase-js'
 import { InitDataUser } from '@/lib/utils/mock'
 import { generateTestCreds } from '@test/fixtures/auth/generate'
-import { handleAuth } from '@/lib/auth/handle-auth'
+import { handleAuth } from '@/lib/supabase/auth/handle-auth'
 
 /**
  * Creates a session with the provided Supabase client, initial user data, and an optional referral code.

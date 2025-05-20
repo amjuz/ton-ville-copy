@@ -1,5 +1,5 @@
 import { AuthError, User } from '@supabase/supabase-js'
-import { AuthUserMetadata } from '@/lib/auth/get-auth-creds'
+import { AuthUserMetadata } from '@/lib/supabase/auth/get-auth-creds'
 
 export type AuthData =
   | {

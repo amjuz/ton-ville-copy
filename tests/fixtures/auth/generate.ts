@@ -1,5 +1,5 @@
 import { getSignedInitDataRawMock, InitDataUser } from '@/lib/utils/mock'
-import { getAuthCreds } from '@/lib/auth/get-auth-creds'
+import { getAuthCreds } from '@/lib/supabase/auth/get-auth-creds'
 import { mockTelegramUsers } from '@test/fixtures/auth/mock-users'
 
 export async function generateTestCreds(initDataUser?: InitDataUser, referralCode?: string) {
