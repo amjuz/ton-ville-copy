@@ -1,9 +1,19 @@
+'use client'
+
 import { EllipsisVertical } from 'lucide-react'
 import Image from 'next/image'
 import MiniCardPlaceHolderImage from '@/assets/images/mock/devCon-Bangkok_mock.jpeg'
 import Avatar from '@/components/Elements/avatar'
 import CustomUnorderedList from '@/components/Elements/custom-unordered-list'
 import { Button } from '@/components/ui/button'
+import { useParams } from 'next/navigation'
+import { useQuery } from '@tanstack/react-query'
+import { getEvent } from '@/lib/supabase/events/events-table'
+import { toast } from 'sonner'
+import { Skeleton } from '@/components/ui/skeleton'
+import { EventCardSkeleton } from '@/components/skelton/event-page-skelton'
+import { addHours, format } from 'date-fns'
+import { date } from 'zod'
 
 const items = [
   'Retweet and Like the tweet in the link below from your twitter account.',
@@ -20,11 +30,31 @@ export default function EventPageWrapper() {
    * fetch data here
    *  so the suspense can work
    */
+  const params = useParams()
+  const eventId = params.eventId as string
+
+  const { data, error, isLoading } = useQuery({
+    queryKey: ['event-page', eventId],
+    queryFn: () => getEvent(eventId),
+  })
+  if (!data) return <>No data found</>
+  if (error) return <>Error fetching events</>
+  if (isLoading) return <EventCardSkeleton />
+
+  const startDate = new Date(data?.date ?? Date.now())
+  const endDate = addHours(startDate, 6) // add 6 hours to the event
+
+  const month = format(startDate, 'LLL') // Jun
+  const day = format(startDate, 'd') // 14
+  const weekdayTime = format(startDate, 'EEEE, h:mm') // Saturday, 3:00
+  const endTime = format(endDate, 'h:mm a') // 9:00 PM
   return (
     <div className="mt-4 p-2 pb-12 sm:p-4">
       <Image
-        {...MiniCardPlaceHolderImage}
+        src={data.eventPhoto ?? MiniCardPlaceHolderImage}
         alt="hello"
+        width={1080}
+        height={720}
         className="aspect-square rounded-2xl border-2 object-cover"
       />
       <div className="mt-5 pl-1">
@@ -36,13 +66,19 @@ export default function EventPageWrapper() {
       <div className="mt-6 flex items-center gap-4">
         <div className="h-full max-h-14 w-full max-w-12 pl-1">
           <div className="grid w-full place-items-center overflow-hidden rounded-md bg-muted text-center">
-            <div className="w-full bg-muted-foreground/20 text-sm text-muted-foreground">Nov</div>
-            <div className="w-full py-0.5 text-sm font-bold">18</div>
+            <div className="w-full bg-muted-foreground/20 text-sm text-muted-foreground">
+              {month}
+            </div>
+            <div className="w-full py-0.5 text-sm font-bold">{day}</div>
           </div>
         </div>
         <div className="text-sm">
-          <p className="text-muted-foreground">Wednesday, 3.00 - 9.00 pm</p>
-          <p className="font-medium">City convention centre, Bangkok, Thailand</p>
+          <p className="text-muted-foreground">
+            {weekdayTime} - {endTime}
+          </p>
+          <p className="font-medium">
+            {data.location ?? 'City convention centre, Bangkok, Thailand'}
+          </p>
         </div>
       </div>
       {/* <p className="mt-2">Unlock crypto wisdom and stand to win 25 USDT each week by 3 simple steps!</p> */}

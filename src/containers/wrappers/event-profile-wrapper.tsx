@@ -29,8 +29,10 @@ export default function EventProfileWrapper({ className, tribeId }: TEventProfil
       {data.map((item, index) => {
         return (
           <EventProfileCard
+            tribeId={tribeId}
+            eventId={item.id}
             title={item.title ?? ''}
-            network={item.genre ?? ''}
+            genre={item.genre ?? ''}
             src={item.eventPhoto ?? Mock1.src}
             key={`${index}-tribe-events`}
           />
