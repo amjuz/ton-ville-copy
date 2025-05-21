@@ -58,7 +58,6 @@ export default function ProfilePage({ userId }: { userId: string }) {
     queryKey: ['tribes', userId],
     queryFn: () => fetchUserTribeCount(userId),
   })
-
   if (profileLoading) return <div>Loading...</div>
   if (profileError || !profile || !skills || skillsError || tribeError)
     return <div>Error loading profile</div>

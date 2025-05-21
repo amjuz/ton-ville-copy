@@ -2,11 +2,10 @@
 
 import { useForm } from 'react-hook-form'
 import { useCallback, useId, useState } from 'react'
-import { useServerAction } from 'zsa-react'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { toast } from 'sonner'
 import { useRouter } from 'next/navigation'
-import { useMutation } from '@tanstack/react-query'
+import { useMutation, useQueryClient } from '@tanstack/react-query'
 import { Button } from '@/components/ui/button'
 import {
   Dialog,
@@ -22,9 +21,18 @@ import { BackgroundPhoto } from '../originui/dialog-form/background-photo'
 import { AvatarPhoto } from '../originui/dialog-form/avatar-photo'
 import { uploadImageToS3Bucket } from '@/lib/supabase/image-upload'
 import { createTribes } from '@/lib/supabase/tribes/tribe-table'
+import PrefillTribeButton from '@/containers/wrappers/buttons/prefill-tribe-button'
+import { useAppSelector } from '@/hooks/reduxHooks'
 
-export default function TribesFormDialog({ label }: { label: string }) {
-  const [open, setOpen] = useState(false)
+export default function TribesFormDialog({
+  label,
+  open,
+  setOpen,
+}: {
+  label: string
+  setOpen: (state: boolean) => void
+  open: boolean
+}) {
   const id = useId()
   const router = useRouter()
   const toastId = useId()
@@ -34,8 +42,15 @@ export default function TribesFormDialog({ label }: { label: string }) {
     handleSubmit,
     setValue,
     formState: { errors },
+    reset
   } = useForm<TTribesValidator>({
     resolver: zodResolver(tribesValidator),
+    defaultValues: {
+      author: '',
+      tribeCoverPhoto: '',
+      tribeName: '',
+      tribeProfilePhoto: '',
+    },
   })
 
   const { mutate } = useMutation({
@@ -44,9 +59,10 @@ export default function TribesFormDialog({ label }: { label: string }) {
       toast.loading('Creating Tribes...')
     },
     onSuccess() {
+      reset()
       toast.dismiss()
       toast.success('Tribes created successfully.')
-      // onOpenChange(false)
+      setOpen(false)
     },
     onError() {
       toast.dismiss()
@@ -149,7 +165,10 @@ export default function TribesFormDialog({ label }: { label: string }) {
             <div className="space-y-4">
               <div className="flex flex-col gap-4 sm:flex-row">
                 <div className="flex-1 space-y-2">
-                  <Label htmlFor={`${id}-last-name`}>Author</Label>
+                  <div className="flex justify-between">
+                    <Label htmlFor={`${id}-last-name`}>Author</Label>
+                    <PrefillTribeButton setValue={setValue} />
+                  </div>
                   <Input
                     {...register('author')}
                     id={`${id}-author`}

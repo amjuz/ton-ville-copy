@@ -9,7 +9,7 @@ export default function ShowUsersTribeCard({ userId }: { userId: string }) {
 
   const { data, error, isLoading } = useQuery({
     queryFn: () => fetchUsersTribes(userId),
-    queryKey: [`tribes-${userId}`],
+    queryKey: [`profile-page-tribes-query-${userId}`],
   })
 
   if (error || !data) {
