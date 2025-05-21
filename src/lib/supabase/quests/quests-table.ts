@@ -77,3 +77,10 @@ export async function getTribeQuests({ tribeId }: { tribeId: string }) {
 
   return questsData
 }
+
+export async function getQuest(questId: string) {
+  const supabase = await getServerClient()
+  const { data, error } = await supabase.from('quests').select('*').eq('id', questId).single()
+  if (error) throw new Error('Quest fetch failed')
+  return data
+}

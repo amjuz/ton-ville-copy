@@ -41,7 +41,7 @@ export async function createEvents({
 
 export type TEventTableExtendsAuthor = Pick<
   Tables['events']['Row'],
-  'eventPhoto' | 'title' | 'created_at' | 'genre'
+  'eventPhoto' | 'title' | 'created_at' | 'genre' | 'id'
 > & {
   author: Tables['tribes']['Row']['author']
 }
@@ -55,7 +55,7 @@ export async function getTribeEvents({ tribeId }: { tribeId: string }) {
     .select(
       `
       events (
-        eventPhoto,genre,title,created_at
+        eventPhoto,genre,title,created_at,id
       ),
       tribes (
         author
@@ -78,4 +78,11 @@ export async function getTribeEvents({ tribeId }: { tribeId: string }) {
   })) as TEventTableExtendsAuthor[]
 
   return eventsData
+}
+
+export async function getEvent(eventId: string) {
+  const supabase = await getServerClient()
+  const { data, error } = await supabase.from('events').select('*').eq('id', eventId).single()
+  if(error) throw new Error("Events fetch failed")
+  return data
 }
