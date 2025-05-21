@@ -1,5 +1,6 @@
 'use server'
 
+import { Tables } from '@/types/database'
 import { getServerClient } from '../server'
 
 export async function createQuests({
@@ -34,4 +35,45 @@ export async function createQuests({
     throw new Error('Failed to create junction table', { cause: junctionTableError.cause })
 
   return data
+}
+
+export type TQuestTableExtendsAuthor = Tables['quests']['Row'] & {
+  author: Tables['tribes']['Row']['author']
+}
+
+export async function getTribeQuests({ tribeId }: { tribeId: string }) {
+  const supabase = await getServerClient()
+
+  const { data, error } = await supabase
+    .from('tribes_quests')
+    .select(
+      `
+      quests (
+        id,
+        created_at,
+        title,
+        subTitle,
+        description,
+        guidelines,
+        questImage
+      ),
+      tribes (
+        author
+      )
+    `
+    )
+    .eq('tribes_id', tribeId)
+    .order('created_at', { ascending: false })
+
+  if (error) throw new Error('Failed to fetch quests with tribe author')
+
+  if (!data?.length) return null
+
+  // Transform to flatten the output (combine quest + author)
+  const questsData = data.map(({ quests, tribes }) => ({
+    ...quests,
+    author: tribes?.author ?? null,
+  })) as TQuestTableExtendsAuthor[]
+
+  return questsData
 }

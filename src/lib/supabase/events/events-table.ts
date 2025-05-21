@@ -1,5 +1,6 @@
 'use server'
 
+import { Tables } from '@/types/database'
 import { getServerClient } from '../server'
 
 export async function createEvents({
@@ -36,4 +37,45 @@ export async function createEvents({
     throw new Error('Failed to create junction table', { cause: junctionTableError.cause })
 
   return data
+}
+
+export type TEventTableExtendsAuthor = Pick<
+  Tables['events']['Row'],
+  'eventPhoto' | 'title' | 'created_at' | 'genre'
+> & {
+  author: Tables['tribes']['Row']['author']
+}
+
+export async function getTribeEvents({ tribeId }: { tribeId: string }) {
+  const supabase = await getServerClient()
+
+  // await supabase.from('events').update({date,eventPhoto,genre,id,location,summary,title,created_at})
+  const { data, error } = await supabase
+    .from('tribes_events')
+    .select(
+      `
+      events (
+        eventPhoto,genre,title,created_at
+      ),
+      tribes (
+        author
+      )
+    `
+    )
+    .eq('tribe_id', tribeId)
+    .order('created_at', { ascending: false })
+
+    // console.log("error:",error?.message);
+    
+  if (error) throw new Error('Failed to fetch Events with tribe author')
+
+  if (!data?.length) return null
+
+  // Transform to flatten the output (combine Event + author)
+  const eventsData = data.map(({ events, tribes }) => ({
+    ...events,
+    author: tribes?.author ?? null,
+  })) as TEventTableExtendsAuthor[]
+
+  return eventsData
 }
