@@ -3,7 +3,7 @@ import { CheckIcon, ImagePlusIcon, XIcon } from 'lucide-react'
 import { useForm } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { toast } from 'sonner'
-import { useMutation } from '@tanstack/react-query'
+import { useMutation, useQueryClient } from '@tanstack/react-query'
 import { useCharacterLimit } from '@/hooks/use-character-limit'
 import { useFileUpload } from '@/hooks/use-file-upload'
 import { Button } from '@/components/ui/button'
@@ -29,6 +29,7 @@ import DatePickerDialog from '../originui/calendar/date-picker-accordian'
 import DatePickerAccordion from '../originui/calendar/date-picker-accordian'
 import DateAndTimePicker from '../originui/calendar/date-and-time-picker'
 import { Calendar } from '../ui/calendar'
+import PrefillEventButton from '@/containers/wrappers/buttons/prefill-event-button'
 
 export default function CreateEventForm({
   open,
@@ -40,10 +41,12 @@ export default function CreateEventForm({
   tribeId: string
 }) {
   const id = useId()
+  const query = useQueryClient()
   const {
     register,
     handleSubmit,
     setValue,
+    reset,
     formState: { errors },
   } = useForm<TEventsFormSchema>({
     resolver: zodResolver(eventsFormSchema),
@@ -54,9 +57,11 @@ export default function CreateEventForm({
     onMutate() {
       toast.loading('Creating Events...')
     },
-    onSuccess() {
+    async onSuccess() {
+      await query.refetchQueries({ queryKey: ['tribes-events', tribeId] })
       toast.dismiss()
       toast.success('Events created successfully.')
+      reset()
       onOpenChange(false)
     },
     onError() {
@@ -108,7 +113,10 @@ export default function CreateEventForm({
             <div className="space-y-4">
               <div className="flex flex-col gap-4 sm:flex-row">
                 <div className="flex-1 space-y-2">
-                  <Label>Title</Label>
+                  <div className="flex justify-between">
+                    <Label>Title</Label>
+                    <PrefillEventButton setValue={setValue}/>
+                  </div>
                   <Input placeholder="Matt" type="text" {...register('title')} />
                   {errors.title && (
                     <p className="mt-1 text-sm text-red-500">{errors.title.message}</p>

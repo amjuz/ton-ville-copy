@@ -2,7 +2,7 @@ import { useCallback, useId } from 'react'
 import { CheckIcon, ImagePlusIcon, XIcon } from 'lucide-react'
 import { useForm } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
-import { useMutation } from '@tanstack/react-query'
+import { useMutation, useQueryClient } from '@tanstack/react-query'
 import { toast } from 'sonner'
 import { useCharacterLimit } from '@/hooks/use-character-limit'
 import { useFileUpload } from '@/hooks/use-file-upload'
@@ -25,6 +25,7 @@ import { AvatarPhoto } from '../originui/dialog-form/avatar-photo'
 import { questFormSchema, TQuestFormSchema } from '@/lib/validators/forms'
 import { uploadImageToS3Bucket } from '@/lib/supabase/image-upload'
 import { createQuests } from '@/lib/supabase/quests/quests-table'
+import PrefillQuestButton from '@/containers/wrappers/buttons/prefill-quest-button'
 
 export default function CreateQuestForm({
   open,
@@ -36,9 +37,12 @@ export default function CreateQuestForm({
   tribeId: string
 }) {
   const id = useId()
+  const query = useQueryClient()
   const {
     register,
     handleSubmit,
+    setValue,
+    reset,
     formState: { errors },
   } = useForm<TQuestFormSchema>({
     resolver: zodResolver(questFormSchema),
@@ -48,9 +52,11 @@ export default function CreateQuestForm({
     onMutate() {
       toast.loading('Creating quests...')
     },
-    onSuccess() {
+    async onSuccess() {
       toast.dismiss()
       toast.success('Quest created successfully.')
+      reset()
+      await query.refetchQueries({ queryKey: ['tribes-quests', tribeId] })
       onOpenChange(false)
     },
     onError() {
@@ -109,7 +115,10 @@ export default function CreateQuestForm({
             <div className="space-y-4">
               <div className="flex flex-col gap-4 sm:flex-row">
                 <div className="flex-1 space-y-2">
-                  <Label>Title</Label>
+                  <div className="flex justify-between">
+                    <Label>Title</Label>
+                    <PrefillQuestButton setValue={setValue} />
+                  </div>
                   <Input placeholder="Matt" type="text" {...register('title')} />
                   {errors.title && (
                     <p className="mt-1 text-sm text-red-500">{errors.title.message}</p>
