@@ -1,6 +1,6 @@
 import { Toaster } from 'sonner'
 import { ThemeProvider } from 'next-themes'
-import { Cabin } from 'next/font/google'
+import { Cabin, Inter } from 'next/font/google'
 // import { lato } from '@/app/fonts'
 import ReactQueryProvider from '@/lib/react-query/ReactQueryProvider'
 import { cn } from '@/lib/utils/cn'
@@ -10,9 +10,9 @@ import '@/app/globals.css'
 import Background from '@/components/ui/background'
 import ReactReduxProvider from '@/providers/ReactReduxProvider'
 
-const cabin = Cabin({
+const cabin = Inter({
   subsets: ['latin'],
-  variable: '--font-cabin',
+  variable: '--font-inter',
 })
 
 type RootLayoutProps = {
