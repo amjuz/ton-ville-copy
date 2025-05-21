@@ -5,6 +5,7 @@ import { useState } from 'react'
 import { TruncateText } from '@test/utils/utils'
 import { cn } from '@/lib/utils/cn'
 import { Skeleton } from '@/components/ui/skeleton'
+import { useParams } from 'next/navigation'
 
 interface IQuestCard {
   title: string
@@ -13,6 +14,7 @@ interface IQuestCard {
   imageAlt: string
   author: string
   className?: string
+  questId:string
 }
 
 export default function QuestCard({
@@ -22,11 +24,12 @@ export default function QuestCard({
   imageSrc,
   author,
   className,
+  questId
 }: IQuestCard) {
-  // const truncatedTitle = TruncateText(title, 18)
   const [isLoading, setIsLoading] = useState(true)
   const truncatedTitle = title.length > 24 ? `${title.slice(0, 24)}...` : title
-  const questSlug = title.split(' ')[0].toLowerCase()
+
+  const { tribeId } = useParams()
 
   return (
     <motion.div
@@ -41,7 +44,7 @@ export default function QuestCard({
     >
       <Link
         className="absolute inset-0 z-10"
-        href={`/protected/core/tribe/${author}/quest/${questSlug}`}
+        href={`/protected/core/tribe/${tribeId}/quest/${questId}`}
         aria-label={title}
       />
 

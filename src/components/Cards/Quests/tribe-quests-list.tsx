@@ -17,6 +17,7 @@ export default function TribeQuestsList({ questsData }: TribesQuestList) {
           imageSrc={item.questImage ?? ''}
           title={item.title ?? ''}
           author={item.author ?? ''}
+          questId={item.id}
           key={`quest-card-${i}-${item.title}`}
         />
       ))}
