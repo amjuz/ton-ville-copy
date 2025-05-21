@@ -3,12 +3,6 @@ import { TTribesValidator } from '@/lib/validators/forms'
 import { faker } from '@faker-js/faker'
 import { UseFormSetValue } from 'react-hook-form'
 
-// tribeImage: faker.helpers.arrayElement(arr),
-// tribeName: faker.music.genre(),
-// Subscribers: faker.number.int(10020),
-// rank: faker.number.int({ min: 1, max: 200 }),
-// author: faker.book.author(),
-// profilePic: faker.helpers.arrayElement(arr),
 export default function PrefillTribeButton({
   setValue,
 }: {
@@ -19,6 +13,7 @@ export default function PrefillTribeButton({
     tribeCoverPhoto: faker.image.urlPicsumPhotos(),
     tribeProfilePhoto: faker.image.url(),
     tribeName: faker.music.genre(),
+    description: faker.lorem.paragraphs()
   }
 
   return (

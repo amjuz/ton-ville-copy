@@ -1,11 +1,24 @@
+'use client'
 import Mock1 from '@/assets/images/mock/Event_profile_mock_1.jpeg'
 import Mock2 from '@/assets/images/mock/event_profile_mock_2.jpeg'
 import EventProfileCard from '@/components/Cards/events/Profile/event-profile-card'
+import { getTribeEvents } from '@/lib/supabase/events/events-table'
 import { cn } from '@/lib/utils/cn'
+import { useQuery } from '@tanstack/react-query'
 type TEventProfileWrapper = {
   className?: string
+  tribeId: string
 }
-export default function EventProfileWrapper({ className }: TEventProfileWrapper) {
+export default function EventProfileWrapper({ className, tribeId }: TEventProfileWrapper) {
+  const { data, error } = useQuery({
+    queryKey: ['tribes-events', tribeId],
+    queryFn: () => getTribeEvents({ tribeId }),
+  })
+  
+  if (error) return null
+
+  if (!data?.length) return <div className="">Create new Events to display content</div>
+
   return (
     <div
       className={cn(
@@ -13,9 +26,16 @@ export default function EventProfileWrapper({ className }: TEventProfileWrapper)
         className
       )}
     >
-      <EventProfileCard title="1000 USDT Giveaway" network="TON Network" src={Mock1.src} />
-      <EventProfileCard network="Valve Protocol" title="$30 Million Prizepool!" src={Mock2.src} />
-      <EventProfileCard title="1000 USDT Giveaway" network="TON Network" src={Mock1.src} />
+      {data.map((item, index) => {
+        return (
+          <EventProfileCard
+            title={item.title ?? ''}
+            network={item.genre ?? ''}
+            src={item.eventPhoto ?? Mock1.src}
+            key={`${index}-tribe-events`}
+          />
+        )
+      })}
     </div>
   )
 }

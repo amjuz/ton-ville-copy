@@ -23,6 +23,7 @@ import CreateQuestForm from '../forms/create-quest-form'
 import CreateEventForm from '../forms/create-event-form'
 import DateAndTimePicker from '../originui/calendar/date-and-time-picker'
 import TribesFormDialog from './TribesFormDialog'
+import QuestsForTribe from '../Cards/Quests/quests-for-tribe'
 
 export default function TribePage() {
   const [openQuestDialog, setOpenQuestDialog] = useState(false)
@@ -118,9 +119,8 @@ export default function TribePage() {
             href="/"
             title="QUEST"
           />
-          {/* <Suspense fallback={<QuestCardSkelton count={4} />}> */}
-          <QuestsWrapperCards className="mt-3" />
-          {/* </Suspense> */}
+          <QuestsForTribe tribeId={tribeId}/>
+          {/* <QuestsWrapperCards className="mt-3" /> */}
         </div>
         <div className="mt-4">
           <TitleLinkCombo
@@ -130,7 +130,7 @@ export default function TribePage() {
             title="EVENTS"
           />
           <div className="mt-4">
-            <EventProfileWrapper />
+            <EventProfileWrapper tribeId={tribeId} />
           </div>
         </div>
       </div>
