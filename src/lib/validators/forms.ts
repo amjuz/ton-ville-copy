@@ -7,6 +7,7 @@ export const tribesValidator = z.object({
   tribeCoverPhoto: z.string().url('Must be a valid URL'),
   author: z.string(),
   tribeName: z.string(),
+  description: z.string().min(10, 'Description should be at least 10 characters'),
 })
 
 export const twitterSchema = z.object({

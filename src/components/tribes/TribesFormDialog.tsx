@@ -4,8 +4,8 @@ import { useForm } from 'react-hook-form'
 import { useCallback, useId, useState } from 'react'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { toast } from 'sonner'
-import { useRouter } from 'next/navigation'
-import { useMutation, useQueryClient } from '@tanstack/react-query'
+import { useParams, useRouter } from 'next/navigation'
+import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query'
 import { Button } from '@/components/ui/button'
 import {
   Dialog,
@@ -20,40 +20,36 @@ import { tribesValidator, TTribesValidator } from '@/lib/validators/forms'
 import { BackgroundPhoto } from '../originui/dialog-form/background-photo'
 import { AvatarPhoto } from '../originui/dialog-form/avatar-photo'
 import { uploadImageToS3Bucket } from '@/lib/supabase/image-upload'
-import { createTribes } from '@/lib/supabase/tribes/tribe-table'
+import { createTribes, updateTribes } from '@/lib/supabase/tribes/tribe-table'
 import PrefillTribeButton from '@/containers/wrappers/buttons/prefill-tribe-button'
 import { useAppSelector } from '@/hooks/reduxHooks'
+import { Tables } from '@/types/database'
 
 export default function TribesFormDialog({
   label,
   open,
   setOpen,
+  type,
+  children,
+  tribeData,
 }: {
+  type: 'edit' | 'create'
   label: string
   setOpen: (state: boolean) => void
   open: boolean
+  children?: React.ReactNode
+  tribeData?: Tables['tribes']['Row']
 }) {
   const id = useId()
   const router = useRouter()
   const toastId = useId()
 
-  const {
-    register,
-    handleSubmit,
-    setValue,
-    formState: { errors },
-    reset
-  } = useForm<TTribesValidator>({
-    resolver: zodResolver(tribesValidator),
-    defaultValues: {
-      author: '',
-      tribeCoverPhoto: '',
-      tribeName: '',
-      tribeProfilePhoto: '',
-    },
-  })
+  const params = useParams()
+  const tribeId = params.tribeId as string
 
-  const { mutate } = useMutation({
+  const query = useQueryClient()
+
+  const  { mutate: createTribe } = useMutation({
     mutationFn: createTribes,
     onMutate() {
       toast.loading('Creating Tribes...')
@@ -69,17 +65,49 @@ export default function TribesFormDialog({
       toast.error('Failed to create Tribes')
     },
   })
+  const { mutate: updateTribe } = useMutation({
+    mutationFn: updateTribes,
+    onMutate() {
+      toast.loading('Creating Tribes...')
+    },
+    async onSuccess() {
+      reset()
+      toast.dismiss()
+      toast.success('Tribes created successfully.')
+      await query.refetchQueries({ queryKey: [`tribe-page-${tribeId}`] })
+
+      setOpen(false)
+    },
+    onError() {
+      toast.dismiss()
+      toast.error('Failed to create Tribes')
+    },
+  })
+
   async function onSubmit({
     author,
     tribeCoverPhoto,
     tribeName,
     tribeProfilePhoto,
+    description,
   }: TTribesValidator) {
-    mutate({
+    if (type === 'edit') {
+      updateTribe({
+        author,
+        tribeCoverPhoto,
+        tribeName,
+        tribeProfilePhoto,
+        description,
+        tribeId,
+      })
+      return
+    }
+    createTribe({
       author,
       tribeCoverPhoto,
       tribeName,
       tribeProfilePhoto,
+      description,
     })
   }
 
@@ -93,6 +121,23 @@ export default function TribesFormDialog({
     },
     onError: () => {
       toast.error('Image Upload failed', { id: `imageUrl-${id}` })
+    },
+  })
+
+  const {
+    register,
+    handleSubmit,
+    setValue,
+    formState: { errors },
+    reset,
+  } = useForm<TTribesValidator>({
+    resolver: zodResolver(tribesValidator),
+    defaultValues: {
+      author: (type === 'edit' ? tribeData?.author : '') ?? '',
+      // tribeCoverPhoto: (type === 'edit' ? tribeData?.tribe_cover_photo : '') ?? '',
+      // tribeProfilePhoto: (type === 'edit' ? tribeData?.tribe_photo : '') ?? '',
+      tribeName: (type === 'edit' ? tribeData?.tribe_name : '') ?? '',
+      description: (type === 'edit' ? tribeData?.description : '') ?? '',
     },
   })
 
@@ -128,11 +173,16 @@ export default function TribesFormDialog({
     },
     [UploadToCloud, register]
   )
+
   return (
     <Dialog open={open} onOpenChange={setOpen}>
-      <DialogTrigger asChild>
-        <Button variant="ClaimBlue">{label}</Button>
-      </DialogTrigger>
+      {type === 'edit' ? (
+        <DialogTrigger asChild>{children}</DialogTrigger>
+      ) : (
+        <DialogTrigger asChild>
+          <Button variant="ClaimBlue">{label}</Button>
+        </DialogTrigger>
+      )}
       <DialogContent className="flex flex-col gap-0 overflow-y-visible p-0 sm:max-w-lg [&>button:last-child]:top-3.5">
         <DialogHeader className="contents space-y-0 text-left">
           <DialogTitle className="border-b px-6 py-4 text-base">Create new tribe</DialogTitle>
@@ -193,6 +243,20 @@ export default function TribesFormDialog({
                   />
                   {errors.tribeName && (
                     <p className="mt-1 text-sm text-red-500">{errors.tribeName.message}</p>
+                  )}
+                </div>
+                <div className="flex-1 space-y-2">
+                  <Label htmlFor={`${id}-description`}>Description</Label>
+                  <Input
+                    {...register('description')}
+                    id={`${id}-description`}
+                    placeholder="Write some information about tribe"
+                    // defaultValue="Margaret"
+                    type="text"
+                    required
+                  />
+                  {errors.description && (
+                    <p className="mt-1 text-sm text-red-500">{errors.description.message}</p>
                   )}
                 </div>
               </div>

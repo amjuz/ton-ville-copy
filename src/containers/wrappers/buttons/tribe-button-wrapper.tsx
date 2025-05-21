@@ -12,20 +12,34 @@ import {
 import { Button } from '@/components/ui/button'
 import { Dialog } from '@/components/ui/dialog'
 import Uploader from '@/components/uploader'
+import TribesFormDialog from '@/components/tribes/TribesFormDialog'
+import { Tables } from '@/types/database'
 
 export default function TribeProfileButtonWrapper({
   setOpenQuestDialog,
   setOpenEventDialog,
+  // setOpenTribeEditDialog,
+  tribeData
 }: {
+  tribeData:Tables['tribes']['Row']
   setOpenQuestDialog: (state: boolean) => void
   setOpenEventDialog: (state: boolean) => void
+  // setOpenTribeEditDialog: (state: boolean) => void
 }) {
-  // const [open, setOpen] = useState(false)
+  const [openTribeEditDialog, setOpenTribeEditDialog] = useState(false)
   return (
     <div className="mt-6 flex gap-2">
-      <Button size={'lg'} className="basis-full rounded-xl">
-        Edit Tribe
-      </Button>
+      <TribesFormDialog
+        open={openTribeEditDialog}
+        setOpen={setOpenTribeEditDialog}
+        label={'Update'}
+        type="edit"
+        tribeData={tribeData}
+      >
+        <Button size={'lg'} className="basis-full rounded-xl">
+          Edit Tribe
+        </Button>
+      </TribesFormDialog>
       <Button size={'lg'} variant={'secondary'} className="basis-full rounded-xl">
         Share
       </Button>

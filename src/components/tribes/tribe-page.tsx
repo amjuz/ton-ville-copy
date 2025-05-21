@@ -22,6 +22,7 @@ import SetTwitterName from '@/app/protected/core/profile/[id]/components/set-twi
 import CreateQuestForm from '../forms/create-quest-form'
 import CreateEventForm from '../forms/create-event-form'
 import DateAndTimePicker from '../originui/calendar/date-and-time-picker'
+import TribesFormDialog from './TribesFormDialog'
 
 export default function TribePage() {
   const [openQuestDialog, setOpenQuestDialog] = useState(false)
@@ -103,6 +104,7 @@ export default function TribePage() {
         <TribeProfileButtonWrapper
           setOpenEventDialog={setOpenEventsDialog}
           setOpenQuestDialog={setOpenQuestDialog}
+          tribeData={data}
         />
 
         <div className="mt-4 flex flex-col gap-2">
@@ -132,6 +134,8 @@ export default function TribePage() {
           </div>
         </div>
       </div>
+      {/* Dialog boxes */}
+      
       <CreateQuestForm open={openQuestDialog} onOpenChange={setOpenQuestDialog} tribeId={tribeId} />
       <CreateEventForm
         open={openEventsDialog}
