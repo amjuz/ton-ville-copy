@@ -1,14 +1,17 @@
 import Image, { StaticImageData } from 'next/image'
+import { motion } from "framer-motion";
 import Link from 'next/link'
 import { TruncateText } from '@test/utils/utils'
 import { cn } from '@/lib/utils/cn'
+import { useState } from 'react'
+import { Skeleton } from '@/components/ui/skeleton'
 
 interface IQuestCard {
   title: string
   description: string
-  imageSrc: StaticImageData
+  imageSrc: StaticImageData | string
   imageAlt: string
-  author?: string
+  author: string
   className?: string
 }
 
@@ -17,34 +20,78 @@ export default function QuestCard({
   description,
   imageAlt,
   imageSrc,
-  author = 'Ansen',
+  author,
   className,
 }: IQuestCard) {
-  const truncatedTitle = TruncateText(title, 18)
+  // const truncatedTitle = TruncateText(title, 18)
+  const [isLoading, setIsLoading] = useState(true);
+  const truncatedTitle = title.length > 24 ? `${title.slice(0, 24)}...` : title;
+  const questSlug = title.split(' ')[0].toLowerCase();
+
   return (
-    <div
+    <motion.div
+      whileHover={{ 
+        y: -5,
+        transition: { duration: 0.2 }
+      }}
       className={cn(
-        'relative h-[250px] w-full max-w-[240px] flex-shrink-0 overflow-hidden',
+        'relative h-[280px] w-full max-w-[240px] flex-shrink-0 overflow-hidden rounded-2xl border border-muted bg-card shadow-sm transition-all hover:shadow-md',
         className
       )}
     >
       <Link
-        className="absolute h-full w-full"
-        href={`/protected/core/tribe/${author}/quest/${title.split(' ')[0]}`}
+        className="absolute inset-0 z-10"
+        href={`/protected/core/tribe/${author}/quest/${questSlug}`}
+        aria-label={title}
       />
-      <div className="flex h-[247px] flex-col justify-between">
-        <Image
-          src={imageSrc}
-          height={720}
-          width={720}
-          alt={imageAlt}
-          className="flex-shrink-0 rounded-2xl object-cover"
-        />
-        <div className="">
-          <p className="font-medium">{truncatedTitle}</p>
-          <p className="line-clamp-2 h-[70px] text-ellipsis text-muted-foreground">{description}</p>
+      
+      <div className="flex h-full flex-col">
+        <div className="relative h-[160px] w-full overflow-hidden">
+          {isLoading && (
+            <Skeleton className="absolute inset-0 h-full w-full rounded-t-2xl bg-muted/60" />
+          )}
+          <div className="absolute inset-0 bg-gradient-to-t from-black/30 to-transparent z-[1]" />
+          <Image
+            src={imageSrc}
+            height={480}
+            width={720}
+            alt={imageAlt}
+            className={cn(
+              "h-full w-full object-cover transition-all duration-500",
+              isLoading ? "scale-110 blur-sm" : "scale-100 blur-0"
+            )}
+            onLoadingComplete={() => setIsLoading(false)}
+          />
+          <div className="absolute bottom-2 right-2 z-[2]">
+            <span className="inline-flex items-center rounded-full bg-primary/90 px-2.5 py-0.5 text-xs font-medium text-primary-foreground">
+              New Quest
+            </span>
+          </div>
+        </div>
+        
+        <div className="flex flex-col p-3 gap-1">
+          <h3 className="font-medium leading-tight text-foreground line-clamp-1">
+            {truncatedTitle}
+          </h3>
+          <p className="line-clamp-2 text-sm text-muted-foreground">
+            {description}
+          </p>
+
+          <div className="mt-2 flex items-center justify-between">
+            <div className="flex items-center gap-1">
+              <div className="h-5 w-5 rounded-full bg-primary/20 flex items-center justify-center">
+                <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="text-primary">
+                  <path d="M12 2L15.09 8.26L22 9.27L17 14.14L18.18 21.02L12 17.77L5.82 21.02L7 14.14L2 9.27L8.91 8.26L12 2z"/>
+                </svg>
+              </div>
+              <span className="text-xs text-muted-foreground">By {author}</span>
+            </div>
+            <div className="rounded-full bg-secondary px-2 py-0.5">
+              <span className="text-xs text-secondary-foreground">Explore</span>
+            </div>
+          </div>
         </div>
       </div>
-    </div>
+    </motion.div>
   )
 }

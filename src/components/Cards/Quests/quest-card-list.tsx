@@ -7,6 +7,7 @@ import { useQuestInfinityQuery } from '@/hooks/useCustomHooks'
 import { cn } from '@/lib/utils/cn'
 import QuestCard from './quest-card'
 import { QuestCardInfiniteQuerySkelton } from '@/components/skelton/QuestCardSkelton'
+import QuestCardOld from './quest-card-old'
 
 interface IQuestCardList {
   initialData: TFetchQuestCards
@@ -32,7 +33,7 @@ export default function QuestCardList({ initialData }: IQuestCardList) {
     >
       {data.pages.map((items) =>
         items.mockData.map((item, i) => (
-          <QuestCard
+          <QuestCardOld
             description={item.description}
             imageAlt={item.imageAlt}
             imageSrc={item.imageSrc}
