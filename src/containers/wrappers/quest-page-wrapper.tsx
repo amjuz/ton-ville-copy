@@ -1,12 +1,12 @@
 import { EllipsisVertical } from 'lucide-react'
 import Image from 'next/image'
 import React from 'react'
+import { useParams } from 'next/navigation'
+import { useQuery } from '@tanstack/react-query'
 import questPlaceHolders from '@/assets/images/mock/quest-card-mock.png'
 import CustomOrderedList from '@/components/Elements/custom-ordered-list'
 import { Button } from '@/components/ui/button'
-import { useParams } from 'next/navigation'
 import { getQuest } from '@/lib/supabase/quests/quests-table'
-import { useQuery } from '@tanstack/react-query'
 import { Skeleton } from '@/components/ui/skeleton'
 import { QuestCardSkeleton } from '@/components/skelton/quest-card-skeleton'
 
@@ -32,7 +32,7 @@ export default function QuestPageWrapper() {
   })
   if (!data) return <>No data found</>
   if (error) return <>Error fetching events</>
-  if (isLoading) return <QuestCardSkeleton/>
+  if (isLoading) return <QuestCardSkeleton />
   return (
     <div className="mt-4 p-2 sm:p-4">
       <Image
@@ -45,9 +45,7 @@ export default function QuestPageWrapper() {
       <div className="mt-5 pl-1">
         <h1 className="text-2xl font-bold">{data.title}</h1>
         <p className="text-muted-foreground">{data.subTitle}</p>
-        <p className="mt-2">
-          {data.description}
-        </p>
+        <p className="mt-2">{data.description}</p>
       </div>
       <div className="mt-8 flex gap-2">
         <Button size={'lg'} className="basis-full rounded-xl">

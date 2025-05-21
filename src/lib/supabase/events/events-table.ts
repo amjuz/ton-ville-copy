@@ -83,6 +83,6 @@ export async function getTribeEvents({ tribeId }: { tribeId: string }) {
 export async function getEvent(eventId: string) {
   const supabase = await getServerClient()
   const { data, error } = await supabase.from('events').select('*').eq('id', eventId).single()
-  if(error) throw new Error("Events fetch failed")
+  if (error) throw new Error('Events fetch failed')
   return data
 }

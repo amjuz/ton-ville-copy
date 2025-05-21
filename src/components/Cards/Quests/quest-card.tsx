@@ -2,10 +2,10 @@ import Image, { StaticImageData } from 'next/image'
 import { motion } from 'framer-motion'
 import Link from 'next/link'
 import { useState } from 'react'
+import { useParams } from 'next/navigation'
 import { TruncateText } from '@test/utils/utils'
 import { cn } from '@/lib/utils/cn'
 import { Skeleton } from '@/components/ui/skeleton'
-import { useParams } from 'next/navigation'
 
 interface IQuestCard {
   title: string
@@ -14,7 +14,7 @@ interface IQuestCard {
   imageAlt: string
   author: string
   className?: string
-  questId:string
+  questId: string
 }
 
 export default function QuestCard({
@@ -24,7 +24,7 @@ export default function QuestCard({
   imageSrc,
   author,
   className,
-  questId
+  questId,
 }: IQuestCard) {
   const [isLoading, setIsLoading] = useState(true)
   const truncatedTitle = title.length > 24 ? `${title.slice(0, 24)}...` : title

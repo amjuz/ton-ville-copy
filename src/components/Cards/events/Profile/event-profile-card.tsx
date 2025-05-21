@@ -1,7 +1,7 @@
 import Image from 'next/image'
 import React from 'react'
-import Mock from '@/assets/images/mock/Event_profile_mock_1.jpeg'
 import Link from 'next/link'
+import Mock from '@/assets/images/mock/Event_profile_mock_1.jpeg'
 
 type TEventProfileCard = {
   src?: string

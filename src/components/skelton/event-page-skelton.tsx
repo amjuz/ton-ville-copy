@@ -1,12 +1,12 @@
-import { Skeleton } from "@/components/ui/skeleton"
-import { EllipsisVertical } from "lucide-react"
+import { EllipsisVertical } from 'lucide-react'
+import { Skeleton } from '@/components/ui/skeleton'
 
 export function EventCardSkeleton() {
   return (
     <div className="mt-4 p-2 pb-12 sm:p-4">
       <Skeleton className="aspect-square w-full rounded-2xl border-2" />
 
-      <div className="mt-5 pl-1 space-y-2">
+      <div className="mt-5 space-y-2 pl-1">
         <Skeleton className="h-4 w-1/4" /> {/* Category */}
         <Skeleton className="h-6 w-3/4" /> {/* Title */}
       </div>
@@ -26,10 +26,10 @@ export function EventCardSkeleton() {
       </div>
 
       <div className="mt-4 flex items-center gap-3 text-sm">
-        <div className="flex items-center pl-2 gap-[-8px]">
+        <div className="flex items-center gap-[-8px] pl-2">
           <Skeleton className="h-8 w-8 rounded-full border" />
-          <Skeleton className="h-8 w-8 rounded-full border -ml-2" />
-          <Skeleton className="h-8 w-8 rounded-full border -ml-2" />
+          <Skeleton className="-ml-2 h-8 w-8 rounded-full border" />
+          <Skeleton className="-ml-2 h-8 w-8 rounded-full border" />
         </div>
         <div className="flex items-center gap-2">
           <Skeleton className="h-4 w-40" />

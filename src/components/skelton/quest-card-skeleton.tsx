@@ -1,5 +1,5 @@
-import { Skeleton } from "@/components/ui/skeleton"
-import { EllipsisVertical } from "lucide-react"
+import { EllipsisVertical } from 'lucide-react'
+import { Skeleton } from '@/components/ui/skeleton'
 
 export function QuestCardSkeleton() {
   return (
@@ -7,13 +7,13 @@ export function QuestCardSkeleton() {
       {/* Image skeleton */}
       <Skeleton className="h-[300px] w-full rounded-2xl border-2" />
 
-      <div className="mt-5 pl-1 space-y-2">
+      <div className="mt-5 space-y-2 pl-1">
         {/* Title */}
         <Skeleton className="h-6 w-1/2" />
         {/* Subtitle */}
         <Skeleton className="h-4 w-1/4" />
         {/* Paragraph */}
-        <Skeleton className="h-4 w-3/4 mt-2" />
+        <Skeleton className="mt-2 h-4 w-3/4" />
       </div>
 
       {/* Buttons */}

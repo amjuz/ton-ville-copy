@@ -1,10 +1,9 @@
-"use client"
+'use client'
 import React, { Suspense } from 'react'
-import QuestPageWrapper from '@/containers/wrappers/quest-page-wrapper'
 import { useParams } from 'next/navigation'
+import QuestPageWrapper from '@/containers/wrappers/quest-page-wrapper'
 
 export default function TribeQuestPage() {
-  
   return (
     <main>
       {/* Add Loaders state as fallback and call the query ->  */}
