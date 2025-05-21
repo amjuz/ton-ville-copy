@@ -1,9 +1,9 @@
 'use server'
 
+import { faker } from '@faker-js/faker'
 import { TTribesValidator } from '@/lib/validators/forms'
 import { getServerClient } from '../server'
 import { getUser } from '@/lib/utils/user'
-import { faker } from '@faker-js/faker'
 
 export async function updateTwitterId(twitterId: string, tribeId: string) {
   const supabase = await getServerClient()

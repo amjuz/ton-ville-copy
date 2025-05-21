@@ -49,7 +49,7 @@ export default function TribesFormDialog({
 
   const query = useQueryClient()
 
-  const  { mutate: createTribe } = useMutation({
+  const { mutate: createTribe } = useMutation({
     mutationFn: createTribes,
     onMutate() {
       toast.loading('Creating Tribes...')

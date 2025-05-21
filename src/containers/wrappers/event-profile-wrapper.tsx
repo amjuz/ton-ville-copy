@@ -1,10 +1,10 @@
 'use client'
+import { useQuery } from '@tanstack/react-query'
 import Mock1 from '@/assets/images/mock/Event_profile_mock_1.jpeg'
 import Mock2 from '@/assets/images/mock/event_profile_mock_2.jpeg'
 import EventProfileCard from '@/components/Cards/events/Profile/event-profile-card'
 import { getTribeEvents } from '@/lib/supabase/events/events-table'
 import { cn } from '@/lib/utils/cn'
-import { useQuery } from '@tanstack/react-query'
 type TEventProfileWrapper = {
   className?: string
   tribeId: string
@@ -14,7 +14,7 @@ export default function EventProfileWrapper({ className, tribeId }: TEventProfil
     queryKey: ['tribes-events', tribeId],
     queryFn: () => getTribeEvents({ tribeId }),
   })
-  
+
   if (error) return null
 
   if (!data?.length) return <div className="">Create new Events to display content</div>

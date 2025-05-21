@@ -1,8 +1,8 @@
 'use client'
 
 import { useEffect, useState } from 'react'
-import TribesFormDialog from '../tribes/TribesFormDialog'
 import { useQueryClient } from '@tanstack/react-query'
+import TribesFormDialog from '../tribes/TribesFormDialog'
 import { useAppSelector } from '@/hooks/reduxHooks'
 
 export default function CreateTribeButton({ label }: { label: string }) {
@@ -15,8 +15,7 @@ export default function CreateTribeButton({ label }: { label: string }) {
       await query.refetchQueries({ queryKey: [`profile-page-tribes-query-${userId}`] })
     }
     mounted()
-
-  }, [open,query])
+  }, [open, query])
 
   return <TribesFormDialog label={label} open={open} setOpen={setOpen} />
 }

@@ -119,7 +119,7 @@ export default function TribePage() {
             href="/"
             title="QUEST"
           />
-          <QuestsForTribe tribeId={tribeId}/>
+          <QuestsForTribe tribeId={tribeId} />
           {/* <QuestsWrapperCards className="mt-3" /> */}
         </div>
         <div className="mt-4">
@@ -135,7 +135,7 @@ export default function TribePage() {
         </div>
       </div>
       {/* Dialog boxes */}
-      
+
       <CreateQuestForm open={openQuestDialog} onOpenChange={setOpenQuestDialog} tribeId={tribeId} />
       <CreateEventForm
         open={openEventsDialog}

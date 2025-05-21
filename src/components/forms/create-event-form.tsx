@@ -115,7 +115,7 @@ export default function CreateEventForm({
                 <div className="flex-1 space-y-2">
                   <div className="flex justify-between">
                     <Label>Title</Label>
-                    <PrefillEventButton setValue={setValue}/>
+                    <PrefillEventButton setValue={setValue} />
                   </div>
                   <Input placeholder="Matt" type="text" {...register('title')} />
                   {errors.title && (

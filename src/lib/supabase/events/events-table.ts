@@ -65,8 +65,8 @@ export async function getTribeEvents({ tribeId }: { tribeId: string }) {
     .eq('tribe_id', tribeId)
     .order('created_at', { ascending: false })
 
-    // console.log("error:",error?.message);
-    
+  // console.log("error:",error?.message);
+
   if (error) throw new Error('Failed to fetch Events with tribe author')
 
   if (!data?.length) return null

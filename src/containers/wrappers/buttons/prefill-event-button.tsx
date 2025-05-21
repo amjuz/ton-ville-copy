@@ -1,7 +1,7 @@
-import { Button } from '@/components/ui/button'
-import { TEventsFormSchema, TTribesValidator } from '@/lib/validators/forms'
 import { faker } from '@faker-js/faker'
 import { UseFormSetValue } from 'react-hook-form'
+import { Button } from '@/components/ui/button'
+import { TEventsFormSchema, TTribesValidator } from '@/lib/validators/forms'
 
 export default function PrefillEventButton({
   setValue,
@@ -21,7 +21,7 @@ export default function PrefillEventButton({
     <p
       className="text-sm font-medium leading-none underline peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
       onClick={() => {
-        (Object.keys(events) as Array<keyof TEventsFormSchema>).map((item) => {
+        ;(Object.keys(events) as Array<keyof TEventsFormSchema>).map((item) => {
           setValue(item, events[item])
         })
       }}

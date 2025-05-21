@@ -1,14 +1,10 @@
 import { useQuery } from '@tanstack/react-query'
+import { useParams } from 'next/navigation'
 import QueryCardList from './quest-card-list'
 import { getTribeQuests } from '@/lib/supabase/quests/quests-table'
-import { useParams } from 'next/navigation'
 import TribeQuestsList from './tribe-quests-list'
 
-export default function QuestsForTribe({
-  tribeId,
-}: {
-  tribeId: string
-}) {
+export default function QuestsForTribe({ tribeId }: { tribeId: string }) {
   const { data } = useQuery({
     queryKey: ['tribes-quests', tribeId],
     queryFn: () => getTribeQuests({ tribeId }),

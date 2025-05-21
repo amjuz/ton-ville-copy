@@ -19,9 +19,9 @@ export default function TribeProfileButtonWrapper({
   setOpenQuestDialog,
   setOpenEventDialog,
   // setOpenTribeEditDialog,
-  tribeData
+  tribeData,
 }: {
-  tribeData:Tables['tribes']['Row']
+  tribeData: Tables['tribes']['Row']
   setOpenQuestDialog: (state: boolean) => void
   setOpenEventDialog: (state: boolean) => void
   // setOpenTribeEditDialog: (state: boolean) => void

@@ -1,7 +1,7 @@
-import { Button } from '@/components/ui/button'
-import { TQuestFormSchema, TTribesValidator } from '@/lib/validators/forms'
 import { faker } from '@faker-js/faker'
 import { UseFormSetValue } from 'react-hook-form'
+import { Button } from '@/components/ui/button'
+import { TQuestFormSchema, TTribesValidator } from '@/lib/validators/forms'
 
 export default function PrefillQuestButton({
   setValue,
@@ -19,7 +19,7 @@ export default function PrefillQuestButton({
     <p
       className="text-sm font-medium leading-none underline peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
       onClick={() => {
-        (Object.keys(tribes) as Array<keyof TQuestFormSchema>).map((item) => {
+        ;(Object.keys(tribes) as Array<keyof TQuestFormSchema>).map((item) => {
           setValue(item, tribes[item])
         })
       }}
