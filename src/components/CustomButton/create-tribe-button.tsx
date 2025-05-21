@@ -17,5 +17,5 @@ export default function CreateTribeButton({ label }: { label: string }) {
     mounted()
   }, [open, query])
 
-  return <TribesFormDialog label={label} open={open} setOpen={setOpen} />
+  return <TribesFormDialog type="create" label={label} open={open} setOpen={setOpen} />
 }
