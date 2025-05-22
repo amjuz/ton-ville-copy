@@ -1,5 +1,5 @@
 import { parse } from '@telegram-apps/init-data-node'
-import { GenerateInviteOrMagiclinkParams, UserMetadata } from '@supabase/auth-js/src/lib/types'
+import { GenerateInviteOrMagiclinkParams, UserMetadata } from '@supabase/supabase-js'
 import { generateEmailByTelegramId } from '@/lib/utils/telegram'
 
 /**
@@ -59,11 +59,5 @@ export function getAuthCreds(initDataRaw: string): AuthCreds {
     referral_code: referral_code === 'debug' ? undefined : referral_code,
   }
 
-  return {
-    email,
-    type: 'magiclink',
-    options: {
-      data,
-    },
-  }
+  return { email, type: 'magiclink', options: { data } }
 }

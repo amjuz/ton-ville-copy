@@ -1,5 +1,4 @@
-import { AuthError, SupabaseClient } from '@supabase/supabase-js'
-import { GenerateInviteOrMagiclinkParams } from '@supabase/auth-js/src/lib/types'
+import { AuthError, GenerateInviteOrMagiclinkParams, SupabaseClient } from '@supabase/supabase-js'
 
 /**
  * Passwordless user authentication by generating an email OTP as admin and verifying it as user.
@@ -32,11 +31,7 @@ export async function handleAuth(
   const {
     data: { user },
     error: verifyOtpError,
-  } = await serverClient.auth.verifyOtp({
-    ...(creds as { email: string }),
-    token,
-    type,
-  })
+  } = await serverClient.auth.verifyOtp({ ...(creds as { email: string }), token, type })
 
   if (verifyOtpError) throw verifyOtpError
   if (!user) throw new AuthError('Passwordless-auth failed!', 500, 'unexpected_failure')

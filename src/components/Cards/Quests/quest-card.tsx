@@ -33,10 +33,12 @@ export default function QuestCard({
 
   return (
     <motion.div
-      whileHover={{
-        // y: -5,
-        // transition: { duration: 0.2 },
-      }}
+      whileHover={
+        {
+          // y: -5,
+          // transition: { duration: 0.2 },
+        }
+      }
       className={cn(
         'relative h-[280px] w-full max-w-[240px] flex-shrink-0 overflow-hidden rounded-2xl shadow-sm transition-all hover:shadow-md',
         className
@@ -60,7 +62,7 @@ export default function QuestCard({
             width={720}
             alt={imageAlt}
             className={cn(
-              'h-full w-full object-cover transition-all duration-500 rounded-xl',
+              'h-full w-full rounded-xl object-cover transition-all duration-500',
               isLoading ? 'scale-110 blur-sm' : 'scale-100 blur-0'
             )}
             onLoadingComplete={() => setIsLoading(false)}

@@ -1,5 +1,4 @@
 import { X } from 'lucide-react'
-import { nanoid } from 'nanoid'
 import React, { Dispatch, SetStateAction } from 'react'
 import {
   Control,
@@ -9,6 +8,7 @@ import {
   UseFormRegister,
   useWatch,
 } from 'react-hook-form'
+import { nanoid } from '@reduxjs/toolkit'
 import { Button } from '@/components/ui/button'
 import {
   Drawer,

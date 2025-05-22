@@ -10,8 +10,7 @@ interface IQuestCard {
   imageAlt: string
   author?: string
   className?: string
-  questId?:string
-
+  questId?: string
 }
 
 export default function QuestCardOld({
