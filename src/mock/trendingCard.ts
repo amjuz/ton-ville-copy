@@ -11,7 +11,7 @@ export type TUserCollectionMockData = {
 }
 export const userCollectionMockData: TUserCollectionMockData = {
   gems: Math.floor(Math.random() * 1500000),
-  rank: Math.floor(Math.random() * 10),
+  rank: Math.floor(Math.random() * 10) + 1,
 }
 export type TTrendingCardMockData = {
   id: number

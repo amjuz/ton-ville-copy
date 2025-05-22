@@ -76,9 +76,9 @@ export async function updateTribes({
   return data
 }
 
-export async function getTribes() {
+export async function getAllTribes() {
   const supabase = await getServerClient()
-    const { data, error} = await supabase.from('tribes').select('*') 
-    if(error) throw new Error("Failed to fetch tribes data")
-      return data
+  const { data, error } = await supabase.from('tribes').select('*')
+  if (error) throw new Error('Failed to fetch tribes data')
+  return data
 }

@@ -84,3 +84,18 @@ export async function getQuest(questId: string) {
   if (error) throw new Error('Quest fetch failed')
   return data
 }
+
+export async function getAllQuest() {
+  const supabase = await getServerClient()
+  const { data, error } = await supabase.from('tribes_quests').select(`
+    quests(*),
+    tribes(id, author)
+    `)
+  if (error) throw new Error('Quest fetch failed')
+  const questData = data.map(({ quests, tribes }) => ({
+    ...quests,
+    author: tribes.author,
+    tribeId: tribes.id,
+  }))
+  return questData
+}

@@ -86,3 +86,20 @@ export async function getEvent(eventId: string) {
   if (error) throw new Error('Events fetch failed')
   return data
 }
+
+export type TAllEvents = (Pick<Tables['tribes']['Row'], 'author' | 'id'> &
+  Tables['events']['Row'])[]
+export async function getAllEvent() {
+  const supabase = await getServerClient()
+  const { data, error } = await supabase.from('tribes_events').select(`
+    events(*),
+    tribes(id,author)
+    `)
+  if (error) throw new Error('Events fetch failed')
+  const eventsData = data.map(({ events, tribes }) => ({
+    ...events,
+    tribeId: tribes.id,
+    author: tribes.author,
+  }))
+  return eventsData
+}
