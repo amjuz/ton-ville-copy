@@ -3,23 +3,28 @@ import Link from 'next/link'
 import React from 'react'
 import { formatDate } from '@test/utils/utils'
 import Avatar from '@/components/Elements/avatar'
+import { useQuery } from '@tanstack/react-query'
 
 export type TMiniCard = {
-  imageUrl: StaticImageData
+  imageUrl: StaticImageData | string
   imageAlt: string
   userName: string
   title: string
   date: string
   place: string
+  eventId:string
+  tribeId: string
 }
 
-export default function MiniCard({ date, imageUrl, place, title, userName, imageAlt }: TMiniCard) {
+export default function MiniCard({ date, imageUrl, place,tribeId, title, userName='John Wick', imageAlt,eventId,  }: TMiniCard) {
   const formattedDate = formatDate(date, 'do MMMM')
+  // const  { } = useQuery({queryKey: [],queryFn: ()=>getTribeIdOfEvent(id)})
+  
   return (
     <div className="relative flex w-full max-w-[350px] gap-2">
       <Link
         className="absolute h-full w-full"
-        href={`/protected/core/tribe/${userName}/events/${title[0]}`}
+        href={`/protected/core/tribe/${tribeId}/events/${eventId}`}
       />
       <div className="h-24 w-24">
         <Image
