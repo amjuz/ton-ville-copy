@@ -39,7 +39,7 @@ export default function RootLayout({ children }: RootLayoutProps) {
                 enableSystem
                 disableTransitionOnChange
               >
-                <Toaster />
+                <Toaster richColors closeButton position='top-center'/>
                 <main className="scrollbar-w-2 scrollbar-thumb-rounded scrollbar-track-primary scrollbar-thumb h-full max-h-screen min-h-screen overflow-y-scroll">
                   {children}
                 </main>
