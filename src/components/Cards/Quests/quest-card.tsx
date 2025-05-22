@@ -15,11 +15,13 @@ interface IQuestCard {
   author: string
   className?: string
   questId: string
+  tribeId: string
 }
 
 export default function QuestCard({
   title,
   description,
+  tribeId,
   imageAlt,
   imageSrc,
   author,
@@ -29,7 +31,6 @@ export default function QuestCard({
   const [isLoading, setIsLoading] = useState(true)
   const truncatedTitle = title.length > 24 ? `${title.slice(0, 24)}...` : title
 
-  const { tribeId } = useParams()
 
   return (
     <motion.div
