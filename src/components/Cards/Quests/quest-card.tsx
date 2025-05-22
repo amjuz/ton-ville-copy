@@ -34,11 +34,11 @@ export default function QuestCard({
   return (
     <motion.div
       whileHover={{
-        y: -5,
-        transition: { duration: 0.2 },
+        // y: -5,
+        // transition: { duration: 0.2 },
       }}
       className={cn(
-        'relative h-[280px] w-full max-w-[240px] flex-shrink-0 overflow-hidden rounded-2xl border border-muted bg-card shadow-sm transition-all hover:shadow-md',
+        'relative h-[280px] w-full max-w-[240px] flex-shrink-0 overflow-hidden rounded-2xl shadow-sm transition-all hover:shadow-md',
         className
       )}
     >
@@ -60,16 +60,16 @@ export default function QuestCard({
             width={720}
             alt={imageAlt}
             className={cn(
-              'h-full w-full object-cover transition-all duration-500',
+              'h-full w-full object-cover transition-all duration-500 rounded-xl',
               isLoading ? 'scale-110 blur-sm' : 'scale-100 blur-0'
             )}
             onLoadingComplete={() => setIsLoading(false)}
           />
-          <div className="absolute bottom-2 right-2 z-[2]">
+          {/* <div className="absolute bottom-2 right-2 z-[2]">
             <span className="inline-flex items-center rounded-full bg-primary/90 px-2.5 py-0.5 text-xs font-medium text-primary-foreground">
               New Quest
             </span>
-          </div>
+          </div> */}
         </div>
 
         <div className="flex flex-col gap-1 p-3">
@@ -80,7 +80,7 @@ export default function QuestCard({
 
           <div className="mt-2 flex items-center justify-between">
             <div className="flex items-center gap-1">
-              <div className="flex h-5 w-5 items-center justify-center rounded-full bg-primary/20">
+              {/* <div className="flex h-5 w-5 items-center justify-center rounded-full bg-primary/20">
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
                   width="12"
@@ -95,12 +95,12 @@ export default function QuestCard({
                 >
                   <path d="M12 2L15.09 8.26L22 9.27L17 14.14L18.18 21.02L12 17.77L5.82 21.02L7 14.14L2 9.27L8.91 8.26L12 2z" />
                 </svg>
-              </div>
+              </div> */}
               <span className="text-xs text-muted-foreground">By {author}</span>
             </div>
-            <div className="rounded-full bg-secondary px-2 py-0.5">
+            {/* <div className="rounded-full bg-secondary px-2 py-0.5">
               <span className="text-xs text-secondary-foreground">Explore</span>
-            </div>
+            </div> */}
           </div>
         </div>
       </div>
