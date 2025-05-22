@@ -8,5 +8,5 @@ type TQuestsWrapperCards = {
 
 export default function QuestsWrapperCards({}: TQuestsWrapperCards) {
   // const data: TFetchQuestCards = fetchQuestCards({ limit: 7 })
-  return <QueryCardList  />
+  return <QueryCardList />
 }

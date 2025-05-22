@@ -9,5 +9,5 @@ export default async function MiniCardsWrapper() {
   // const data: TFetchMiniCardData = await fetchMiniCardData({ limit: 16 })
 
   // need to wrap this on client component and do future data fetching from the client
-  return <MiniCardList  />
+  return <MiniCardList />
 }

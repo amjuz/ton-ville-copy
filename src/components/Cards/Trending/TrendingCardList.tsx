@@ -2,12 +2,12 @@
 
 import { useInView } from 'react-intersection-observer'
 import { useEffect } from 'react'
+import { useQuery } from '@tanstack/react-query'
 import { useFetchNewTrendingCards } from '@/hooks/useCustomHooks'
 import { cn } from '@/lib/utils/cn'
 import { TTrendingCardMockData } from '@/mock/trendingCard'
 import TrendingCard from './trending-card'
 import { TrendingCardListSkeleton } from '@/components/skelton/TrendingCardListSkeleton'
-import { useQuery } from '@tanstack/react-query'
 import { getAllTribes } from '@/lib/supabase/tribes/tribe-table'
 import ErrorPageDisplay from '@/components/error/error-page-display'
 

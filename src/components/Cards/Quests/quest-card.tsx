@@ -31,7 +31,6 @@ export default function QuestCard({
   const [isLoading, setIsLoading] = useState(true)
   const truncatedTitle = title.length > 24 ? `${title.slice(0, 24)}...` : title
 
-
   return (
     <motion.div
       whileHover={

@@ -2,6 +2,7 @@
 
 import { useInView } from 'react-intersection-observer'
 import { useEffect } from 'react'
+import { useQuery } from '@tanstack/react-query'
 import { TFetchQuestCards } from '@/functions'
 import { useQuestInfinityQuery } from '@/hooks/useCustomHooks'
 import { cn } from '@/lib/utils/cn'
@@ -11,7 +12,6 @@ import QuestCardSkelton, {
 } from '@/components/skelton/QuestCardSkelton'
 import QuestCardOld from './quest-card-old'
 import { getAllQuest } from '@/lib/supabase/quests/quests-table'
-import { useQuery } from '@tanstack/react-query'
 import ErrorPageDisplay from '@/components/error/error-page-display'
 
 interface IQuestCardList {

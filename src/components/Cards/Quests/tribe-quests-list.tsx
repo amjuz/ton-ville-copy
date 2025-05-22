@@ -1,7 +1,7 @@
+import { useParams } from 'next/navigation'
 import { cn } from '@/lib/utils/cn'
 import QuestCard from './quest-card'
 import { TQuestTableExtendsAuthor } from '@/lib/supabase/quests/quests-table'
-import { useParams } from 'next/navigation'
 
 type TribesQuestList = { questsData: TQuestTableExtendsAuthor[] }
 
