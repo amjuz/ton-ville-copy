@@ -7,13 +7,17 @@ import { updateProfilePhoto } from '@/app/actions/profile/profile'
 import { Button } from '@/components/ui/button'
 import ProfileImageUploader from '@/components/profile-image-uploader'
 import { handleImageUploadAction } from '@/app/actions/image-upload-action'
+import { useQueryClient } from '@tanstack/react-query'
+import { useParams } from 'next/navigation'
 
 export default function ImageUploadComponent({ imageUrl }: { imageUrl?: string }) {
   const [profileImage, setProfileImage] = useState(imageUrl ?? '')
   const [buttonVisibility, setButtonVisibility] = useState(false)
   const [cancelButtonVisibility, setCancelButtonVisibility] = useState(true)
   const toastId = useId()
-
+  const query = useQueryClient()
+  const params = useParams()
+  const userId = params.userId as string
   const { execute: updateFile, isPending } = useServerAction(handleImageUploadAction, {
     onSuccess({ data }) {
       if (!data.publicUrl) {
@@ -40,6 +44,7 @@ export default function ImageUploadComponent({ imageUrl }: { imageUrl?: string }
       onSuccess() {
         setButtonVisibility(false)
         toast.success('Image updated successfully')
+        query.refetchQueries({ queryKey: ['profile-page', userId] })
         toast.dismiss(toastId)
         setCancelButtonVisibility(false)
       },
@@ -61,7 +66,6 @@ export default function ImageUploadComponent({ imageUrl }: { imageUrl?: string }
     },
     [updateFile]
   )
-  // console.log('image url :', profileImage)
 
   return (
     <div className="">
@@ -82,30 +86,6 @@ export default function ImageUploadComponent({ imageUrl }: { imageUrl?: string }
           </Button>
         ) : null}
       </div>
-      {/* <div className="relative cursor-pointer" >
-        {profileImage ? (
-          <Image
-            width={160}
-            height={160}
-            className="aspect-square max-w-40 rounded-2xl object-cover"
-            alt=""
-            src={profileImage}
-            unoptimized
-          />
-        ) : ( */}
-      {/* )} */}
-      {/* <div className="absolute left-0 right-0 top-0 flex h-full w-full items-center justify-center rounded-2xl bg-black/50 transition-opacity hover:bg-black/60">
-          <p className="font-bold tracking-wide text-white">Change Photo</p>
-        </div> */}
-      {/* <input
-          ref={fileInputRef}
-          type="file"
-          className="hidden"
-          accept="image/*"
-          // onChange={handleFileChange}
-          disabled={uploading}
-        /> */}
-      {/* </div> */}
     </div>
   )
 }

@@ -1,8 +1,8 @@
 'use client'
-import { useRouter } from 'next/navigation'
+import { useParams, useRouter } from 'next/navigation'
 import { zodResolver } from '@hookform/resolvers/zod'
 import Image from 'next/image'
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import { useFieldArray, useForm } from 'react-hook-form'
 import { toast } from 'sonner'
 // import profileImage from '@/assets/images/mock/Ape_Red_Mock.png'
@@ -23,6 +23,8 @@ import { filterSkills } from './helper'
 import CreateDrawer from './create-drawer'
 import { DisplaySkills } from './display-Skills'
 import { Tables } from '@/types/database'
+import { useQuery, useQueryClient } from '@tanstack/react-query'
+import { fetchUserProfileForEdit } from '@/lib/utils/user'
 
 export default function UpdateProfileForm({
   bio,
@@ -36,46 +38,45 @@ export default function UpdateProfileForm({
   const router = useRouter()
   const [isDrawerOpen, setIsDrawerOpen] = useState(false)
   const [currentSkillIndex, setCurrentSkillIndex] = useState<number | null>(null)
+  const params = useParams()
+  const userId = params.id as string
+  const query = useQueryClient()
 
   const {
     handleSubmit,
     watch,
     formState: { errors, isDirty },
+    reset,
     register,
     control,
     setError,
     clearErrors,
+    setValue,
   } = useForm<TEditProfileSchema>({
     resolver: zodResolver(EditProfileSchema),
-    defaultValues: {
-      displayName: name ?? '',
-      addBio: bio ?? '',
-    },
+    defaultValues: { displayName: name ?? '', addBio: bio ?? '' },
   })
 
-  const { fields, append, update, remove } = useFieldArray({
-    control,
-    name: 'skill',
-  })
+  const { fields, append, update, remove } = useFieldArray({ control, name: 'skill' })
   const onSubmit = async (data: TEditProfileSchema) => {
     toast.loading('Updating user information...', { id: 'onsubmit' })
     const filteredSkills = filterSkills(data.skill)
 
     const { error } = await UpdateBioAction({
-      data: {
-        bio: data.addBio,
-        name: data.displayName,
-        skills: filteredSkills,
-      },
+      data: { bio: data.addBio, name: data.displayName, skills: filteredSkills },
     })
 
     if (error?.message) {
       toast.error(error.message)
       return
     }
+    // query invalidation
+    query.invalidateQueries({ queryKey: ['profile-page', userId] })
+    query.invalidateQueries({ queryKey: ['user-profile-edit', userId] })
+    query.invalidateQueries({ queryKey: ['user-skills', userId] })
+    
     toast.success('Profile Update successful')
-    const profileId = localStorage.getItem('profileId')
-    await router.prefetch(`/protected/core/profile/${profileId}`)
+    reset()
     toast.loading('redirecting...', { id: 'onsubmit' })
     router.back()
     toast.dismiss('onsubmit')
@@ -93,9 +94,7 @@ export default function UpdateProfileForm({
     const skill = watch(`skill.${currentSkillIndex}`)
 
     if (!skill?.title.trim()) {
-      setError(`skill.${currentSkillIndex}.title`, {
-        message: 'Skill title is required.',
-      })
+      setError(`skill.${currentSkillIndex}.title`, { message: 'Skill title is required.' })
       return
     }
 
@@ -129,11 +128,7 @@ export default function UpdateProfileForm({
           <div className="flex items-center justify-between">
             <Label className="my-[17px] text-base font-bold">Add a Bio</Label>
             <p className="text-sm text-muted-foreground">
-              <span
-                className={cn({
-                  'text-red-600': watch('addBio')?.length > MAX_BIO_LENGTH,
-                })}
-              >
+              <span className={cn({ 'text-red-600': watch('addBio')?.length > MAX_BIO_LENGTH })}>
                 {watch('addBio')?.length ?? 0}
               </span>
               /{MAX_BIO_LENGTH}
