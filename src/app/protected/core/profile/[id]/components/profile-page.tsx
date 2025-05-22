@@ -66,8 +66,8 @@ export default function ProfilePage({ userId }: { userId: string }) {
   const hasTribe = tribeCount && tribeCount > 0
   const isAuth = true
   return (
-    <main className="mb-12 px-2 sm:px-4">
-      <div className="flex items-center justify-center px-12 pt-12">
+    <main className="mb-12 px-2  sm:px-4">
+      <div className="flex  items-center justify-center px-12 pt-12">
         <div className="relative h-32 w-32">
           <Avatar src={profile_photo ?? ProfilePicture.src} AvtImageClassName="w-full h-full" />
           <div className="absolute -right-2 top-[10%] flex items-center justify-center rounded-full bg-[linear-gradient(180deg,_#F5A243_0%,_#FF6200_100%)]">
@@ -79,12 +79,12 @@ export default function ProfilePage({ userId }: { userId: string }) {
         </div>
       </div>
 
-      <div className="flex flex-col items-center justify-center">
-        <div className="flex items-center justify-center gap-1">
+      <div className="flex flex-col">
+        <div className="flex items-center justify-center gap-1 ">
           <h3 className="text-xl font-bold tracking-tight">{name ?? '-'}</h3>
           <VerifiedIcon />
         </div>
-        <div className="m-1 flex items-center gap-1 text-sm text-muted-foreground">
+        <div className="m-1 flex justify-center items-center gap-1 text-sm text-muted-foreground">
           @
           {username ? <p className="text-sm text-muted-foreground">{username}</p> : <SetUsername />}
         </div>
