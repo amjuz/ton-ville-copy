@@ -54,8 +54,9 @@ export default function TribesFormDialog({
     onMutate() {
       toast.loading('Creating Tribes...')
     },
-    onSuccess() {
+    async onSuccess() {
       reset()
+      await query.invalidateQueries({ queryKey: ['tribes-trending-card'] })
       toast.dismiss()
       toast.success('Tribes created successfully.')
       setOpen(false)
@@ -72,9 +73,10 @@ export default function TribesFormDialog({
     },
     async onSuccess() {
       reset()
+      await query.invalidateQueries({ queryKey: [`tribe-page-${tribeId}`] })
+      await query.invalidateQueries({ queryKey: ['tribes-trending-card'] })
       toast.dismiss()
       toast.success('Tribes created successfully.')
-      await query.refetchQueries({ queryKey: [`tribe-page-${tribeId}`] })
 
       setOpen(false)
     },

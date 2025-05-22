@@ -56,7 +56,8 @@ export default function CreateQuestForm({
       toast.dismiss()
       toast.success('Quest created successfully.')
       reset()
-      await query.refetchQueries({ queryKey: ['tribes-quests', tribeId] })
+      await query.invalidateQueries({ queryKey: ['tribes-quests', tribeId] })
+      await query.invalidateQueries({ queryKey: ['quest-trending-card'] })
       onOpenChange(false)
     },
     onError() {

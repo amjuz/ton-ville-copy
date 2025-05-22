@@ -44,7 +44,7 @@ export default function ImageUploadComponent({ imageUrl }: { imageUrl?: string }
       onSuccess() {
         setButtonVisibility(false)
         toast.success('Image updated successfully')
-        query.refetchQueries({ queryKey: ['profile-page', userId] })
+        query.invalidateQueries({ queryKey: ['profile-page', userId] })
         toast.dismiss(toastId)
         setCancelButtonVisibility(false)
       },

@@ -12,7 +12,7 @@ export default function CreateTribeButton({ label }: { label: string }) {
   const query = useQueryClient()
   useEffect(() => {
     async function mounted() {
-      await query.refetchQueries({ queryKey: [`profile-page-tribes-query-${userId}`] })
+      await query.invalidateQueries({ queryKey: [`profile-page-tribes-query-${userId}`] })
     }
     mounted()
   }, [open, query])

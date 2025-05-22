@@ -58,7 +58,8 @@ export default function CreateEventForm({
       toast.loading('Creating Events...')
     },
     async onSuccess() {
-      await query.refetchQueries({ queryKey: ['tribes-events', tribeId] })
+      await query.invalidateQueries({ queryKey: ['tribes-events', tribeId] })
+      await query.invalidateQueries({ queryKey: ['events-trending-card'] })
       toast.dismiss()
       toast.success('Events created successfully.')
       reset()
