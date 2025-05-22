@@ -49,8 +49,8 @@ export default function MiniCardList() {
           place={item.location ?? ''}
           title={item.title ?? ''}
           userName={item.author ?? ''}
-          eventId={item.id}
-          tribeId={item.tribeId}
+          eventId={item.id ?? ''}
+          tribeId={item.tribeId ?? ''}
         />
       ))}
       {/* {hasNextPage ? <MiniCardInfiniteQuerySkelton ref={ref} count={2} /> : null} */}

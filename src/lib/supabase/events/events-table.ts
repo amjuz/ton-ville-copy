@@ -98,8 +98,8 @@ export async function getAllEvent() {
   if (error) throw new Error('Events fetch failed')
   const eventsData = data.map(({ events, tribes }) => ({
     ...events,
-    tribeId: tribes.id,
-    author: tribes.author,
+    tribeId: tribes?.id,
+    author: tribes?.author,
   }))
   return eventsData
 }

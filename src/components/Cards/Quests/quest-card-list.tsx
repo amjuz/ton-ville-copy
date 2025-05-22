@@ -46,9 +46,9 @@ export default function QuestCardList() {
     >
       {data?.map((item, i) => (
         <QuestCard
-          tribeId={item.tribeId}
+          tribeId={item.tribeId ?? ''}
           author={item.author ?? ''}
-          questId={item.id}
+          questId={item.id ?? ''}
           description={item.description ?? ''}
           imageAlt={''}
           imageSrc={item.questImage ?? ''}

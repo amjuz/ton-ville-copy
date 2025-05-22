@@ -569,64 +569,64 @@
     mermaid "^10.8.0"
     puppeteer "^19.0.0"
 
-"@next/bundle-analyzer@^15.0.3":
-  version "15.0.3"
-  resolved "https://registry.yarnpkg.com/@next/bundle-analyzer/-/bundle-analyzer-15.0.3.tgz#58615521d2ae649687d0c7592b9d11a2aa92c19b"
-  integrity sha512-x7ZNvpoQPO0C5ZG//qVp21Qs3v6+C8LBJmdu9DKj4/NmjlnwoQ7dqRZ/nKZcwVhkFT7BHf+Qd5FaeHq9IDJvDQ==
+"@next/bundle-analyzer@15.0.2":
+  version "15.0.2"
+  resolved "https://registry.yarnpkg.com/@next/bundle-analyzer/-/bundle-analyzer-15.0.2.tgz#bbce45c5f6f5df9de575eef065b567a3367f6915"
+  integrity sha512-bV566k+rDsaqXSUgHBof0iMIDx5DWtLx/98jvYtqb9x85e+WJzv+8cpDvbjtxQMf7nFC/LUkPmpruj1cOKfz4A==
   dependencies:
     webpack-bundle-analyzer "4.10.1"
 
-"@next/env@15.0.3":
-  version "15.0.3"
-  resolved "https://registry.yarnpkg.com/@next/env/-/env-15.0.3.tgz#a2e9bf274743c52b74d30f415f3eba750d51313a"
-  integrity sha512-t9Xy32pjNOvVn2AS+Utt6VmyrshbpfUMhIjFO60gI58deSo/KgLOp31XZ4O+kY/Is8WAGYwA5gR7kOb1eORDBA==
+"@next/env@15.0.2":
+  version "15.0.2"
+  resolved "https://registry.yarnpkg.com/@next/env/-/env-15.0.2.tgz#4e921af3faf8a16c6be98ec6a81a32a40050a8b7"
+  integrity sha512-c0Zr0ModK5OX7D4ZV8Jt/wqoXtitLNPwUfG9zElCZztdaZyNVnN40rDXVZ/+FGuR4CcNV5AEfM6N8f+Ener7Dg==
 
-"@next/eslint-plugin-next@15.0.3":
-  version "15.0.3"
-  resolved "https://registry.yarnpkg.com/@next/eslint-plugin-next/-/eslint-plugin-next-15.0.3.tgz#ce953098036d462f6901e423cc6445fc165b78c4"
-  integrity sha512-3Ln/nHq2V+v8uIaxCR6YfYo7ceRgZNXfTd3yW1ukTaFbO+/I8jNakrjYWODvG9BuR2v5kgVtH/C8r0i11quOgw==
+"@next/eslint-plugin-next@15.0.2":
+  version "15.0.2"
+  resolved "https://registry.yarnpkg.com/@next/eslint-plugin-next/-/eslint-plugin-next-15.0.2.tgz#4aa6e4d3cd5d2d7239bf69e253471a92bd47ac67"
+  integrity sha512-R9Jc7T6Ge0txjmqpPwqD8vx6onQjynO9JT73ArCYiYPvSrwYXepH/UY/WdKDY8JPWJl72sAE4iGMHPeQ5xdEWg==
   dependencies:
     fast-glob "3.3.1"
 
-"@next/swc-darwin-arm64@15.0.3":
-  version "15.0.3"
-  resolved "https://registry.yarnpkg.com/@next/swc-darwin-arm64/-/swc-darwin-arm64-15.0.3.tgz#4c40c506cf3d4d87da0204f4cccf39e6bdc46a71"
-  integrity sha512-s3Q/NOorCsLYdCKvQlWU+a+GeAd3C8Rb3L1YnetsgwXzhc3UTWrtQpB/3eCjFOdGUj5QmXfRak12uocd1ZiiQw==
+"@next/swc-darwin-arm64@15.0.2":
+  version "15.0.2"
+  resolved "https://registry.yarnpkg.com/@next/swc-darwin-arm64/-/swc-darwin-arm64-15.0.2.tgz#66f84083f1f564d09bbacff8d6b24bd833783bef"
+  integrity sha512-GK+8w88z+AFlmt+ondytZo2xpwlfAR8U6CRwXancHImh6EdGfHMIrTSCcx5sOSBei00GyLVL0ioo1JLKTfprgg==
 
-"@next/swc-darwin-x64@15.0.3":
-  version "15.0.3"
-  resolved "https://registry.yarnpkg.com/@next/swc-darwin-x64/-/swc-darwin-x64-15.0.3.tgz#8e06cacae3dae279744f9fbe88dea679ec2c1ca3"
-  integrity sha512-Zxl/TwyXVZPCFSf0u2BNj5sE0F2uR6iSKxWpq4Wlk/Sv9Ob6YCKByQTkV2y6BCic+fkabp9190hyrDdPA/dNrw==
+"@next/swc-darwin-x64@15.0.2":
+  version "15.0.2"
+  resolved "https://registry.yarnpkg.com/@next/swc-darwin-x64/-/swc-darwin-x64-15.0.2.tgz#1aef085642f363b89acf264cf1b9848632b52914"
+  integrity sha512-KUpBVxIbjzFiUZhiLIpJiBoelqzQtVZbdNNsehhUn36e2YzKHphnK8eTUW1s/4aPy5kH/UTid8IuVbaOpedhpw==
 
-"@next/swc-linux-arm64-gnu@15.0.3":
-  version "15.0.3"
-  resolved "https://registry.yarnpkg.com/@next/swc-linux-arm64-gnu/-/swc-linux-arm64-gnu-15.0.3.tgz#c144ad1f21091b9c6e1e330ecc2d56188763191d"
-  integrity sha512-T5+gg2EwpsY3OoaLxUIofmMb7ohAUlcNZW0fPQ6YAutaWJaxt1Z1h+8zdl4FRIOr5ABAAhXtBcpkZNwUcKI2fw==
+"@next/swc-linux-arm64-gnu@15.0.2":
+  version "15.0.2"
+  resolved "https://registry.yarnpkg.com/@next/swc-linux-arm64-gnu/-/swc-linux-arm64-gnu-15.0.2.tgz#203b41742e60642587e004773a8c203053b6832e"
+  integrity sha512-9J7TPEcHNAZvwxXRzOtiUvwtTD+fmuY0l7RErf8Yyc7kMpE47MIQakl+3jecmkhOoIyi/Rp+ddq7j4wG6JDskQ==
 
-"@next/swc-linux-arm64-musl@15.0.3":
-  version "15.0.3"
-  resolved "https://registry.yarnpkg.com/@next/swc-linux-arm64-musl/-/swc-linux-arm64-musl-15.0.3.tgz#3ccb71c6703bf421332f177d1bb0e10528bc73a2"
-  integrity sha512-WkAk6R60mwDjH4lG/JBpb2xHl2/0Vj0ZRu1TIzWuOYfQ9tt9NFsIinI1Epma77JVgy81F32X/AeD+B2cBu/YQA==
+"@next/swc-linux-arm64-musl@15.0.2":
+  version "15.0.2"
+  resolved "https://registry.yarnpkg.com/@next/swc-linux-arm64-musl/-/swc-linux-arm64-musl-15.0.2.tgz#d256932ec11051f376348862508be9017b23f3d8"
+  integrity sha512-BjH4ZSzJIoTTZRh6rG+a/Ry4SW0HlizcPorqNBixBWc3wtQtj4Sn9FnRZe22QqrPnzoaW0ctvSz4FaH4eGKMww==
 
-"@next/swc-linux-x64-gnu@15.0.3":
-  version "15.0.3"
-  resolved "https://registry.yarnpkg.com/@next/swc-linux-x64-gnu/-/swc-linux-x64-gnu-15.0.3.tgz#b90aa9b07001b4000427c35ab347a9273cbeebb3"
-  integrity sha512-gWL/Cta1aPVqIGgDb6nxkqy06DkwJ9gAnKORdHWX1QBbSZZB+biFYPFti8aKIQL7otCE1pjyPaXpFzGeG2OS2w==
+"@next/swc-linux-x64-gnu@15.0.2":
+  version "15.0.2"
+  resolved "https://registry.yarnpkg.com/@next/swc-linux-x64-gnu/-/swc-linux-x64-gnu-15.0.2.tgz#06c52a23a7e13d5ccd0ded1cf295b32df58e0932"
+  integrity sha512-i3U2TcHgo26sIhcwX/Rshz6avM6nizrZPvrDVDY1bXcLH1ndjbO8zuC7RoHp0NSK7wjJMPYzm7NYL1ksSKFreA==
 
-"@next/swc-linux-x64-musl@15.0.3":
-  version "15.0.3"
-  resolved "https://registry.yarnpkg.com/@next/swc-linux-x64-musl/-/swc-linux-x64-musl-15.0.3.tgz#0ac9724fb44718fc97bfea971ac3fe17e486590e"
-  integrity sha512-QQEMwFd8r7C0GxQS62Zcdy6GKx999I/rTO2ubdXEe+MlZk9ZiinsrjwoiBL5/57tfyjikgh6GOU2WRQVUej3UA==
+"@next/swc-linux-x64-musl@15.0.2":
+  version "15.0.2"
+  resolved "https://registry.yarnpkg.com/@next/swc-linux-x64-musl/-/swc-linux-x64-musl-15.0.2.tgz#eb70a81a1c66d4935d50bf6fe1021e440f27fe9f"
+  integrity sha512-AMfZfSVOIR8fa+TXlAooByEF4OB00wqnms1sJ1v+iu8ivwvtPvnkwdzzFMpsK5jA2S9oNeeQ04egIWVb4QWmtQ==
 
-"@next/swc-win32-arm64-msvc@15.0.3":
-  version "15.0.3"
-  resolved "https://registry.yarnpkg.com/@next/swc-win32-arm64-msvc/-/swc-win32-arm64-msvc-15.0.3.tgz#932437d4cf27814e963ba8ae5f033b4421fab9ca"
-  integrity sha512-9TEp47AAd/ms9fPNgtgnT7F3M1Hf7koIYYWCMQ9neOwjbVWJsHZxrFbI3iEDJ8rf1TDGpmHbKxXf2IFpAvheIQ==
+"@next/swc-win32-arm64-msvc@15.0.2":
+  version "15.0.2"
+  resolved "https://registry.yarnpkg.com/@next/swc-win32-arm64-msvc/-/swc-win32-arm64-msvc-15.0.2.tgz#29a763bdc3a1281633af10cf8428e916e02f079a"
+  integrity sha512-JkXysDT0/hEY47O+Hvs8PbZAeiCQVxKfGtr4GUpNAhlG2E0Mkjibuo8ryGD29Qb5a3IOnKYNoZlh/MyKd2Nbww==
 
-"@next/swc-win32-x64-msvc@15.0.3":
-  version "15.0.3"
-  resolved "https://registry.yarnpkg.com/@next/swc-win32-x64-msvc/-/swc-win32-x64-msvc-15.0.3.tgz#940a6f7b370cdde0cc67eabe945d9e6d97e0be9f"
-  integrity sha512-VNAz+HN4OGgvZs6MOoVfnn41kBzT+M+tB+OK4cww6DNyWS6wKaDpaAm/qLeOUbnMh0oVx1+mg0uoYARF69dJyA==
+"@next/swc-win32-x64-msvc@15.0.2":
+  version "15.0.2"
+  resolved "https://registry.yarnpkg.com/@next/swc-win32-x64-msvc/-/swc-win32-x64-msvc-15.0.2.tgz#0f70d8146990886a85099875353539fc6dd68338"
+  integrity sha512-foaUL0NqJY/dX0Pi/UcZm5zsmSk5MtP/gxx3xOPyREkMFN+CTjctPfu3QaqrQHinaKdPnMWPJDKt4VjDfTBe/Q==
 
 "@nodelib/fs.scandir@2.1.5":
   version "2.1.5"
@@ -1451,6 +1451,30 @@
     "@telegram-apps/transformers" "^1.2.2"
     "@telegram-apps/types" "^1.2.1"
 
+"@telegram-apps/bridge@^1.9.2":
+  version "1.9.2"
+  resolved "https://registry.yarnpkg.com/@telegram-apps/bridge/-/bridge-1.9.2.tgz#5dbff521fbe3160ff6134fbb53fd3a8306306eb2"
+  integrity sha512-SJLcNWLXhbbZr9MiqFH/g2ceuitSJKMxUIZysK4zUNyTUNuonrQG80Q/yrO+XiNbKUj8WdDNM86NBARhuyyinQ==
+  dependencies:
+    "@telegram-apps/signals" "^1.1.1"
+    "@telegram-apps/toolkit" "^1.1.1"
+    "@telegram-apps/transformers" "^1.2.2"
+    "@telegram-apps/types" "^1.2.1"
+
+"@telegram-apps/bridge@^2.8.2":
+  version "2.8.2"
+  resolved "https://registry.yarnpkg.com/@telegram-apps/bridge/-/bridge-2.8.2.tgz#47940085cc2f7a422d651570cc24f24eb967c2f4"
+  integrity sha512-DpdvK1FUSklQFRaqV84rzhxUU/Pe6tVW497CtUfUZ87wenf/NY8Tvd5GONTJpAVb+H7wGcEcolielLOq1dSV5g==
+  dependencies:
+    "@telegram-apps/signals" "^1.1.1"
+    "@telegram-apps/toolkit" "^2.1.2"
+    "@telegram-apps/transformers" "^2.2.3"
+    "@telegram-apps/types" "^2.0.0"
+    better-promises "^0.4.1"
+    error-kid "^0.0.7"
+    mitt "^3.0.1"
+    valibot "1.0.0"
+
 "@telegram-apps/init-data-node@^1.1.1":
   version "1.1.1"
   resolved "https://registry.yarnpkg.com/@telegram-apps/init-data-node/-/init-data-node-1.1.1.tgz#da7b465a04589f6abaa1e4258e46996bbf99e4f6"
@@ -1466,6 +1490,15 @@
   integrity sha512-lkVO+YKET+7lIjFc5w6dPhqi4LRJz9l/xuuLEghslw8kawYRX/SubxKXq33f2A6FLqnIaxc0iwoiobxGTemM4g==
   dependencies:
     "@telegram-apps/bridge" "^1.9.1"
+    "@telegram-apps/signals" "^1.1.1"
+    "@telegram-apps/toolkit" "^1.1.1"
+
+"@telegram-apps/navigation@^1.0.13":
+  version "1.0.13"
+  resolved "https://registry.yarnpkg.com/@telegram-apps/navigation/-/navigation-1.0.13.tgz#9fb861533729a3ed227cc92b7f2c907bd9017870"
+  integrity sha512-TsUueB5LQp77GQHoMa93nq26Uw7GJjrFCPbyseMVU7aBBxAc+8CV2IYytRwcVp5sv/q7ThK5X4JaKn2V1yBHDQ==
+  dependencies:
+    "@telegram-apps/bridge" "^1.9.2"
     "@telegram-apps/signals" "^1.1.1"
     "@telegram-apps/toolkit" "^1.1.1"
 
@@ -1486,6 +1519,21 @@
     "@telegram-apps/signals" "^1.1.1"
     "@telegram-apps/toolkit" "^1.1.1"
     "@telegram-apps/transformers" "^1.2.2"
+
+"@telegram-apps/sdk@^3.10.0":
+  version "3.10.0"
+  resolved "https://registry.yarnpkg.com/@telegram-apps/sdk/-/sdk-3.10.0.tgz#3c21f2bd3ea0d3afdae87fde350be5fd8f06382e"
+  integrity sha512-LD7mk0STzFGh2Qws2cyTAudLaAb4cT8nUJDBCdaBitLjmndru13UZHjsU9dzZCD9jpeJmqaQjhHNjtRHMithTg==
+  dependencies:
+    "@telegram-apps/bridge" "^2.8.2"
+    "@telegram-apps/navigation" "^1.0.13"
+    "@telegram-apps/signals" "^1.1.1"
+    "@telegram-apps/toolkit" "^2.1.2"
+    "@telegram-apps/transformers" "^2.2.3"
+    "@telegram-apps/types" "^2.0.0"
+    better-promises "^0.4.1"
+    error-kid "^0.0.7"
+    valibot "1.0.0"
 
 "@telegram-apps/signals@^1.1.1":
   version "1.1.1"
@@ -1512,6 +1560,11 @@
   resolved "https://registry.yarnpkg.com/@telegram-apps/toolkit/-/toolkit-1.1.1.tgz#939c30f07dab7c3d754765b60021210cb9669b84"
   integrity sha512-+vhKx6ngfvjyTE6Xagl3z1TPVbfx5s7xAkcYzCdHYUo6T60jLIqLgyZMcI1UPoIAMuMu1pHoO+p8QNCj/+tFmw==
 
+"@telegram-apps/toolkit@^2.1.2":
+  version "2.1.2"
+  resolved "https://registry.yarnpkg.com/@telegram-apps/toolkit/-/toolkit-2.1.2.tgz#332ea0fc50468ec0b256256d9a337e596b029592"
+  integrity sha512-iAPjn7RNVEm4o+LPJg1mYv7eDOnCatVEvep7JT74awTt3tn8pVpTYeUbDIFBuOF2BRSIzUgPUYQgVhQcDFTpUg==
+
 "@telegram-apps/transformers@^1.0.1":
   version "1.0.1"
   resolved "https://registry.yarnpkg.com/@telegram-apps/transformers/-/transformers-1.0.1.tgz#42821eb836598e714362865231e6ef01a3c92632"
@@ -1528,6 +1581,15 @@
     "@telegram-apps/toolkit" "^1.1.1"
     "@telegram-apps/types" "^1.2.1"
 
+"@telegram-apps/transformers@^2.2.3":
+  version "2.2.3"
+  resolved "https://registry.yarnpkg.com/@telegram-apps/transformers/-/transformers-2.2.3.tgz#1b1785890620ca7a6a7adea114b4f35d12d0fe2b"
+  integrity sha512-CFQqs7iXw6yuUMBzU1/W/EGW6RlrO0ZViJGFa0ButyHVxOnmM+d5vJmlAiqBFtnUutK9Q2GfbHZoGLW8qSs5YQ==
+  dependencies:
+    "@telegram-apps/toolkit" "^2.1.2"
+    "@telegram-apps/types" "^2.0.0"
+    valibot "1.0.0-beta.14"
+
 "@telegram-apps/types@^1.0.1":
   version "1.0.1"
   resolved "https://registry.yarnpkg.com/@telegram-apps/types/-/types-1.0.1.tgz#211597cfa0d515b544917e491031f07c01faf394"
@@ -1537,6 +1599,11 @@
   version "1.2.1"
   resolved "https://registry.yarnpkg.com/@telegram-apps/types/-/types-1.2.1.tgz#e5886f65ec399c06838c257e96e2b130213c6d6c"
   integrity sha512-so4HLh7clur0YyMthi9KVIgWoGpZdXlFOuQjk3+Q5NAvJZ11nAheBSwPlGw/Ko92+zwvrSBE/lQyN2+p17RP+w==
+
+"@telegram-apps/types@^2.0.0":
+  version "2.0.0"
+  resolved "https://registry.yarnpkg.com/@telegram-apps/types/-/types-2.0.0.tgz#5e4eb0e32b6bdeacf08abc4ebfbeef6c4228219f"
+  integrity sha512-yF499FJK82a2IDNDAQdrmVH3sgFZl/QFNdVZKgWpgtunIVJ1fres5wi9+4aUBRVIdQwZOZZqB/AOvYYuYXsq3Q==
 
 "@tootallnate/once@2.0.0":
   version "2.0.0"
@@ -2332,6 +2399,13 @@ before-after-hook@^3.0.2:
   version "3.0.2"
   resolved "https://registry.yarnpkg.com/before-after-hook/-/before-after-hook-3.0.2.tgz#d5665a5fa8b62294a5aa0a499f933f4a1016195d"
   integrity sha512-Nik3Sc0ncrMK4UUdXQmAnRtzmNQTAAXmXIopizwZ1W1t8QmfJj+zL4OA2I7XPTPW5z5TDqv4hRo/JzouDJnX3A==
+
+better-promises@^0.4.1:
+  version "0.4.1"
+  resolved "https://registry.yarnpkg.com/better-promises/-/better-promises-0.4.1.tgz#37d23067d918160fdc8b0a074cb39e5afe630f3d"
+  integrity sha512-cDW7eMvhvCoWzSih5o/OxsAgTUfP05yGMq77xNZUTmcZoNU9vEeFZJ+yJJi4lnocvxFrVFKsG0Yxt7ZnuYJEig==
+  dependencies:
+    error-kid "^0.0.7"
 
 bin-links@^5.0.0:
   version "5.0.0"
@@ -3441,6 +3515,11 @@ error-ex@^1.3.1:
   dependencies:
     is-arrayish "^0.2.1"
 
+error-kid@^0.0.7:
+  version "0.0.7"
+  resolved "https://registry.yarnpkg.com/error-kid/-/error-kid-0.0.7.tgz#43c0646d7b359acae5737f614f21a9ece2c04e9a"
+  integrity sha512-8mFs7ZaDWlBFgjOy4lHLMCe2+KZfZXGx5GOgh2VQ/M1CCIvSWzbl2OMl+5fdZgrgoUfhTeF+NPhmqfEvUhN8yw==
+
 eruda@^3.4.1:
   version "3.4.1"
   resolved "https://registry.yarnpkg.com/eruda/-/eruda-3.4.1.tgz#5ff04fa2c55c3a5f4998e48c952adb759307b53f"
@@ -3751,12 +3830,12 @@ escodegen@^1.8.1:
   optionalDependencies:
     source-map "~0.6.1"
 
-eslint-config-next@15.0.3:
-  version "15.0.3"
-  resolved "https://registry.yarnpkg.com/eslint-config-next/-/eslint-config-next-15.0.3.tgz#b483585260d5e55050d4ab87e053c88089ae12ee"
-  integrity sha512-IGP2DdQQrgjcr4mwFPve4DrCqo7CVVez1WoYY47XwKSrYO4hC0Dlb+iJA60i0YfICOzgNADIb8r28BpQ5Zs0wg==
+eslint-config-next@15.0.2:
+  version "15.0.2"
+  resolved "https://registry.yarnpkg.com/eslint-config-next/-/eslint-config-next-15.0.2.tgz#b06ce97f88a4a0a82cbf3d353359ff5680d01f67"
+  integrity sha512-N8o6cyUXzlMmQbdc2Kc83g1qomFi3ITqrAZfubipVKET2uR2mCStyGRcx/r8WiAIVMul2KfwRiCHBkTpBvGBmA==
   dependencies:
-    "@next/eslint-plugin-next" "15.0.3"
+    "@next/eslint-plugin-next" "15.0.2"
     "@rushstack/eslint-patch" "^1.10.3"
     "@typescript-eslint/eslint-plugin" "^5.4.2 || ^6.0.0 || ^7.0.0 || ^8.0.0"
     "@typescript-eslint/parser" "^5.4.2 || ^6.0.0 || ^7.0.0 || ^8.0.0"
@@ -5805,6 +5884,11 @@ mitt@3.0.0:
   resolved "https://registry.yarnpkg.com/mitt/-/mitt-3.0.0.tgz#69ef9bd5c80ff6f57473e8d89326d01c414be0bd"
   integrity sha512-7dX2/10ITVyqh4aOSVI9gdape+t9l2/8QxHrFmUXu4EEUpdlxl6RudZUPZoc+zuY2hk1j7XxVroIVIan/pD/SQ==
 
+mitt@^3.0.1:
+  version "3.0.1"
+  resolved "https://registry.yarnpkg.com/mitt/-/mitt-3.0.1.tgz#ea36cf0cc30403601ae074c8f77b7092cdab36d1"
+  integrity sha512-vKivATfr97l2/QBCYAkXYDbrIWPM2IIKEl7YPhjCvKlG3kE2gm+uBo6nEXK3M5/Ffh/FLpKExzOQ3JJoJGFKBw==
+
 mkdirp-classic@^0.5.2:
   version "0.5.3"
   resolved "https://registry.yarnpkg.com/mkdirp-classic/-/mkdirp-classic-0.5.3.tgz#fa10c9115cc6d8865be221ba47ee9bed78601113"
@@ -5881,12 +5965,12 @@ next-themes@^0.3.0:
   resolved "https://registry.yarnpkg.com/next-themes/-/next-themes-0.3.0.tgz#b4d2a866137a67d42564b07f3a3e720e2ff3871a"
   integrity sha512-/QHIrsYpd6Kfk7xakK4svpDI5mmXP0gfvCoJdGpZQ2TOrQZmsW0QxjaiLn8wbIKjtm4BTSqLoix4lxYYOnLJ/w==
 
-next@latest:
-  version "15.0.3"
-  resolved "https://registry.yarnpkg.com/next/-/next-15.0.3.tgz#804f5b772e7570ef1f088542a59860914d3288e9"
-  integrity sha512-ontCbCRKJUIoivAdGB34yCaOcPgYXr9AAkV/IwqFfWWTXEPUgLYkSkqBhIk9KK7gGmgjc64B+RdoeIDM13Irnw==
+next@15.0.2:
+  version "15.0.2"
+  resolved "https://registry.yarnpkg.com/next/-/next-15.0.2.tgz#4a2224c007856118010b8cef5e9b2383cd743388"
+  integrity sha512-rxIWHcAu4gGSDmwsELXacqAPUk+j8dV/A9cDF5fsiCMpkBDYkO2AEaL1dfD+nNmDiU6QMCFN8Q30VEKapT9UHQ==
   dependencies:
-    "@next/env" "15.0.3"
+    "@next/env" "15.0.2"
     "@swc/counter" "0.1.3"
     "@swc/helpers" "0.5.13"
     busboy "1.6.0"
@@ -5894,14 +5978,14 @@ next@latest:
     postcss "8.4.31"
     styled-jsx "5.1.6"
   optionalDependencies:
-    "@next/swc-darwin-arm64" "15.0.3"
-    "@next/swc-darwin-x64" "15.0.3"
-    "@next/swc-linux-arm64-gnu" "15.0.3"
-    "@next/swc-linux-arm64-musl" "15.0.3"
-    "@next/swc-linux-x64-gnu" "15.0.3"
-    "@next/swc-linux-x64-musl" "15.0.3"
-    "@next/swc-win32-arm64-msvc" "15.0.3"
-    "@next/swc-win32-x64-msvc" "15.0.3"
+    "@next/swc-darwin-arm64" "15.0.2"
+    "@next/swc-darwin-x64" "15.0.2"
+    "@next/swc-linux-arm64-gnu" "15.0.2"
+    "@next/swc-linux-arm64-musl" "15.0.2"
+    "@next/swc-linux-x64-gnu" "15.0.2"
+    "@next/swc-linux-x64-musl" "15.0.2"
+    "@next/swc-win32-arm64-msvc" "15.0.2"
+    "@next/swc-win32-x64-msvc" "15.0.2"
     sharp "^0.33.5"
 
 ngrok@^5.0.0-beta.2:
@@ -8100,6 +8184,16 @@ v8-compile-cache-lib@^3.0.1:
   resolved "https://registry.yarnpkg.com/v8-compile-cache-lib/-/v8-compile-cache-lib-3.0.1.tgz#6336e8d71965cb3d35a1bbb7868445a7c05264bf"
   integrity sha512-wa7YjyUGfNZngI/vtK0UHAN+lgDCxBPCylVXGp0zu59Fz5aiGtNXaq3DhIov063MorB+VfufLh3JlF2KdTK3xg==
 
+valibot@1.0.0:
+  version "1.0.0"
+  resolved "https://registry.yarnpkg.com/valibot/-/valibot-1.0.0.tgz#1f82514296abcd23d0ae4280088ba85f8651c564"
+  integrity sha512-1Hc0ihzWxBar6NGeZv7fPLY0QuxFMyxwYR2sF1Blu7Wq7EnremwY2W02tit2ij2VJT8HcSkHAQqmFfl77f73Yw==
+
+valibot@1.0.0-beta.14:
+  version "1.0.0-beta.14"
+  resolved "https://registry.yarnpkg.com/valibot/-/valibot-1.0.0-beta.14.tgz#a02dab44ec538d4b2a36da4a2770eddc64f94da6"
+  integrity sha512-tLyV2rE5QL6U29MFy3xt4AqMrn+/HErcp2ZThASnQvPMwfSozjV1uBGKIGiegtZIGjinJqn0SlBdannf18wENA==
+
 validate-npm-package-license@^3.0.1:
   version "3.0.4"
   resolved "https://registry.yarnpkg.com/validate-npm-package-license/-/validate-npm-package-license-3.0.4.tgz#fc91f6b9c7ba15c857f4cb2c5defeec39d4f410a"
@@ -8436,7 +8530,7 @@ zsa-react@^0.2.3:
   dependencies:
     zsa "*"
 
-zsa@*:
+zsa@*, zsa@^0.6.0:
   version "0.6.0"
   resolved "https://registry.yarnpkg.com/zsa/-/zsa-0.6.0.tgz#82800d2b177c82fde3129b0e54bf510b87fbfbb7"
   integrity sha512-Pq3X4T0dna5s4dIevYOJiRdM3DUHRvEHS2q1AH/bvkPSh640u+9veVj5zmzmbL0A6cpXMYagwKsR4keGOc0jPQ==

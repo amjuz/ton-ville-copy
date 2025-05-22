@@ -94,8 +94,8 @@ export async function getAllQuest() {
   if (error) throw new Error('Quest fetch failed')
   const questData = data.map(({ quests, tribes }) => ({
     ...quests,
-    author: tribes.author,
-    tribeId: tribes.id,
+    author: tribes?.author,
+    tribeId: tribes?.id,
   }))
   return questData
 }
