@@ -7,9 +7,7 @@ export default function TribeQuestPage() {
   return (
     <main>
       {/* Add Loaders state as fallback and call the query ->  */}
-      <Suspense fallback={<></>}>
-        <QuestPageWrapper />
-      </Suspense>
+      <QuestPageWrapper />
     </main>
   )
 }

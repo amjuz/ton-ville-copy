@@ -1,6 +1,7 @@
+import { motion } from 'framer-motion'
 import { EllipsisVertical } from 'lucide-react'
 import Image from 'next/image'
-import React from 'react'
+import React, { useState } from 'react'
 import { useParams } from 'next/navigation'
 import { useQuery } from '@tanstack/react-query'
 import questPlaceHolders from '@/assets/images/mock/quest-card-mock.png'
@@ -9,6 +10,8 @@ import { Button } from '@/components/ui/button'
 import { getQuest } from '@/lib/supabase/quests/quests-table'
 import { Skeleton } from '@/components/ui/skeleton'
 import { QuestCardSkeleton } from '@/components/skelton/quest-card-skeleton'
+import { ErrorBoundary } from 'next/dist/client/components/error-boundary'
+import ErrorPageDisplay from '@/components/error/error-page-display'
 
 const items = [
   'Retweet and Like the tweet in the link below from your twitter account.',
@@ -23,6 +26,7 @@ export default function QuestPageWrapper() {
    * fetch data here
    *  so the suspense can work
    */
+  const [joined, setJoined] = useState(false)
   const params = useParams()
   const questId = params.questId as string
 
@@ -30,27 +34,35 @@ export default function QuestPageWrapper() {
     queryKey: ['event-page', questId],
     queryFn: () => getQuest(questId),
   })
-  if (!data) return <>No data found</>
-  if (error) return <>Error fetching events</>
   if (isLoading) return <QuestCardSkeleton />
+  if (error) return <ErrorPageDisplay message="Failed to fetch quests details, please retry" />
+
   return (
     <div className="mt-4 p-2 sm:p-4">
       <Image
-        src={data.questImage ?? questPlaceHolders.src}
+        src={data?.questImage ?? questPlaceHolders.src}
         width={720}
         height={480}
         alt="Quest image fallback"
-        className="rounded-2xl border-2 object-cover"
+        className="max-h-96 rounded-2xl border-2 object-cover"
       />
       <div className="mt-5 pl-1">
-        <h1 className="text-2xl font-bold">{data.title}</h1>
-        <p className="text-muted-foreground">{data.subTitle}</p>
-        <p className="mt-2">{data.description}</p>
+        <h1 className="text-2xl font-bold">{data?.title}</h1>
+        <p className="text-muted-foreground">{data?.subTitle}</p>
+        <p className="mt-2">{data?.description}</p>
       </div>
       <div className="mt-8 flex gap-2">
-        <Button size={'lg'} className="basis-full rounded-xl">
-          Participate
-        </Button>
+        <motion.div whileTap={{ scale: 0.95 }} className="basis-full">
+          <Button
+            size="lg"
+            className={`w-full rounded-xl transition-colors duration-300 ${
+              joined ? 'bg-green-600 hover:bg-green-700' : ''
+            }`}
+            onClick={() => setJoined(true)}
+          >
+            {joined ? 'Participated' : 'Participate'}
+          </Button>
+        </motion.div>{' '}
         <Button size={'lg'} variant={'secondary'} className="basis-full rounded-xl">
           Share
         </Button>

@@ -1,5 +1,6 @@
 'use client'
 
+import { motion } from 'framer-motion'
 import { EllipsisVertical } from 'lucide-react'
 import Image from 'next/image'
 import { useParams } from 'next/navigation'
@@ -14,6 +15,8 @@ import { Button } from '@/components/ui/button'
 import { getEvent } from '@/lib/supabase/events/events-table'
 import { Skeleton } from '@/components/ui/skeleton'
 import { EventCardSkeleton } from '@/components/skelton/event-page-skelton'
+import ErrorPageDisplay from '@/components/error/error-page-display'
+import { useState } from 'react'
 
 const items = [
   'Retweet and Like the tweet in the link below from your twitter account.',
@@ -30,6 +33,8 @@ export default function EventPageWrapper() {
    * fetch data here
    *  so the suspense can work
    */
+  const [joined, setJoined] = useState(false)
+
   const params = useParams()
   const eventId = params.eventId as string
 
@@ -37,9 +42,8 @@ export default function EventPageWrapper() {
     queryKey: ['event-page', eventId],
     queryFn: () => getEvent(eventId),
   })
-  if (!data) return <>No data found</>
-  if (error) return <>Error fetching events</>
   if (isLoading) return <EventCardSkeleton />
+  if (error) return <ErrorPageDisplay message="Error fetching events" />
 
   const startDate = new Date(data?.date ?? Date.now())
   const endDate = addHours(startDate, 6) // add 6 hours to the event
@@ -51,7 +55,7 @@ export default function EventPageWrapper() {
   return (
     <div className="mt-4 p-2 pb-12 sm:p-4">
       <Image
-        src={data.eventPhoto ?? MiniCardPlaceHolderImage}
+        src={data?.eventPhoto ?? MiniCardPlaceHolderImage}
         alt="hello"
         width={1080}
         height={720}
@@ -77,16 +81,24 @@ export default function EventPageWrapper() {
             {weekdayTime} - {endTime}
           </p>
           <p className="font-medium">
-            {data.location ?? 'City convention centre, Bangkok, Thailand'}
+            {data?.location ?? 'City convention centre, Bangkok, Thailand'}
           </p>
         </div>
       </div>
       {/* <p className="mt-2">Unlock crypto wisdom and stand to win 25 USDT each week by 3 simple steps!</p> */}
-      <div></div>
       <div className="mt-8 flex gap-2">
-        <Button size={'lg'} className="basis-full rounded-xl">
-          Join
-        </Button>
+        <motion.div whileTap={{ scale: 0.95 }} className="basis-full">
+          <Button
+            size="lg"
+            className={`w-full rounded-xl transition-colors duration-300 ${
+              joined ? 'bg-green-600 hover:bg-green-700' : ''
+            }`}
+            onClick={() => setJoined(true)}
+            disabled={joined}
+          >
+            {joined ? 'Joined' : 'Join'}
+          </Button>
+        </motion.div>
         <Button size={'lg'} variant={'secondary'} className="basis-full rounded-xl">
           Enquire
         </Button>
@@ -117,12 +129,13 @@ export default function EventPageWrapper() {
         <p className="text-lg font-bold">About the event</p>
         <div className="mt-2">
           <p className="text-sm text-muted-foreground">
-            Join us at Bangkok Blockchain Week for an insightful workshop as part of the ICP
+            {data?.summary}
+            {/* Join us at Bangkok Blockchain Week for an insightful workshop as part of the ICP
             Chainfusion Hackathon, hosted by ICPTh. The session, Best Practices for Building
             Resilient Decentralized Applications, will guide developers through the essential
             strategies for creating secure, scalable, and resilient dApps. Learn how to identify
             common vulnerabilities, implement robust security measures, and ensure long-term
-            reliability in your decentralized applications.
+            reliability in your decentralized applications. */}
           </p>
           <div className="mt-2">
             <p className="text-lg font-bold">What to Expect</p>

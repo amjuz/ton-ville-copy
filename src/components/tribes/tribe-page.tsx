@@ -24,6 +24,8 @@ import CreateEventForm from '../forms/create-event-form'
 import DateAndTimePicker from '../originui/calendar/date-and-time-picker'
 import TribesFormDialog from './TribesFormDialog'
 import QuestsForTribe from '../Cards/Quests/quests-for-tribe'
+import ErrorPageDisplay from '../error/error-page-display'
+import { Tables } from '@/types/database'
 
 export default function TribePage() {
   const [openQuestDialog, setOpenQuestDialog] = useState(false)
@@ -36,10 +38,10 @@ export default function TribePage() {
     queryKey: [`tribe-page-${tribeId}`],
     queryFn: () => fetchUniqueTribe(tribeId),
   })
-  //   console.log("data",data);
 
-  if (error || !data) {
-    return <>Fetch failed</>
+  if (isLoading) <TribePageSkelton />
+  if (error) {
+    return <ErrorPageDisplay message="Failed to load tribes page, please retry" />
   }
   //   if(isLoading) return <TribePageSkelton/>
   return (
@@ -50,45 +52,45 @@ export default function TribePage() {
             alt="Tribe background image"
             width={1920}
             height={1080}
-            src={data.tribe_cover_photo ?? ApeGroupPic.src}
+            src={data?.tribe_cover_photo ?? ApeGroupPic.src}
             className="aspect-video object-cover"
           />
         </figure>
         <div className="absolute bottom-0 h-[25%] w-full bg-gradient-to-t from-primary-foreground/60 to-primary-foreground/5" />
         <figure className="absolute -bottom-10 left-4 z-10 max-w-fit">
           <Avatar
-            src={data.tribe_photo ?? ProfilePicture.src}
+            src={data?.tribe_photo ?? ProfilePicture.src}
             AvtImageClassName="max-w-20 max-h-20 w-full h-full aspect-sqqure"
           />
         </figure>
       </div>
       <div className="mt-12 px-5">
         <div className="flex items-center justify-between">
-          <h1 className="to text-xl font-bold">{data.tribe_name}</h1>
+          <h1 className="to text-xl font-bold">{data?.tribe_name}</h1>
           <div className="flex items-center gap-2 rounded-2xl bg-primary-foreground/80 px-3 py-2">
             <TribeCoin />
-            <span className="text-sm font-bold">{data.gems === 0 ? 20.2 : data.gems}</span>
+            <span className="text-sm font-bold">{data?.gems === 0 ? 20.2 : data?.gems}</span>
           </div>
         </div>
         <div>
           <div className="flex items-center gap-1">
             <p>By</p>
             <Link href={'/protected/core/profile/dasdas'} className="text-blue-500">
-              {data.author}
+              {data?.author}
             </Link>
             <div className="primary-foreground ml-2 flex items-center gap-0.5 rounded-full px-1.5">
               <div className="h-4 w-4">
                 <Twitter />
               </div>
-              {!data.twitter_id ? (
+              {!data?.twitter_id ? (
                 <SetTwitterName tribeId={tribeId} />
               ) : (
                 <Link
-                  href={`https://x.com/${`${data.twitter_id}`}`}
+                  href={`https://x.com/${`${data?.twitter_id}`}`}
                   target="_blank"
                   className="text-sm"
                 >
-                  {data.twitter_id}
+                  {data?.twitter_id}
                 </Link>
               )}
             </div>
@@ -97,7 +99,7 @@ export default function TribePage() {
         <div className="mt-2">
           {/* need to put mdx here probably. to transalate md. or its formatting. for much more user exp. */}
           <p className="text-sm text-muted-foreground">
-            {data.description}
+            {data?.description}
             {/* We are apes. <br /> Apes together strong!{' '} */}
           </p>
         </div>
@@ -105,7 +107,7 @@ export default function TribePage() {
         <TribeProfileButtonWrapper
           setOpenEventDialog={setOpenEventsDialog}
           setOpenQuestDialog={setOpenQuestDialog}
-          tribeData={data}
+          tribeData={data ?? ({} as Tables['tribes']['Row'])}
         />
 
         <div className="mt-4 flex flex-col gap-2">
