@@ -18,48 +18,29 @@ import {
   getUserSession,
 } from '@/lib/supabase/profile/user'
 import SetUsername from './set-username'
+import ProfilePageSkelton from '@/components/skelton/profile-page-skelton'
 
 export default function ProfilePage({ userId }: { userId: string }) {
-  // const [user, setUser] = useState<any>(null)
-  // const [isAuth, setIsAuth] = useState(false)
-
-  // useEffect(() => {
-  //   getUserSession()
-  //     .then((user) => {
-  //       setUser(user)
-  //       setIsAuth(true)
-  //     })
-  //     .catch(() => setIsAuth(false))
-  // }, [getUserSession, setUser, setIsAuth])
-
   const {
     data: profile,
     isLoading: profileLoading,
     error: profileError,
-  } = useQuery({
-    queryKey: ['profile', userId],
-    queryFn: () => fetchUserProfile(userId),
-  })
+  } = useQuery({ queryKey: ['profile-page', userId], queryFn: () => fetchUserProfile(userId) })
 
   const {
     data: skills,
-    isLoading: skillsLoading,
-    error: skillsError,
-  } = useQuery({
-    queryKey: ['skills', userId],
-    queryFn: () => fetchUserSkills(userId),
-  })
+    // isLoading: skillsLoading,
+    // error: skillsError,
+  } = useQuery({ queryKey: ['skills', userId], queryFn: () => fetchUserSkills(userId) })
 
   const {
     data: tribeCount,
-    isLoading: tribeLoading,
-    error: tribeError,
-  } = useQuery({
-    queryKey: ['tribes', userId],
-    queryFn: () => fetchUserTribeCount(userId),
-  })
-  if (profileLoading) return <div>Loading...</div>
-  if (profileError || !profile || !skills || skillsError || tribeError)
+    // isLoading: tribeLoading,
+    // error: tribeError,
+
+  } = useQuery({ queryKey: ['tribes', userId], queryFn: () => fetchUserTribeCount(userId) })
+  if (profileLoading) return <ProfilePageSkelton/>
+  if (profileError || !profile )
     return <div>Error loading profile</div>
 
   const { bio, follower_count, following_count, gems, name, profile_photo, username } = profile
