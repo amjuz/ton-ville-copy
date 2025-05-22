@@ -30,13 +30,12 @@ export default function ProfileEditPage() {
   })
 
   if (!userId || loadingProfile || loadingSkills || loadingProfile) {
-    return <ImageUploadSkelton/>
+    return <ImageUploadSkelton />
   }
 
   if (profileError || skillsError) {
     return <div className="p-4 text-red-500">Failed to load profile. Please try again later.</div>
   }
-
 
   return (
     <main className="px-4 pt-2">

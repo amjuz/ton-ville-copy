@@ -8,8 +8,7 @@ import { TTrendingCardMockData } from '@/mock/trendingCard'
 import TrendingCard from './trending-card'
 import { TrendingCardListSkeleton } from '@/components/skelton/TrendingCardListSkeleton'
 
-export default function TrendingCardList(
-  {
+export default function TrendingCardList({
   initialData,
   orientation,
   className,
@@ -20,8 +19,7 @@ export default function TrendingCardList(
   }
   orientation?: string
   className?: string
-}
-) {
+}) {
   const { data, fetchNextPage, hasNextPage } = useFetchNewTrendingCards({
     limit: 5,
     initialData,

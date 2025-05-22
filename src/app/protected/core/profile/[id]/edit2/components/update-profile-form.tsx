@@ -7,6 +7,7 @@ import { useFieldArray, useForm } from 'react-hook-form'
 import { toast } from 'sonner'
 // import profileImage from '@/assets/images/mock/Ape_Red_Mock.png'
 import { nanoid } from '@reduxjs/toolkit'
+import { useQuery, useQueryClient } from '@tanstack/react-query'
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
 import { Label } from '@/components/ui/label'
@@ -23,7 +24,6 @@ import { filterSkills } from './helper'
 import CreateDrawer from './create-drawer'
 import { DisplaySkills } from './display-Skills'
 import { Tables } from '@/types/database'
-import { useQuery, useQueryClient } from '@tanstack/react-query'
 import { fetchUserProfileForEdit } from '@/lib/utils/user'
 
 export default function UpdateProfileForm({
@@ -74,7 +74,7 @@ export default function UpdateProfileForm({
     query.invalidateQueries({ queryKey: ['profile-page', userId] })
     query.invalidateQueries({ queryKey: ['user-profile-edit', userId] })
     query.invalidateQueries({ queryKey: ['user-skills', userId] })
-    
+
     toast.success('Profile Update successful')
     reset()
     toast.loading('redirecting...', { id: 'onsubmit' })

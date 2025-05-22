@@ -8,6 +8,7 @@ import { useQuery } from '@tanstack/react-query'
 import { toast } from 'sonner'
 import { addHours, format } from 'date-fns'
 import { date } from 'zod'
+import { useState } from 'react'
 import MiniCardPlaceHolderImage from '@/assets/images/mock/devCon-Bangkok_mock.jpeg'
 import Avatar from '@/components/Elements/avatar'
 import CustomUnorderedList from '@/components/Elements/custom-unordered-list'
@@ -16,7 +17,6 @@ import { getEvent } from '@/lib/supabase/events/events-table'
 import { Skeleton } from '@/components/ui/skeleton'
 import { EventCardSkeleton } from '@/components/skelton/event-page-skelton'
 import ErrorPageDisplay from '@/components/error/error-page-display'
-import { useState } from 'react'
 
 const items = [
   'Retweet and Like the tweet in the link below from your twitter account.',

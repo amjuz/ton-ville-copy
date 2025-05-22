@@ -3,12 +3,12 @@
 import { toast } from 'sonner'
 import { useCallback, useId, useRef, useState } from 'react'
 import { useServerAction } from 'zsa-react'
+import { useQueryClient } from '@tanstack/react-query'
+import { useParams } from 'next/navigation'
 import { updateProfilePhoto } from '@/app/actions/profile/profile'
 import { Button } from '@/components/ui/button'
 import ProfileImageUploader from '@/components/profile-image-uploader'
 import { handleImageUploadAction } from '@/app/actions/image-upload-action'
-import { useQueryClient } from '@tanstack/react-query'
-import { useParams } from 'next/navigation'
 
 export default function ImageUploadComponent({ imageUrl }: { imageUrl?: string }) {
   const [profileImage, setProfileImage] = useState(imageUrl ?? '')
