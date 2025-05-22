@@ -2,7 +2,6 @@ import Image, { StaticImageData } from 'next/image'
 import Link from 'next/link'
 import React from 'react'
 import { formatDate } from '@test/utils/utils'
-import { useQuery } from '@tanstack/react-query'
 import Avatar from '@/components/Elements/avatar'
 
 export type TMiniCard = {
