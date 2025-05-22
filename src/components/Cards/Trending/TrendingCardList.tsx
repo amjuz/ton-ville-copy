@@ -7,34 +7,41 @@ import { cn } from '@/lib/utils/cn'
 import { TTrendingCardMockData } from '@/mock/trendingCard'
 import TrendingCard from './trending-card'
 import { TrendingCardListSkeleton } from '@/components/skelton/TrendingCardListSkeleton'
+import { useQuery } from '@tanstack/react-query'
+import { getAllTribes } from '@/lib/supabase/tribes/tribe-table'
+import ErrorPageDisplay from '@/components/error/error-page-display'
 
 export default function TrendingCardList({
-  initialData,
   orientation,
   className,
 }: {
-  initialData: {
-    data: TTrendingCardMockData
-    nextCursor: number
-  }
   orientation?: string
   className?: string
 }) {
-  const { data, fetchNextPage, hasNextPage } = useFetchNewTrendingCards({
-    limit: 5,
-    initialData,
+  const { data, error, isLoading } = useQuery({
+    queryKey: ['tribes-trending-card'],
+    queryFn: () => getAllTribes(),
   })
+  if (isLoading)
+    return <TrendingCardListSkeleton className="mt-0 h-full w-[250px] pt-0" count={3} />
 
-  const { ref, inView } = useInView({
-    threshold: 0,
-    rootMargin: '0px 0px',
-  })
+  if (error) <ErrorPageDisplay message="Tribes fetch failed" />
 
-  useEffect(() => {
-    if (inView) {
-      fetchNextPage()
-    }
-  }, [inView, fetchNextPage])
+  // const { data, fetchNextPage, hasNextPage } = useFetchNewTrendingCards({
+  //   limit: 5,
+  //   initialData,
+  // })
+
+  // const { ref, inView } = useInView({
+  //   threshold: 0,
+  //   rootMargin: '0px 0px',
+  // })
+
+  // useEffect(() => {
+  //   if (inView) {
+  //     fetchNextPage()
+  //   }
+  // }, [inView, fetchNextPage])
 
   return (
     <div
@@ -50,26 +57,25 @@ export default function TrendingCardList({
       key={'trending-card-list'}
     >
       {/* trending Card list */}
-      {data?.pages.flatMap((page) =>
-        page.data.map((item, i) => (
-          <TrendingCard
-            key={`trendingCardsWrapper-trendingCard-${i}-${item.id}`}
-            className={orientation === 'vertical' ? 'max-w-[378px]' : 'first-line:'}
-            authorName={item.author}
-            rank={item.rank}
-            totalMembers={item.Subscribers}
-            tribeImage={item.tribeImage}
-            tribeName={item.tribeName}
-            tribeProfilePic={item.profilePic}
-          />
-        ))
-      )}
+      {data?.map((item, i) => (
+        <TrendingCard
+          key={`trendingCardsWrapper-trendingCard-${i}-${item.id}`}
+          className={orientation === 'vertical' ? 'max-w-[378px]' : 'first-line:'}
+          authorName={item.author ?? ''}
+          rank={Math.floor(Math.random()) * 200}
+          totalMembers={item.subscribers ?? 20}
+          tribeImage={item.tribe_cover_photo ?? ''}
+          tribeName={item.tribe_name ?? ''}
+          tribeProfilePic={item.tribe_photo ?? ''}
+          id={item.id}
+        />
+      ))}
       {/* fetching new data */}
-      <div className="">
+      {/* <div className="">
         {hasNextPage ? (
           <TrendingCardListSkeleton ref={ref} className="mt-0 h-full w-[250px] pt-0" />
         ) : null}
-      </div>
+      </div> */}
     </div>
   )
 }

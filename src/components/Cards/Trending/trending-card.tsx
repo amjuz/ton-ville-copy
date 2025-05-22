@@ -17,6 +17,7 @@ type TTrendingCard = {
   tribeImage: string | StaticImageData
   tribeProfilePic: string | StaticImageData
   className?: string
+  id: string
 }
 
 export default function TrendingCard({
@@ -26,6 +27,7 @@ export default function TrendingCard({
   totalMembers,
   tribeImage,
   className,
+  id,
   tribeProfilePic,
 }: TTrendingCard) {
   const formattedTotalMembers = FormatNumber(totalMembers)
@@ -37,7 +39,7 @@ export default function TrendingCard({
         className
       )}
     >
-      <Link className="absolute h-full w-full" href={'/protected/core/tribe/HardApes'} />
+      <Link className="absolute h-full w-full" href={`/protected/core/tribe/${id}`} />
 
       <Image
         src={tribeImage ?? ApeRed.src}

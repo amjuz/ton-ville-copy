@@ -6,6 +6,6 @@ type TTrendingCardsWrapper = {
 }
 
 export default async function TrendingCardsWrapper({ orientation }: TTrendingCardsWrapper) {
-  const initialData: TFetchTrendingCards = await fetchTrendingCards({ limit: 5 })
-  return <TrendingCardList initialData={initialData} orientation={orientation} />
+  // const initialData: TFetchTrendingCards = await fetchTrendingCards({ limit: 5 })
+  return <TrendingCardList />
 }
