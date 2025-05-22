@@ -19,6 +19,9 @@ import {
 } from '@/lib/supabase/profile/user'
 import SetUsername from './set-username'
 import ProfilePageSkelton from '@/components/skelton/profile-page-skelton'
+import { ErrorDisplay } from '@/components/error/error-display'
+import ErrorPage from '@/app/error'
+import ErrorPageDisplay from '@/components/error/error-page-display'
 
 export default function ProfilePage({ userId }: { userId: string }) {
   const {
@@ -37,11 +40,10 @@ export default function ProfilePage({ userId }: { userId: string }) {
     data: tribeCount,
     // isLoading: tribeLoading,
     // error: tribeError,
-
   } = useQuery({ queryKey: ['tribes', userId], queryFn: () => fetchUserTribeCount(userId) })
-  if (profileLoading) return <ProfilePageSkelton/>
-  if (profileError || !profile )
-    return <div>Error loading profile</div>
+  if (profileLoading) return <ProfilePageSkelton />
+  if (profileError || !profile) return <ErrorPageDisplay message="Failed to load page" />
+  // <div>Error loading profile</div>
 
   const { bio, follower_count, following_count, gems, name, profile_photo, username } = profile
   const hasTribe = tribeCount && tribeCount > 0

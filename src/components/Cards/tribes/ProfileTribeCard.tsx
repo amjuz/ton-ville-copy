@@ -1,6 +1,6 @@
 import Image from 'next/image'
 import Link from 'next/link'
-import React from 'react'
+import React, { useState } from 'react'
 import ApeGroupPic from '@/assets/images/mock/Ape_gang_Image.png'
 import TribeCoin from '@/components/Icons/TribeCoin'
 import { getGroupEventsQuestCount } from '@/lib/utils/formatter/text-formatter'
@@ -49,9 +49,7 @@ export default function ProfileTribeCard({
           </div>
           <div className="px-6">
             <p className="text-sm text-muted-foreground">
-              {getGroupEventsQuestCount({
-                ...counts,
-              })}
+              {getGroupEventsQuestCount({ ...counts })}
             </p>
           </div>
         </div>
