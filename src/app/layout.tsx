@@ -1,6 +1,6 @@
 import { Toaster } from 'sonner'
 import { ThemeProvider } from 'next-themes'
-import { Cabin, Inter } from 'next/font/google'
+import { Inter } from 'next/font/google'
 // import { lato } from '@/app/fonts'
 import ReactQueryProvider from '@/lib/react-query/ReactQueryProvider'
 import { cn } from '@/lib/utils/cn'
@@ -10,7 +10,7 @@ import '@/app/globals.css'
 import Background from '@/components/ui/background'
 import ReactReduxProvider from '@/providers/ReactReduxProvider'
 
-const cabin = Inter({
+const inter = Inter({
   subsets: ['latin'],
   variable: '--font-inter',
 })
@@ -26,7 +26,8 @@ export default function RootLayout({ children }: RootLayoutProps) {
     <html lang="en" suppressHydrationWarning>
       <body
         className={cn(
-          cabin.variable,
+          inter.variable,
+          'font-inter',
           'dark relative min-h-screen w-screen touch-pan-y overflow-x-hidden'
         )}
       >

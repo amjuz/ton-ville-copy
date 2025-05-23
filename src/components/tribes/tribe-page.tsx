@@ -69,8 +69,8 @@ export default function TribePage() {
           <h1 className="to text-xl font-bold">{data?.tribe_name}</h1>
           {/* <div className="flex items-center gap-2 rounded-2xl bg-primary-foreground/80 px-3 py-2">
             {/* <TribeCoin /> */}
-            {/* <span className="text-sm font-bold">{data?.gems === 0 ? 20.2 : data?.gems}</span> */}
-          {/* </div> */} 
+          {/* <span className="text-sm font-bold">{data?.gems === 0 ? 20.2 : data?.gems}</span> */}
+          {/* </div> */}
         </div>
         <div>
           <div className="flex items-center gap-1">
@@ -110,7 +110,7 @@ export default function TribePage() {
           tribeData={data ?? ({} as Tables['tribes']['Row'])}
         />
 
-          {/* <div className="mt-4 flex flex-col gap-2">
+        {/* <div className="mt-4 flex flex-col gap-2">
             <TelegramIconTextTile title="Hard Apes' Alpha" />
             <TelegramIconTextTile title="Hard Apes' Alpha" />
           </div> */}

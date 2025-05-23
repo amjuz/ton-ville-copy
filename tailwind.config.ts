@@ -96,8 +96,17 @@ const config: Config = {
   			'accordion-up': 'accordion-up 0.2s ease-out'
   		},
   		fontFamily: {
+  			// Fix: Add the Inter font family and fix the mono font
+  			inter: ['var(--font-inter)', 'system-ui', 'sans-serif'],
+  			sans: ['var(--font-inter)', 'system-ui', 'sans-serif'], // Set as default sans
   			mono: [
-  				'Lucida Console"',
+  				'ui-monospace',
+  				'SFMono-Regular',
+  				'Menlo',
+  				'Monaco',
+  				'Consolas',
+  				'Liberation Mono',
+  				'Courier New',
   				'monospace'
   			]
   		}
