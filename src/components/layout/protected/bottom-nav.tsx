@@ -18,8 +18,8 @@ export default function BottomNav({ profileId }: IBottomNavProps) {
   const dispatch = useAppDispatch()
   const navItems = [
     { icon: ExploreLogo, label: 'Explore', href: '/' },
-    { icon: EarnLogo, label: 'Farm', href: '/protected/core/earn' },
-    { icon: NotificationLogo, label: 'Notifications', href: '/protected/core/notification' },
+    // { icon: EarnLogo, label: 'Farm', href: '/protected/core/earn' },
+    // { icon: NotificationLogo, label: 'Notifications', href: '/protected/core/notification' },
     { icon: ProfileLogo, label: 'Profile', href: `/protected/core/profile/${profileId}` },
   ] as const
 

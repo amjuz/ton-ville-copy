@@ -14,11 +14,11 @@ import LeaderBoardSkelton from '@/components/skelton/LeaderBoardSkelton'
 export default function CorePage() {
   return (
     <main className="px-2 sm:px-4">
-      <section>
+      {/* <section>
         <Suspense fallback={<UserCollectionScoreCardSkeleton />}>
           <UserCollectionAndRanksWrapper />
         </Suspense>
-      </section>
+      </section> */}
       {/* Header Titles should be in main page, so that its easier to navigate don't nest it. */}
       <TitleLinkCombo
         href="/protected/core/search?type=Tribes"
