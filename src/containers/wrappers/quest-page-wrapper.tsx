@@ -51,7 +51,7 @@ export default function QuestPageWrapper() {
         <p className="text-muted-foreground">{data?.subTitle}</p>
         <p className="mt-2">{data?.description}</p>
       </div>
-      <div className="mt-8 flex gap-2">
+      {/* <div className="mt-8 flex gap-2">
         <motion.div whileTap={{ scale: 0.95 }} className="basis-full">
           <Button
             size="lg"
@@ -69,7 +69,7 @@ export default function QuestPageWrapper() {
         <Button size={'icon'} variant={'secondary'} className="basis-32 rounded-xl bg-secondary/70">
           <EllipsisVertical size={20} />{' '}
         </Button>
-      </div>
+      </div> */}
       <div className="mt-8">
         <p className="text-lg font-bold">How to Participate?</p>
         <div className="text-sm text-muted-foreground">

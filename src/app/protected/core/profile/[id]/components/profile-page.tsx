@@ -82,11 +82,11 @@ export default function ProfilePage({ userId }: { userId: string }) {
               </div>
             ))}
         </div>
-        <FollowGemWrapper
+        {/* <FollowGemWrapper
           gems={gems ?? 0}
           followers={follower_count ?? 0}
           following={following_count ?? 0}
-        />
+        /> */}
         {isAuth ? <ProfileButtonWrapper userId={userId} /> : <ProfileButtonWrapperThirdParty />}
         <ShowUsersTribeCard userId={userId} />
         <CreateTribeWrapper />

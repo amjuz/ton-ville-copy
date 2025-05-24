@@ -4,12 +4,12 @@ import TrendingCardSkelton from './TrendingCardSkelton'
 
 export const TrendingCardListSkeleton = ({
   orientation = 'horizontal',
-  count = 1,
+  count,
   className,
   ref,
 }: {
   orientation?: 'horizontal' | 'vertical'
-  count?: number
+  count: number
   className?: string
   ref?: LegacyRef<HTMLDivElement>
 }) => {

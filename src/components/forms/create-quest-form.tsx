@@ -26,6 +26,7 @@ import { questFormSchema, TQuestFormSchema } from '@/lib/validators/forms'
 import { uploadImageToS3Bucket } from '@/lib/supabase/image-upload'
 import { createQuests } from '@/lib/supabase/quests/quests-table'
 import PrefillQuestButton from '@/containers/wrappers/buttons/prefill-quest-button'
+import { isProd } from '@test/utils/utils'
 
 export default function CreateQuestForm({
   open,
@@ -118,7 +119,7 @@ export default function CreateQuestForm({
                 <div className="flex-1 space-y-2">
                   <div className="flex justify-between">
                     <Label>Title</Label>
-                    <PrefillQuestButton setValue={setValue} />
+                    {!isProd ? null : <PrefillQuestButton setValue={setValue} />}
                   </div>
                   <Input placeholder="Matt" type="text" {...register('title')} />
                   {errors.title && (

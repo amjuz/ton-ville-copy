@@ -40,9 +40,9 @@ export default function TribeProfileButtonWrapper({
           Edit Tribe
         </Button>
       </TribesFormDialog>
-      <Button size={'lg'} variant={'secondary'} className="basis-full rounded-xl">
+      {/* <Button size={'lg'} variant={'secondary'} className="basis-full rounded-xl">
         Share
-      </Button>
+      </Button> */}
 
       <DropdownMenu>
         <DropdownMenuTrigger asChild>

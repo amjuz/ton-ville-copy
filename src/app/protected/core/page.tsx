@@ -39,10 +39,10 @@ export default function CorePage() {
         <QuestsWrapperCards />
       </Suspense>
       {/* Leaderboard */}
-      <TitleLinkCombo href="/protected/core/leaderboard" title="Leaderboard" emoji={`🏆`} />
-      <Suspense fallback={<LeaderBoardSkelton />}>
+      {/* <TitleLinkCombo href="/protected/core/leaderboard" title="Leaderboard" emoji={`🏆`} /> */}
+      {/* <Suspense fallback={<LeaderBoardSkelton />}>
         <LeaderboardCardsWrappers />
-      </Suspense>
+      </Suspense> */}
     </main>
   )
 }

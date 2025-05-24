@@ -86,7 +86,7 @@ export default function EventPageWrapper() {
         </div>
       </div>
       {/* <p className="mt-2">Unlock crypto wisdom and stand to win 25 USDT each week by 3 simple steps!</p> */}
-      <div className="mt-8 flex gap-2">
+      {/* <div className="mt-8 flex gap-2">
         <motion.div whileTap={{ scale: 0.95 }} className="basis-full">
           <Button
             size="lg"
@@ -105,7 +105,7 @@ export default function EventPageWrapper() {
         <Button size={'icon'} variant={'secondary'} className="basis-32 rounded-xl bg-secondary/70">
           <EllipsisVertical size={20} />{' '}
         </Button>
-      </div>
+      </div> */}
       <div className="mt-4 flex items-center gap-3 text-sm">
         <div className="flex items-center pl-2">
           <div className="">

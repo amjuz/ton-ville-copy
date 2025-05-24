@@ -24,6 +24,7 @@ import { createTribes, updateTribes } from '@/lib/supabase/tribes/tribe-table'
 import PrefillTribeButton from '@/containers/wrappers/buttons/prefill-tribe-button'
 import { useAppSelector } from '@/hooks/reduxHooks'
 import { Tables } from '@/types/database'
+import { isProd } from '@test/utils/utils'
 
 export default function TribesFormDialog({
   label,
@@ -93,6 +94,10 @@ export default function TribesFormDialog({
     tribeProfilePhoto,
     description,
   }: TTribesValidator) {
+    if (errors.root) {
+      toast.error(`Form validation failed, please fill the form`)
+      return
+    }
     if (type === 'edit') {
       updateTribe({
         author,
@@ -136,8 +141,6 @@ export default function TribesFormDialog({
     resolver: zodResolver(tribesValidator),
     defaultValues: {
       author: (type === 'edit' ? tribeData?.author : '') ?? '',
-      // tribeCoverPhoto: (type === 'edit' ? tribeData?.tribe_cover_photo : '') ?? '',
-      // tribeProfilePhoto: (type === 'edit' ? tribeData?.tribe_photo : '') ?? '',
       tribeName: (type === 'edit' ? tribeData?.tribe_name : '') ?? '',
       description: (type === 'edit' ? tribeData?.description : '') ?? '',
     },
@@ -219,7 +222,7 @@ export default function TribesFormDialog({
                 <div className="flex-1 space-y-2">
                   <div className="flex justify-between">
                     <Label htmlFor={`${id}-last-name`}>Author</Label>
-                    <PrefillTribeButton setValue={setValue} />
+                    {!isProd ? null : <PrefillTribeButton setValue={setValue} />}
                   </div>
                   <Input
                     {...register('author')}

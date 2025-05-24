@@ -18,7 +18,7 @@ export default function PrefillTribeButton({
 
   return (
     <p
-      className="text-sm font-medium leading-none underline peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
+      className="cursor-pointer text-sm font-medium leading-none underline peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
       onClick={() => {
         setValue('author', tribes.author)
         setValue('tribeCoverPhoto', tribes.tribeCoverPhoto)

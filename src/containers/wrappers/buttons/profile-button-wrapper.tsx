@@ -16,12 +16,12 @@ export default function ProfileButtonWrapper({ userId }: { userId: string }) {
       >
         Edit Profile
       </Link>
-      <Button variant={'secondary'} className="basis-full rounded-xl">
+      {/* <Button variant={'secondary'} className="basis-full rounded-xl">
         Share
-      </Button>
-      <Button size={'icon'} variant={'secondary'} className="basis-32 rounded-xl bg-secondary/70">
+      </Button> */}
+      {/* <Button size={'icon'} variant={'secondary'} className="basis-32 rounded-xl bg-secondary/70">
         <EllipsisVertical size={20} />{' '}
-      </Button>
+      </Button> */}
     </div>
   )
 }

@@ -19,7 +19,7 @@ export default function PrefillEventButton({
 
   return (
     <p
-      className="text-sm font-medium leading-none underline peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
+      className="cursor-pointer text-sm font-medium leading-none underline peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
       onClick={() => {
         ;(Object.keys(events) as Array<keyof TEventsFormSchema>).map((item) => {
           setValue(item, events[item])
