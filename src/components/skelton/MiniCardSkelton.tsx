@@ -11,7 +11,7 @@ export default function MiniCardSkelton({
   return (
     <div
       className={cn(
-        'scrollbar-w-2 scrollbar-thumb-rounded scrollbar-track-primary scrollbar-thumb mt-4 grid grid-flow-col grid-rows-2 gap-2 overflow-x-scroll',
+        'scrollbar-w-2 scrollbar-thumb-rounded scrollbar-track-primary scrollbar-thumb mb-6 mt-4 grid grid-flow-col grid-rows-2 gap-4 overflow-x-scroll',
         className
       )}
     >
