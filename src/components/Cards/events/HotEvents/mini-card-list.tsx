@@ -3,13 +3,13 @@
 import React, { useEffect } from 'react'
 import { useInView } from 'react-intersection-observer'
 import { useQuery } from '@tanstack/react-query'
+import { useRouter } from 'next/navigation'
 import { TFetchMiniCardData } from '@/functions'
 import { useFetchMiniCardMockData } from '@/hooks/useCustomHooks'
 import MiniCard from './mini-card'
 import MiniCardSkelton, { MiniCardInfiniteQuerySkelton } from '@/components/skelton/MiniCardSkelton'
 import { getAllEvent, TAllEvents } from '@/lib/supabase/events/events-table'
 import ErrorPageDisplay from '@/components/error/error-page-display'
-import { useRouter } from 'next/navigation'
 import { useAppSelector } from '@/hooks/reduxHooks'
 
 interface IMiniCardList {
@@ -18,8 +18,8 @@ interface IMiniCardList {
 
 export default function MiniCardList() {
   const router = useRouter()
-    const { userId } = useAppSelector((state) => state.profile)
-  
+  const { userId } = useAppSelector((state) => state.profile)
+
   const { data, error, isLoading } = useQuery({
     queryKey: ['events-trending-card'],
     queryFn: () => getAllEvent(),

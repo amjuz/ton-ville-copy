@@ -3,6 +3,7 @@
 import { useInView } from 'react-intersection-observer'
 import { useEffect } from 'react'
 import { useQuery } from '@tanstack/react-query'
+import { useRouter } from 'next/navigation'
 import { TFetchQuestCards } from '@/functions'
 import { useQuestInfinityQuery } from '@/hooks/useCustomHooks'
 import { cn } from '@/lib/utils/cn'
@@ -13,7 +14,6 @@ import QuestCardSkelton, {
 import QuestCardOld from './quest-card-old'
 import { getAllQuest } from '@/lib/supabase/quests/quests-table'
 import ErrorPageDisplay from '@/components/error/error-page-display'
-import { useRouter } from 'next/navigation'
 import { useAppSelector } from '@/hooks/reduxHooks'
 
 interface IQuestCardList {
@@ -21,8 +21,8 @@ interface IQuestCardList {
 }
 export default function QuestCardList() {
   const router = useRouter()
-    const { userId } = useAppSelector((state) => state.profile)
-  
+  const { userId } = useAppSelector((state) => state.profile)
+
   const { data, error, isLoading } = useQuery({
     queryKey: ['quest-trending-card'],
     queryFn: () => getAllQuest(),
