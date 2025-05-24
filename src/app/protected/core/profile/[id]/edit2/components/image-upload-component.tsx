@@ -7,7 +7,7 @@ import { useQueryClient } from '@tanstack/react-query'
 import { useParams } from 'next/navigation'
 import { updateProfilePhoto } from '@/app/actions/profile/profile'
 import { Button } from '@/components/ui/button'
-import ProfileImageUploader from '@/components/profile-image-uploader'
+import ProfileImageUploader, { MAX_IMAGE_SIZE } from '@/components/profile-image-uploader'
 import { handleImageUploadAction } from '@/app/actions/image-upload-action'
 
 export default function ImageUploadComponent({ imageUrl }: { imageUrl?: string }) {
@@ -62,6 +62,10 @@ export default function ImageUploadComponent({ imageUrl }: { imageUrl?: string }
   const handleS3ImageUpload = useCallback(
     async (value: File) => {
       if (!value) return
+      if (value.size > MAX_IMAGE_SIZE) {
+        toast.error('Selected file is too large, please select an image under 1MB')
+        return
+      }
       await updateFile({ file: value })
     },
     [updateFile]
