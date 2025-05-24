@@ -1,12 +1,15 @@
+'use client'
 import Image, { StaticImageData } from 'next/image'
-import React from 'react'
+import React, { useState } from 'react'
 import Link from 'next/link'
+import { useRouter } from 'next/navigation'
 import { FormatNumber } from '@test/utils/utils'
 import { cn } from '@/lib/utils/cn'
 import ApeRed from '@/assets/images/mock/Ape_profile_pic_MOCK.jpeg'
 import ApeProfile from '@/assets/images/mock/Ape_profile_pic_MOCK.jpeg'
 import Avatar from '@/components/Elements/avatar'
 import TribeCoin from '@/components/Icons/TribeCoin'
+import { Skeleton } from '@/components/ui/skeleton'
 // import { cn } from '@/lib/utils/cn'
 
 type TTrendingCard = {
@@ -30,24 +33,34 @@ export default function TrendingCard({
   id,
   tribeProfilePic,
 }: TTrendingCard) {
+  const [isLoading, setIsLoading] = useState(true)
+  const router = useRouter()
+
   const formattedTotalMembers = FormatNumber(totalMembers)
   const formattedRank = FormatNumber(rank)
   return (
     <article
       className={cn(
-        'relative grid aspect-square w-full max-w-[238px] flex-shrink-0 grid-rows-2 overflow-hidden rounded-2xl',
+        'relative grid aspect-square w-full max-w-[238px] flex-shrink-0 cursor-pointer grid-rows-2 overflow-hidden rounded-2xl',
         className
       )}
+      onClick={() => router.push(`/protected/core/tribe/${id}`)}
     >
-      <Link className="absolute h-full w-full" href={`/protected/core/tribe/${id}`} />
+      <div className="">
+        {isLoading && <Skeleton className="inset-0 h-full w-full rounded-t-2xl bg-muted/60" />}
 
-      <Image
-        src={tribeImage ?? ApeRed.src}
-        width={480}
-        height={480}
-        alt=""
-        className="h-full w-full object-cover"
-      />
+        <Image
+          src={tribeImage ?? ApeRed.src}
+          width={480}
+          height={480}
+          alt=""
+          className={cn(
+            'h-full w-full object-cover transition-all duration-500',
+            isLoading ? 'scale-110 blur-sm' : 'scale-100 blur-0'
+          )}
+          onLoadingComplete={() => setIsLoading(false)}
+        />
+      </div>
       <div className="relative">
         <div className="absolute -top-7 left-2 z-50">
           {/* move this logic when implemented database urls. */}

@@ -26,6 +26,9 @@ import TribesFormDialog from './TribesFormDialog'
 import QuestsForTribe from '../Cards/Quests/quests-for-tribe'
 import ErrorPageDisplay from '../error/error-page-display'
 import { Tables } from '@/types/database'
+import TribePageCoverPhoto from './tribe-page-cover-photo'
+import { Skeleton } from '../ui/skeleton'
+import { TruncateText } from '@test/utils/utils'
 
 export default function TribePage() {
   const [openQuestDialog, setOpenQuestDialog] = useState(false)
@@ -39,28 +42,24 @@ export default function TribePage() {
     queryFn: () => fetchUniqueTribe(tribeId),
   })
 
-  if (isLoading) <TribePageSkelton />
+  if (isLoading || !data) return <TribePageSkelton />
   if (error) {
     return <ErrorPageDisplay message="Failed to load tribes page, please retry" />
   }
+
   //   if(isLoading) return <TribePageSkelton/>
   return (
     <main className="pb-12">
       <div className="relative">
-        <figure>
-          <Image
-            alt="Tribe background image"
-            width={1920}
-            height={1080}
-            src={data?.tribe_cover_photo ?? ApeGroupPic.src}
-            className="aspect-video object-cover"
-          />
-        </figure>
+        <TribePageCoverPhoto image={data?.tribe_cover_photo ?? ''} />
+
         <div className="absolute bottom-0 h-[25%] w-full bg-gradient-to-t from-primary-foreground/60 to-primary-foreground/5" />
         <figure className="absolute -bottom-10 left-4 z-10 max-w-fit">
           <Avatar
-            src={data?.tribe_photo ?? ProfilePicture.src}
+            src={data.tribe_photo ?? ProfilePicture.src}
             AvtImageClassName="max-w-20 max-h-20 w-full h-full aspect-sqqure"
+            avatarFallback={<Skeleton className="h-20 w-20" />}
+            fallbackTitle=""
           />
         </figure>
       </div>
@@ -75,8 +74,8 @@ export default function TribePage() {
         <div>
           <div className="flex items-center gap-1">
             <p>By</p>
-            <Link href={'/protected/core/profile/dasdas'} className="text-blue-500">
-              {data?.author}
+            <Link href={'#'} className="line-clamp-1 text-blue-500">
+              {TruncateText(data?.author ?? '', 10)}
             </Link>
             <div className="primary-foreground ml-2 flex items-center gap-0.5 rounded-full px-1.5">
               <div className="h-4 w-4">
@@ -121,7 +120,7 @@ export default function TribePage() {
             href="/"
             title="QUEST"
           />
-          <QuestsForTribe tribeId={tribeId} />
+          <QuestsForTribe setOpenQuestDialog={setOpenQuestDialog} tribeId={tribeId} />
           {/* <QuestsWrapperCards className="mt-3" /> */}
         </div>
         <div className="mt-4">
@@ -132,7 +131,7 @@ export default function TribePage() {
             title="EVENTS"
           />
           <div className="mt-4">
-            <EventProfileWrapper tribeId={tribeId} />
+            <EventProfileWrapper tribeId={tribeId} setOpenEventDialog={setOpenEventsDialog} />
           </div>
         </div>
       </div>
