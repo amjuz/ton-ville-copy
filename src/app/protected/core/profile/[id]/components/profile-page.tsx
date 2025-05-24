@@ -40,7 +40,10 @@ export default function ProfilePage({ userId }: { userId: string }) {
     data: tribeCount,
     // isLoading: tribeLoading,
     // error: tribeError,
-  } = useQuery({ queryKey: ['tribes', userId], queryFn: () => fetchUserTribeCount(userId) })
+  } = useQuery({
+    queryKey: ['tribes-profile-page', userId],
+    queryFn: () => fetchUserTribeCount(userId),
+  })
   if (profileLoading) return <ProfilePageSkelton />
   if (profileError || !profile) return <ErrorPageDisplay message="Failed to load page" />
   // <div>Error loading profile</div>

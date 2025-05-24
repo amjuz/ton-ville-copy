@@ -119,7 +119,7 @@ export default function CreateQuestForm({
                 <div className="flex-1 space-y-2">
                   <div className="flex justify-between">
                     <Label>Title</Label>
-                    {!isProd ? null : <PrefillQuestButton setValue={setValue} />}
+                    {isProd ? null : <PrefillQuestButton setValue={setValue} />}
                   </div>
                   <Input placeholder="Matt" type="text" {...register('title')} />
                   {errors.title && (

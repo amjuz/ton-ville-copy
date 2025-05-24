@@ -58,6 +58,8 @@ export default function TribesFormDialog({
     async onSuccess() {
       reset()
       await query.invalidateQueries({ queryKey: ['tribes-trending-card'] })
+      await query.invalidateQueries({ queryKey: ['tribes-profile-page'] })
+
       toast.dismiss()
       toast.success('Tribes created successfully.')
       setOpen(false)
@@ -222,7 +224,7 @@ export default function TribesFormDialog({
                 <div className="flex-1 space-y-2">
                   <div className="flex justify-between">
                     <Label htmlFor={`${id}-last-name`}>Author</Label>
-                    {!isProd ? null : <PrefillTribeButton setValue={setValue} />}
+                    {isProd ? null : <PrefillTribeButton setValue={setValue} />}
                   </div>
                   <Input
                     {...register('author')}
