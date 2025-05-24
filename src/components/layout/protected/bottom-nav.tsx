@@ -17,11 +17,14 @@ export default function BottomNav({ profileId }: IBottomNavProps) {
   const pathname = usePathname()
   const dispatch = useAppDispatch()
   const navItems = [
-    { icon: ExploreLogo, label: 'Explore', href: '/' },
+    { icon: ExploreLogo, label: 'Explore', href: '/protected/core' },
     // { icon: EarnLogo, label: 'Farm', href: '/protected/core/earn' },
     // { icon: NotificationLogo, label: 'Notifications', href: '/protected/core/notification' },
     { icon: ProfileLogo, label: 'Profile', href: `/protected/core/profile/${profileId}` },
   ] as const
+
+  // console.log("pathname",pathname);
+  // console.log("pathname",pathname);
 
   dispatch(setUserId({ id: profileId }))
   return (
@@ -33,7 +36,9 @@ export default function BottomNav({ profileId }: IBottomNavProps) {
               <Link
                 href={item.href}
                 className={`flex flex-col items-center justify-center space-y-1 p-2 ${
-                  pathname === item.href ? 'text-primary' : 'text-muted-foreground'
+                  pathname === item.href
+                    ? 'rounded-md border bg-muted font-bold'
+                    : 'text-muted-foreground'
                 }`}
               >
                 {/* <item.icon className="mb-1 h-6 w-6" /> */}
