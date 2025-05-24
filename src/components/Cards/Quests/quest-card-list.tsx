@@ -13,11 +13,16 @@ import QuestCardSkelton, {
 import QuestCardOld from './quest-card-old'
 import { getAllQuest } from '@/lib/supabase/quests/quests-table'
 import ErrorPageDisplay from '@/components/error/error-page-display'
+import { useRouter } from 'next/navigation'
+import { useAppSelector } from '@/hooks/reduxHooks'
 
 interface IQuestCardList {
   initialData: TFetchQuestCards
 }
 export default function QuestCardList() {
+  const router = useRouter()
+    const { userId } = useAppSelector((state) => state.profile)
+  
   const { data, error, isLoading } = useQuery({
     queryKey: ['quest-trending-card'],
     queryFn: () => getAllQuest(),
@@ -26,6 +31,19 @@ export default function QuestCardList() {
 
   if (error) <ErrorPageDisplay message="Quests fetch failed" />
 
+  if (!data?.length) {
+    return (
+      <div className="flex justify-between rounded-lg border bg-muted p-3 text-sm">
+        <p className="text-blue-400">Create new tribes to display content.</p>
+        <div
+          className="cursor-pointer border font-bold underline"
+          onClick={() => router.push(`/protected/core/profile/${userId}`)}
+        >
+          Create
+        </div>
+      </div>
+    )
+  }
   // const { data, fetchNextPage, hasNextPage } = useQuestInfinityQuery({
   //   initialData,
   //   limit: 8,

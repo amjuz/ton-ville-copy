@@ -5,11 +5,17 @@ import Mock2 from '@/assets/images/mock/event_profile_mock_2.jpeg'
 import EventProfileCard from '@/components/Cards/events/Profile/event-profile-card'
 import { getTribeEvents } from '@/lib/supabase/events/events-table'
 import { cn } from '@/lib/utils/cn'
+import { Button } from '@/components/ui/button'
 type TEventProfileWrapper = {
   className?: string
   tribeId: string
+  setOpenEventDialog: (state: boolean) => void
 }
-export default function EventProfileWrapper({ className, tribeId }: TEventProfileWrapper) {
+export default function EventProfileWrapper({
+  setOpenEventDialog,
+  className,
+  tribeId,
+}: TEventProfileWrapper) {
   const { data, error } = useQuery({
     queryKey: ['tribes-events', tribeId],
     queryFn: () => getTribeEvents({ tribeId }),
@@ -17,7 +23,18 @@ export default function EventProfileWrapper({ className, tribeId }: TEventProfil
 
   if (error) return null
 
-  if (!data?.length) return <div className="">Create new Events to display content</div>
+  if (!data?.length)
+    return (
+      <div className="flex justify-between rounded-lg border bg-muted p-3 text-sm">
+        <p className="text-blue-400">Create new Events to display content.</p>
+        <div
+          className="cursor-pointer border font-bold underline"
+          onClick={() => setOpenEventDialog(true)}
+        >
+          Create
+        </div>
+      </div>
+    )
 
   return (
     <div

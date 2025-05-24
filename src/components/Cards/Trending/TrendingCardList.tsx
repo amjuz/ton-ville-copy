@@ -10,6 +10,8 @@ import TrendingCard from './trending-card'
 import { TrendingCardListSkeleton } from '@/components/skelton/TrendingCardListSkeleton'
 import { getAllTribes } from '@/lib/supabase/tribes/tribe-table'
 import ErrorPageDisplay from '@/components/error/error-page-display'
+import { useRouter } from 'next/navigation'
+import { useAppSelector } from '@/hooks/reduxHooks'
 
 export default function TrendingCardList({
   orientation,
@@ -18,15 +20,28 @@ export default function TrendingCardList({
   orientation?: string
   className?: string
 }) {
+  const router = useRouter()
+  const { userId } = useAppSelector((state) => state.profile)
   const { data, error, isLoading } = useQuery({
     queryKey: ['tribes-trending-card'],
     queryFn: () => getAllTribes(),
   })
-  if (isLoading)
-    return <TrendingCardListSkeleton className="mt-0 h-full w-[250px] pt-0" count={3} />
+  if (isLoading) return <TrendingCardListSkeleton className="mt-0 h-full w-full pt-0" count={3} />
 
   if (error) <ErrorPageDisplay message="Tribes fetch failed" />
 
+  if (!data?.length)
+    return (
+      <div className="flex justify-between rounded-lg border bg-muted p-3 text-sm">
+        <p className="text-blue-400">Create new tribes to display content.</p>
+        <div
+          className="cursor-pointer border font-bold underline"
+          onClick={() => router.push(`/protected/core/profile/${userId}`)}
+        >
+          Create
+        </div>
+      </div>
+    )
   // const { data, fetchNextPage, hasNextPage } = useFetchNewTrendingCards({
   //   limit: 5,
   //   initialData,
