@@ -74,6 +74,7 @@ export default function UpdateProfileForm({
     query.invalidateQueries({ queryKey: ['profile-page', userId] })
     query.invalidateQueries({ queryKey: ['user-profile-edit', userId] })
     query.invalidateQueries({ queryKey: ['user-skills', userId] })
+    query.invalidateQueries({ queryKey: ['skills', userId] })
 
     toast.success('Profile Update successful')
     reset()
